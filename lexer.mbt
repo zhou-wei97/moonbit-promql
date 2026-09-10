@@ -85,7 +85,7 @@ fn lex(source : String, newlines : Bool) -> Cursor raise ParseError {
       i += 1
       continue
     }
-    if c == '#' || (c == '/' && i + 1 < cs.length() && cs[i + 1] == '/') {
+    if c == '#' {
       while i < cs.length() && cs[i] != '\n' {
         i += 1
       }

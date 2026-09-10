@@ -18,18 +18,33 @@ pub suberror ParseError {
 // Types and methods
 pub(all) enum Expr {
   Number(String)
+  StringLiteral(String)
   Selector(String, Array[(String, String, String)])
   Range(Expr, String)
   Call(String, Array[Expr])
   Aggregate(String, Array[String], Bool, Expr)
   Binary(String, Expr, Expr)
   Unary(String, Expr)
+  BinaryMatch(String, VectorMatching, Expr, Expr)
+  AggregateParam(String, Array[String], Bool, Expr, Expr)
+  Subquery(Expr, String, String?)
+  Offset(Expr, String)
+  At(Expr, String)
 } derive(Eq, @debug.Debug)
 
 pub(all) enum QueryType {
   Scalar
   InstantVector
   RangeVector
+  StringValue
+} derive(Eq, @debug.Debug)
+
+pub(all) struct VectorMatching {
+  return_bool : Bool
+  mode : String?
+  labels : Array[String]
+  group : String?
+  include_labels : Array[String]
 } derive(Eq, @debug.Debug)
 
 // Type aliases

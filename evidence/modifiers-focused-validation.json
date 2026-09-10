@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-10T14:17:27.219376+00:00",
+  "projectJsTestsPassed": 12,
+  "focusedAfterFinalFixes": {
+    "filter": "modifiers*",
+    "passed": 4,
+    "failed": 0
+  },
+  "engineSha256": "b3167a2f89de61ceb995e58a2794b7a87a1155d407760290f97827d0e9833ebe",
+  "officialReferenceExecuted": false,
+  "officialReferenceStatus": "Download explicitly stopped after over 3 minutes at 94208 bytes; no compatibility result claimed",
+  "referenceRunner": "tools/test-promtool.mjs",
+  "referenceRelease": "v3.14.0",
+  "referenceArchiveSha256": "272bcdd15d9327c7b1e08fe916ea48633819f82f2ea0bf354e6b8c0350c156ba"
+}

@@ -1,66 +1,55 @@
 # PromQL 查询解析器
 
-MoonBit 本地候选版 0.2.0。向量选择、标签匹配、范围、函数和二元表达式 AST。
+本地 MoonBit 0.3.0 候选库，输出结构化语法树并进行静态类型检查。没有连接指标数据库或执行查询。
 
-## 快速试用
+## 试用
 
-已附真实 MoonBit 编译的浏览器引擎。需要 Python 3：
-
-```powershell
-./start-review.ps1
-```
-
-浏览器打开 http://127.0.0.1:8793/web/ 。也可以从第二批合集审查页直接运行。
-
-## 构建与测试
-
-MoonBit 工具链与 Node.js 安装好后，在此目录运行：
+`./start-review.ps1` 启动独立浏览器演示；页面地址见启动脚本。网页和 CLI 都使用本仓库真实编译的 MoonBit 引擎。
 
 ```powershell
-./verify.ps1
-# 或指定编译器
-./verify.ps1 -MoonPath C:/path/to/moon/bin/moon.exe
+node tools/cli.mjs --input 'sum(rate(up[5m] offset 1h)) by(job)'
+node tools/cli.mjs --input 'a / ignoring(code) group_left(job) b' --json
+node tools/cli.mjs --input 'sum_over_time((up + 1)[1h:1m] @ end())'
 ```
 
-脚本检查源码、在 Wasm-GC 和 JS 跑测试、构建浏览器引擎并运行示例。直接执行命令行示例：`moon run cmd/main`。`pkg.generated.mbti` 是生成的公共 API。
+MoonBit 调用：`parse(source)` 得到 Expr；`infer_type(expr)` 检查类型并返回 Scalar、InstantVector、RangeVector 或 StringValue。
+解析成功并不代表类型合法，例如 `1 < 2` 必须补 bool；演示入口会同时执行这两个步骤。
 
-## 已实现范围
+## 支持范围
 
-向量选择、标签匹配、范围、函数和二元表达式 AST。示例输入与调用逻辑见 `cmd/main/main.mbt`；网页允许修改输入并执行实际编译代码。
+- 指标选择器、四种标签匹配运算符、基本十进制数和字符串、括号、算术、比较、集合运算以及 atan2。
+- 匹配修饰符 bool、on、ignoring、group_left、group_right。语法树保留匹配字段；检查标量/向量组合、集合运算禁用分组、on/include 标签冲突。
+- 正负 offset，@ 十进制时间戳及 start()/end()；检查位置与重复，包括括号内已有修饰符。
+- 复合时长如 1h30m、5m10s；单位必须降序、不重复，范围和步长必须正数，offset 可为零。范围检查避免溢出。
+- 子查询 [range:step] 和省略 step 的 [range:]，结果为 RangeVector，要求内部表达式为 InstantVector。
+- sum/avg/min/max/count/group/stddev/stdvar；topk/bottomk/quantile/count_values 参数聚合，by/without 可在聚合参数前后。
+- 常用单参数范围/向量函数，加上 clamp、round、histogram_quantile、quantile_over_time、predict_linear、label_replace、label_join。完整签名见 signatures.mbt。
 
-## 当前边界
+新增 Expr 分支包括 StringLiteral、BinaryMatch、AggregateParam、Subquery、Offset、At。
+未带修饰符的二元表达式仍用 Binary；普通聚合现在统一用 Aggregate，带参数聚合使用 AggregateParam。
+对 Expr 穷举匹配的下游代码需要处理新分支，API 清单见 pkg.generated.mbti。
 
-仅语法 AST：不执行指标查询，不做函数签名/向量类型/正则语义校验；不含 offset、@、子查询、bool/on/ignoring/group_left 等修饰符；范围时长限单一单位。
+## 验证
 
-## 来源与许可证
-
-按[公开规格/参考项目](https://prometheus.io/docs/prometheus/latest/querying/basics/)重新实现，没有复制上游代码或大规模词库。源码采用 MIT；原始测试输入为本地新编写。
-
-[查重](DUPLICATION.md)只描述本轮检索证据。`localreview` 是本地命名空间，正式发布前需替换为申请人的命名空间。
-
-## 下一步
-
-优先：有明确查询工具价值，可补完整语法与标准错误位置。
-
-所有文件仅在本地，未创建远程仓库、上传、发布包或提交比赛。
-
-## 独立仓库工作流
-
-本目录是该项目后续开发的唯一主仓库，旧批次目录及 ZIP 为历史审查快照。没有 Git remote，没有共享构建目录，没有上级 moon.work。
-
-真实 CLI 支持输入参数、文件和标准输入：
+安装 MoonBit 后 `./verify.ps1` 执行完整本项目工作流。参考工具测试独立可选：
 
 ```powershell
-node tools/cli.mjs --help
-node tools/cli.mjs --file sample.txt --json
+$env:PROMTOOL='C:/path/to/promtool.exe'
+node tools/test-promtool.mjs
 ```
 
-需要安装 MoonBit 后传 `-MoonPath` 或将 moon 加入 PATH；不依赖工作区之外的私有脚本。详见 [TESTING.md](TESTING.md) 和 [CONTRIBUTING.md](CONTRIBUTING.md)。
+本轮 12 项 JS 项目测试通过；后续局部修补的 4 组相关测试也通过，证据见 evidence/modifiers-focused-validation.json。
+官方 promtool 下载过慢后停止，对照脚本已准备但尚未执行。该对照只验证接受/拒绝，与本项目 AST 固定值测试互补；
+不会查询指标或证明执行结果、性能、所有 PromQL 语法兼容。官方二进制下载在仓库外，未随本项目分发。
 
-## 本轮功能升级
+## 剩余差距
 
-增加标量/瞬时向量/区间向量类型检查和常见函数签名校验，修复非法 UTF-16 崩溃。
+仍缺完整数字字面量、原始字符串与全部转义、完整函数表、RE2 表达式语义/空标签约束、
+UTF-8 引用标识符、源码位置诊断和新版本/实验性时长表达式及运算符。
+不声称已全面追平。输入最多 100,000 UTF-16 单元，递归与类型树深度限 64。
 
-仅文档列出的函数与语法子集；不执行查询，不支持完整匹配修饰符。
+依据 [Prometheus 运算符文档](https://prometheus.io/docs/prometheus/latest/querying/operators/)、
+[基础语法](https://prometheus.io/docs/prometheus/latest/querying/basics/)与官方语法定义，自行实现，未复制上游源码或测试。
+原创源码采用 MIT；查重证据见 DUPLICATION.md，历史检索不能保证没有同类项目。
 
-[可执行 API 示例](README.mbt.md)会随测试运行；[功能边界](FEATURES.md)和[测试说明](TESTING.md)用于独立审查。网页与 CLI 展示示例入口，新 API 的完整使用见可执行示例。
+独立本地 Git 仓库，没有配置远程或上传。localreview 是本地命名空间，旧 ZIP/bundle 是历史快照，本轮未重打包。

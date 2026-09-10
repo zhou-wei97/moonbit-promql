@@ -55,7 +55,7 @@ test "colon metric and decimal" {
 test "syntax invalid unsupported modifiers rejected" {
   for
     s in [
-      "up{a=1}", "up[0m]", "up[5q]", "up +", "rate(up)[5m]", "sum by () (up", "up offset 5m",
+      "up{a=1}", "up[0m]", "up[5q]", "up +", "rate(up)[5m]", "sum by () (up", "up offset",
       "{}",
     ] {
     assert_true(

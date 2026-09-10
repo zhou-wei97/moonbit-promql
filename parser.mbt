@@ -1,12 +1,18 @@
 ///|
 pub(all) enum Expr {
   Number(String)
+  StringLiteral(String)
   Selector(String, Array[(String, String, String)])
   Range(Expr, String)
   Call(String, Array[Expr])
   Aggregate(String, Array[String], Bool, Expr)
   Binary(String, Expr, Expr)
   Unary(String, Expr)
+  BinaryMatch(String, VectorMatching, Expr, Expr)
+  AggregateParam(String, Array[String], Bool, Expr, Expr)
+  Subquery(Expr, String, String?)
+  Offset(Expr, String)
+  At(Expr, String)
 } derive(Debug, Eq)
 
 ///|
@@ -28,7 +34,7 @@ fn precedence(op : String) -> Int {
     "and" | "unless" => 2
     "==" | "!=" | ">" | "<" | ">=" | "<=" => 3
     "+" | "-" => 4
-    "*" | "/" | "%" => 5
+    "*" | "/" | "%" | "atan2" => 5
     "^" => 6
     _ => 0
   }
@@ -40,10 +46,9 @@ fn expression(c : Cursor, min : Int, depth : Int) -> Expr raise ParseError {
     raise Invalid("nesting limit")
   }
   let t = c.take()
-  if t.quoted {
-    raise Invalid("string expression outside supported subset")
-  }
-  let mut lhs = if t.text == "+" || t.text == "-" {
+  let mut lhs = if t.quoted {
+    StringLiteral(t.text)
+  } else if t.text == "+" || t.text == "-" {
     Unary(t.text, expression(c, 6, depth + 1))
   } else if t.text == "(" {
     let e = expression(c, 1, depth + 1)
@@ -69,6 +74,9 @@ fn expression(c : Cursor, min : Int, depth : Int) -> Expr raise ParseError {
       }
       t.text
     }
+    if ["bool", "on", "ignoring", "group_left", "group_right"].contains(name) {
+      raise Invalid("reserved vector matching keyword cannot be a metric name")
+    }
     while c.eat(":") {
       let part = c.take()
       if !identifier(part.text) {
@@ -76,34 +84,9 @@ fn expression(c : Cursor, min : Int, depth : Int) -> Expr raise ParseError {
       }
       name += ":" + part.text
     }
-    if c.peek() == "by" || c.peek() == "without" {
-      if name != "sum" &&
-        name != "avg" &&
-        name != "min" &&
-        name != "max" &&
-        name != "count" {
-        raise Invalid("unsupported aggregator")
-      }
-      let without = c.take().text == "without"
-      c.need("(")
-      let labels : Array[String] = []
-      if !c.eat(")") {
-        while true {
-          let x = c.take()
-          if !identifier(x.text) || x.quoted {
-            raise Invalid("label name")
-          }
-          labels.push(x.text)
-          if c.eat(")") {
-            break
-          }
-          c.need(",")
-        }
-      }
-      c.need("(")
-      let body = expression(c, 1, depth + 1)
-      c.need(")")
-      Aggregate(name, labels, without, body)
+    if aggregator(name) &&
+      (c.peek() == "by" || c.peek() == "without" || c.peek() == "(") {
+      aggregate(c, name, depth + 1)
     } else if c.eat("(") {
       let args : Array[Expr] = []
       if !c.eat(")") {
@@ -148,36 +131,7 @@ fn expression(c : Cursor, min : Int, depth : Int) -> Expr raise ParseError {
       Selector(name, labels)
     }
   }
-  if c.eat("[") {
-    match lhs {
-      Selector(_, _) => ()
-      _ => raise Invalid("range requires vector selector")
-    }
-    let d = c.take().text
-    let ds = d.to_array()
-    let mut split = 0
-    while split < ds.length() && ds[split] >= '0' && ds[split] <= '9' {
-      split += 1
-    }
-    if split == 0 || split == ds.length() {
-      raise Invalid("duration requires number and unit")
-    }
-    let unit = String::from_array(ds[split:])
-    if unit != "ms" &&
-      unit != "s" &&
-      unit != "m" &&
-      unit != "h" &&
-      unit != "d" &&
-      unit != "w" &&
-      unit != "y" {
-      raise Invalid("duration unit")
-    }
-    if ds[0] == '0' && split == 1 {
-      raise Invalid("zero range")
-    }
-    c.need("]")
-    lhs = Range(lhs, d)
-  }
+  lhs = postfix(c, lhs)
   while true {
     let op = c.peek()
     let prec = precedence(op)
@@ -185,8 +139,13 @@ fn expression(c : Cursor, min : Int, depth : Int) -> Expr raise ParseError {
       break
     }
     c.pos += 1
+    let matching = vector_matching(c)
     let rhs = expression(c, if op == "^" { prec } else { prec + 1 }, depth + 1)
-    lhs = Binary(op, lhs, rhs)
+    lhs = if matching.return_bool || matching.mode != None {
+      BinaryMatch(op, matching, lhs, rhs)
+    } else {
+      Binary(op, lhs, rhs)
+    }
   }
   lhs
 }
