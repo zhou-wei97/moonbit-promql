@@ -1,0 +1,5 @@
+import {
+  "localreview/promql" @lib,
+}
+
+pkgtype(kind: "executable")
