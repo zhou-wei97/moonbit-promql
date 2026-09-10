@@ -193,6 +193,9 @@ fn expression(c : Cursor, min : Int, depth : Int) -> Expr raise ParseError {
 
 ///|
 pub fn parse(source : String) -> Expr raise ParseError {
+  if !valid_unicode(source) {
+    raise Invalid("ill-formed UTF-16 input")
+  }
   let c = lex(source, false)
   let e = expression(c, 1, 0)
   if c.pos != c.tokens.length() {

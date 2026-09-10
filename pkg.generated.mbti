@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn infer_type(Expr) -> QueryType raise ParseError
+
 pub fn parse(String) -> Expr raise ParseError
 
 // Errors
@@ -22,6 +24,12 @@ pub(all) enum Expr {
   Aggregate(String, Array[String], Bool, Expr)
   Binary(String, Expr, Expr)
   Unary(String, Expr)
+} derive(Eq, @debug.Debug)
+
+pub(all) enum QueryType {
+  Scalar
+  InstantVector
+  RangeVector
 } derive(Eq, @debug.Debug)
 
 // Type aliases
