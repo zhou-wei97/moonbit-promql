@@ -1,10 +1,11 @@
 # Validation contract
 
-- Explicit Wasm-GC and JS targets: no inference from the toolchain default.
-- Public API tests plus compiled browser engine, CLI stdin/file/argument and failure exit-code checks.
-- 307 seeded bounded malformed inputs including UTF-16 surrogates. The worker has a 20-second limit.
-- Local code coverage: `moon coverage analyze -p localreview/promql -- -f summary`. No coverage upload is configured. Coverage is evidence about current code, not upstream feature coverage.
-- Benchmark: 5 warmups and 30 measured documented-example executions; median and p95 recorded locally.
-- Generated API and browser artifact must match the same source revision.
+Run `./verify.ps1 -MoonPath /absolute/path/to/moon` before committing. It formats source, refreshes the public API, checks warnings, executes 24 public API tests on both Wasm-GC and JS, rebuilds the browser engine, runs browser/legacy CLI and 13 structured inspector/CLI fixture groups, replays the 3,213 saved independent reference cases, and runs the existing 307-input robustness probe and 30-sample example benchmark.
 
-CI files are prepared locally; remote CI has not run because this repository has not been uploaded. Compatibility beyond README scope remains unverified.
+`node tools/test-reference.mjs --golden` replays answers recorded from the unmodified Prometheus v0.314.0 parser. Without `--golden`, it invokes the executable in `PROMQL_REFERENCE` and regenerates both the answers and validation report. The runner requires exactly one reference reply per request and rejects adapter errors. See tools/prometheus-reference/README.md for a reproducible build. Production code does not call Go or a reference executable.
+
+The corpus includes all 90 function signatures, valid/minimum/extra/incorrect arguments, every binary operator and scalar/vector/matrix/string combinations, feature flags in isolation, numeric/escape/quoted-label boundaries, temporal and experimental syntax, RE2 cases and Unicode properties, and fixed-seed generated expressions. Accepted queries compare result type and normalized AST. Normalization removes redundant parentheses, folds numeric unary operators, treats omitted/empty grouping arrays alike, and discards upstream-ignored scalar matching metadata. It retains matcher bytes, operand order, grouping, fills, durations, timestamps, and extended-range flags. Error wording/positions are tested locally, not claimed identical to upstream. Duration expression evaluation and query execution are not tested.
+
+The AST inspector is the actual compiled MoonBit adapter, not a substitute JavaScript parser. Its host test runs CLI child processes and checks exit codes, feature isolation, byte-safe output, and Unicode error positions. The 24 cross-backend tests exercise public MoonBit APIs including BOM preservation, invalid UTF-8 bytes, RE2 quoting, conversion rounding, info's selector exception, and opt-in behavior.
+
+The earlier coverage and 0.3 focused reports are historical. This round does not claim current coverage percentages. The 30-sample benchmark measures the documented example on this machine, not upstream performance. CI is prepared locally but has not run remotely. Bounded resource rejection and the remaining API/diagnostic gaps in README are intentional scope limits, not language equivalence claims.

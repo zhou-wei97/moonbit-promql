@@ -6,38 +6,88 @@ import {
 }
 
 // Values
-pub fn infer_type(Expr) -> QueryType raise ParseError
+pub fn duration_value(String) -> Double raise ParseError
 
-pub fn parse(String) -> Expr raise ParseError
+pub fn function_signatures() -> Array[FunctionSignature]
+
+pub fn infer_type(Expr, options? : ParserOptions) -> QueryType raise ParseError
+
+pub fn number_value(String) -> Double raise ParseError
+
+pub fn parse(String, options? : ParserOptions) -> Expr raise ParseError
+
+pub fn regex_matches_empty(String) -> Bool raise ParseError
+
+pub fn timestamp_value(String) -> Int64 raise ParseError
 
 // Errors
 pub suberror ParseError {
   Invalid(String)
+  Located(String, SourceSpan)
 } derive(@debug.Debug)
 
 // Types and methods
+pub(all) enum DurationExpr {
+  DurationValue(String)
+  DurationUnary(String, DurationExpr)
+  DurationBinary(String, DurationExpr, DurationExpr)
+  DurationCall(String, Array[DurationExpr])
+} derive(Eq, @debug.Debug)
+
 pub(all) enum Expr {
   Number(String)
   StringLiteral(String)
+  StringBytes(Bytes)
   Selector(String, Array[(String, String, String)])
+  SelectorBytes(String, Array[(Bytes, String, Bytes)])
+  Parenthesized(Expr)
   Range(Expr, String)
   Call(String, Array[Expr])
   Aggregate(String, Array[String], Bool, Expr)
   Binary(String, Expr, Expr)
   Unary(String, Expr)
   BinaryMatch(String, VectorMatching, Expr, Expr)
+  BinaryFill(String, VectorMatching, String?, String?, Expr, Expr)
   AggregateParam(String, Array[String], Bool, Expr, Expr)
   Subquery(Expr, String, String?)
   Offset(Expr, String)
   At(Expr, String)
+  RangeExpression(Expr, DurationExpr)
+  SubqueryExpression(Expr, DurationExpr, DurationExpr?)
+  OffsetExpression(Expr, DurationExpr)
+  ExtendedRange(Expr, String)
 } derive(Eq, @debug.Debug)
+
+pub(all) struct FunctionSignature {
+  name : String
+  arguments : Array[QueryType]
+  min_args : Int
+  max_args : Int?
+  result : QueryType
+  experimental : Bool
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct ParserOptions {
+  experimental_functions : Bool
+  duration_expressions : Bool
+  extended_ranges : Bool
+  fill_modifiers : Bool
+} derive(Eq, ToJson, @debug.Debug)
+pub fn ParserOptions::new(experimental_functions? : Bool, duration_expressions? : Bool, extended_ranges? : Bool, fill_modifiers? : Bool) -> Self
 
 pub(all) enum QueryType {
   Scalar
   InstantVector
   RangeVector
   StringValue
-} derive(Eq, @debug.Debug)
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct SourceSpan {
+  start : Int
+  end : Int
+  line : Int
+  column : Int
+} derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct VectorMatching {
   return_bool : Bool

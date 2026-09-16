@@ -43,8 +43,7 @@ const results = cases.map(query => {
 const failed = results.filter(r => !r.passed);
 writeFileSync(new URL('../evidence/promtool-focused-validation.json', import.meta.url), JSON.stringify({
   date: new Date().toISOString(), reference: (version.stdout + version.stderr).trim(),
-  archiveUrl: 'https://github.com/prometheus/prometheus/releases/download/v3.14.0/prometheus-3.14.0.windows-amd64.tar.gz',
-  archiveSha256: '272bcdd15d9327c7b1e08fe916ea48633819f82f2ea0bf354e6b8c0350c156ba',
+  executable,
   engineSha256: createHash('sha256').update(readFileSync(new URL('../web/engine.mjs', import.meta.url))).digest('hex'),
   scope: 'syntax and static semantic acceptance; no query evaluation',
   total: results.length, passed: results.length - failed.length, failed: failed.length, results,

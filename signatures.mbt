@@ -5,12 +5,14 @@ fn infer_binary(
   b : Expr,
   matching : VectorMatching,
   depth : Int,
+  options : ParserOptions,
 ) -> QueryType raise ParseError {
-  let x = infer_type_at(a, depth + 1)
-  let y = infer_type_at(b, depth + 1)
+  let x = infer_type_at(a, depth + 1, options)
+  let y = infer_type_at(b, depth + 1, options)
   let comparison = ["==", "!=", ">", "<", ">=", "<="].contains(op)
   let set = ["and", "or", "unless"].contains(op)
-  if x == RangeVector ||
+  if precedence(op) == 0 ||
+    x == RangeVector ||
     y == RangeVector ||
     x == StringValue ||
     y == StringValue {
@@ -22,7 +24,7 @@ fn infer_binary(
   if comparison && x == Scalar && y == Scalar && !matching.return_bool {
     raise Invalid("scalar comparison requires bool")
   }
-  if (set || matching.mode != None) &&
+  if (set || !matching.labels.is_empty()) &&
     (x != InstantVector || y != InstantVector) {
     raise Invalid("set operators and matching require two instant vectors")
   }
@@ -45,89 +47,30 @@ fn infer_call(
   name : String,
   args : Array[Expr],
   depth : Int,
+  options : ParserOptions,
 ) -> QueryType raise ParseError {
-  let types = args.map(arg => infer_type_at(arg, depth + 1))
-  let require = fn(expected : Array[QueryType]) -> Unit raise ParseError {
-    if types != expected {
-      raise Invalid("function argument types: " + name)
+  let signature = match function_signature(name) {
+    Some(s) => s
+    None => raise Invalid("unknown function: " + name)
+  }
+  if signature.experimental && !options.experimental_functions {
+    raise Invalid("experimental function is not enabled: " + name)
+  }
+  if args.length() < signature.min_args ||
+    (signature.max_args is Some(n) && args.length() > n) {
+    raise Invalid("function argument count: " + name)
+  }
+  for i, arg in args {
+    let expected = signature.arguments[i.min(signature.arguments.length() - 1)]
+    let actual = if name == "info" && i == 1 {
+      info_labels(arg)
+      InstantVector
+    } else {
+      infer_type_at(arg, depth + 1, options)
+    }
+    if actual != expected {
+      raise Invalid("function argument type: " + name)
     }
   }
-  match name {
-    "time" | "pi" => {
-      require([])
-      Scalar
-    }
-    "vector" => {
-      require([Scalar])
-      InstantVector
-    }
-    "scalar" => {
-      require([InstantVector])
-      Scalar
-    }
-    "clamp" => {
-      require([InstantVector, Scalar, Scalar])
-      InstantVector
-    }
-    "clamp_min" | "clamp_max" => {
-      require([InstantVector, Scalar])
-      InstantVector
-    }
-    "histogram_quantile" => {
-      require([Scalar, InstantVector])
-      InstantVector
-    }
-    "quantile_over_time" => {
-      require([Scalar, RangeVector])
-      InstantVector
-    }
-    "predict_linear" => {
-      require([RangeVector, Scalar])
-      InstantVector
-    }
-    "round" => {
-      if types != [InstantVector] && types != [InstantVector, Scalar] {
-        raise Invalid("round argument types")
-      }
-      InstantVector
-    }
-    "label_replace" => {
-      require([
-        InstantVector,
-        StringValue,
-        StringValue,
-        StringValue,
-        StringValue,
-      ])
-      InstantVector
-    }
-    "label_join" => {
-      if types.length() < 3 ||
-        types[0] != InstantVector ||
-        !types[1:].iter().all(t => t == StringValue) {
-        raise Invalid("label_join argument types")
-      }
-      InstantVector
-    }
-    _ => {
-      if [
-          "rate", "irate", "increase", "delta", "idelta", "deriv", "changes", "resets",
-          "avg_over_time", "sum_over_time", "min_over_time", "max_over_time", "count_over_time",
-          "stddev_over_time", "stdvar_over_time", "last_over_time", "present_over_time",
-          "absent_over_time",
-        ].contains(name) {
-        require([RangeVector])
-      } else if [
-          "abs", "absent", "ceil", "floor", "sqrt", "exp", "ln", "log2", "log10",
-          "sgn", "sin", "cos", "tan", "asin", "acos", "atan", "sinh", "cosh", "tanh",
-          "asinh", "acosh", "atanh", "deg", "rad", "timestamp", "histogram_avg",
-          "histogram_count", "histogram_sum", "sort", "sort_desc",
-        ].contains(name) {
-        require([InstantVector])
-      } else {
-        raise Invalid("function signature not implemented: " + name)
-      }
-      InstantVector
-    }
-  }
+  signature.result
 }

@@ -1,6 +1,6 @@
 # 可执行 API 示例
 
-增加标量/瞬时向量/区间向量类型检查和常见函数签名校验，修复非法 UTF-16 崩溃。这些例子调用公开 API，并随 `moon test` 执行。
+对照 Prometheus 3.14.0，提供全部 90 个函数签名与静态类型检查。这些例子调用公开 API，并随 `moon test` 执行。
 
 ```mbt check
 ///|
@@ -27,4 +27,4 @@ test "typed PromQL core rejects mismatched arguments" {
 }
 ```
 
-限制：仅文档列出的函数与语法子集；不执行查询，不支持完整匹配修饰符。
+实验特性默认关闭，需通过 ParserOptions 显式开启。资源边界和剩余诊断/格式化/遍历差距见 README。

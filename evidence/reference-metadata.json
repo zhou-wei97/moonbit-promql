@@ -1,0 +1,1243 @@
+{
+  "build": "go\tgo1.26.0\npath\tlocal.test/promql-reference\nmod\tlocal.test/promql-reference\t(devel)\t\ndep\tgithub.com/beorn7/perks\tv1.0.1\th1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=\ndep\tgithub.com/cespare/xxhash/v2\tv2.3.0\th1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=\ndep\tgithub.com/dennwc/varint\tv1.0.0\th1:kGNFFSSw8ToIy3obO/kKr8U9GZYUAxQEVuix4zfDWzE=\ndep\tgithub.com/grafana/regexp\tv0.0.0-20250905093917-f7b3be9d1853\th1:cLN4IBkmkYZNnk7EAJ0BHIethd+J6LqxFNw5mSiI2bM=\ndep\tgithub.com/munnerz/goautoneg\tv0.0.0-20191010083416-a7dc8b61c822\th1:C3w9PqII01/Oq1c1nUAm88MOHcQC9l5mIlSMApZMrHA=\ndep\tgithub.com/prometheus/client_golang\tv1.24.1\th1:JnJkREXzWxUdCuPFpIWZiPispT9xVV59uiuyR2bPlnU=\ndep\tgithub.com/prometheus/client_model\tv0.6.2\th1:oBsgwpGs7iVziMvrGhE53c/GrLUsZdHnqNwqPLxwZyk=\ndep\tgithub.com/prometheus/common\tv0.70.1\th1:1HvjP4D5oL3t8RsPlwxA9onvvStjtIHYE5XuuwOi/PY=\ndep\tgithub.com/prometheus/prometheus\tv0.314.0\th1:YjsimqsIi6/mOtzZcrPEYUALO6zpfaht9O5sXqDz2vg=\ndep\tgo.uber.org/atomic\tv1.11.0\th1:ZvwS0R+56ePWxUNi+Atn9dWONBPp/AUETXlHW0DxSjE=\ndep\tgolang.org/x/sys\tv0.47.0\th1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=\ndep\tgolang.org/x/text\tv0.40.0\th1:Ub2Z6/xjgF1WrYQz2nuITOEegKFtiIy+rieRJ5lHZKs=\ndep\tgoogle.golang.org/protobuf\tv1.36.12-0.20260120151049-f2248ac996af\th1:+5/Sw3GsDNlEmu7TfklWKPdQ0Ykja5VEmq2i817+jbI=\nbuild\t-buildmode=exe\nbuild\t-compiler=gc\nbuild\tDefaultGODEBUG=cryptocustomrand=1,tlssecpmlkem=0,urlstrictcolons=0\nbuild\tCGO_ENABLED=0\nbuild\tGOARCH=amd64\nbuild\tGOOS=windows\nbuild\tGOAMD64=v1\nbuild\tvcs=git\nbuild\tvcs.revision=825dafa34bcb2881323e25c52b30a52e2d65dfd8\nbuild\tvcs.time=2026-09-10T14:17:27Z\nbuild\tvcs.modified=true\n",
+  "functions": {
+    "abs": {
+      "Name": "abs",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "absent": {
+      "Name": "absent",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "absent_over_time": {
+      "Name": "absent_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "acos": {
+      "Name": "acos",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "acosh": {
+      "Name": "acosh",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "asin": {
+      "Name": "asin",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "asinh": {
+      "Name": "asinh",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "atan": {
+      "Name": "atan",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "atanh": {
+      "Name": "atanh",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "avg_over_time": {
+      "Name": "avg_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "ceil": {
+      "Name": "ceil",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "changes": {
+      "Name": "changes",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "clamp": {
+      "Name": "clamp",
+      "ArgTypes": [
+        "vector",
+        "scalar",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "clamp_max": {
+      "Name": "clamp_max",
+      "ArgTypes": [
+        "vector",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "clamp_min": {
+      "Name": "clamp_min",
+      "ArgTypes": [
+        "vector",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "cos": {
+      "Name": "cos",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "cosh": {
+      "Name": "cosh",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "count_over_time": {
+      "Name": "count_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "day_of_month": {
+      "Name": "day_of_month",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "day_of_week": {
+      "Name": "day_of_week",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "day_of_year": {
+      "Name": "day_of_year",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "days_in_month": {
+      "Name": "days_in_month",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "deg": {
+      "Name": "deg",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "delta": {
+      "Name": "delta",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "deriv": {
+      "Name": "deriv",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "double_exponential_smoothing": {
+      "Name": "double_exponential_smoothing",
+      "ArgTypes": [
+        "matrix",
+        "scalar",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "end": {
+      "Name": "end",
+      "ArgTypes": [],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": true
+    },
+    "exp": {
+      "Name": "exp",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "first_over_time": {
+      "Name": "first_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "floor": {
+      "Name": "floor",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_avg": {
+      "Name": "histogram_avg",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_count": {
+      "Name": "histogram_count",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_fraction": {
+      "Name": "histogram_fraction",
+      "ArgTypes": [
+        "scalar",
+        "scalar",
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_quantile": {
+      "Name": "histogram_quantile",
+      "ArgTypes": [
+        "scalar",
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_quantiles": {
+      "Name": "histogram_quantiles",
+      "ArgTypes": [
+        "vector",
+        "string",
+        "scalar",
+        "scalar"
+      ],
+      "Variadic": 9,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "histogram_stddev": {
+      "Name": "histogram_stddev",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_stdvar": {
+      "Name": "histogram_stdvar",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "histogram_sum": {
+      "Name": "histogram_sum",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "hour": {
+      "Name": "hour",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "idelta": {
+      "Name": "idelta",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "increase": {
+      "Name": "increase",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "info": {
+      "Name": "info",
+      "ArgTypes": [
+        "vector",
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "irate": {
+      "Name": "irate",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "label_join": {
+      "Name": "label_join",
+      "ArgTypes": [
+        "vector",
+        "string",
+        "string",
+        "string"
+      ],
+      "Variadic": -1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "label_replace": {
+      "Name": "label_replace",
+      "ArgTypes": [
+        "vector",
+        "string",
+        "string",
+        "string",
+        "string"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "last_over_time": {
+      "Name": "last_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "ln": {
+      "Name": "ln",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "log10": {
+      "Name": "log10",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "log2": {
+      "Name": "log2",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "mad_over_time": {
+      "Name": "mad_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "max_of": {
+      "Name": "max_of",
+      "ArgTypes": [
+        "scalar",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": true
+    },
+    "max_over_time": {
+      "Name": "max_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "min_of": {
+      "Name": "min_of",
+      "ArgTypes": [
+        "scalar",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": true
+    },
+    "min_over_time": {
+      "Name": "min_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "minute": {
+      "Name": "minute",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "month": {
+      "Name": "month",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "pi": {
+      "Name": "pi",
+      "ArgTypes": [],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": false
+    },
+    "predict_linear": {
+      "Name": "predict_linear",
+      "ArgTypes": [
+        "matrix",
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "present_over_time": {
+      "Name": "present_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "quantile_over_time": {
+      "Name": "quantile_over_time",
+      "ArgTypes": [
+        "scalar",
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "rad": {
+      "Name": "rad",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "range": {
+      "Name": "range",
+      "ArgTypes": [],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": true
+    },
+    "rate": {
+      "Name": "rate",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "resets": {
+      "Name": "resets",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "round": {
+      "Name": "round",
+      "ArgTypes": [
+        "vector",
+        "scalar"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "scalar": {
+      "Name": "scalar",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": false
+    },
+    "sgn": {
+      "Name": "sgn",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "sin": {
+      "Name": "sin",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "sinh": {
+      "Name": "sinh",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "sort": {
+      "Name": "sort",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "sort_by_label": {
+      "Name": "sort_by_label",
+      "ArgTypes": [
+        "vector",
+        "string"
+      ],
+      "Variadic": -1,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "sort_by_label_desc": {
+      "Name": "sort_by_label_desc",
+      "ArgTypes": [
+        "vector",
+        "string"
+      ],
+      "Variadic": -1,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "sort_desc": {
+      "Name": "sort_desc",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "sqrt": {
+      "Name": "sqrt",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "start": {
+      "Name": "start",
+      "ArgTypes": [],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": true
+    },
+    "start_timestamp": {
+      "Name": "start_timestamp",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "stddev_over_time": {
+      "Name": "stddev_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "stdvar_over_time": {
+      "Name": "stdvar_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "step": {
+      "Name": "step",
+      "ArgTypes": [],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": true
+    },
+    "sum_over_time": {
+      "Name": "sum_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "tan": {
+      "Name": "tan",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "tanh": {
+      "Name": "tanh",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "time": {
+      "Name": "time",
+      "ArgTypes": [],
+      "Variadic": 0,
+      "ReturnType": "scalar",
+      "Experimental": false
+    },
+    "timestamp": {
+      "Name": "timestamp",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "ts_of_first_over_time": {
+      "Name": "ts_of_first_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "ts_of_last_over_time": {
+      "Name": "ts_of_last_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "ts_of_max_over_time": {
+      "Name": "ts_of_max_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "ts_of_min_over_time": {
+      "Name": "ts_of_min_over_time",
+      "ArgTypes": [
+        "matrix"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": true
+    },
+    "vector": {
+      "Name": "vector",
+      "ArgTypes": [
+        "scalar"
+      ],
+      "Variadic": 0,
+      "ReturnType": "vector",
+      "Experimental": false
+    },
+    "year": {
+      "Name": "year",
+      "ArgTypes": [
+        "vector"
+      ],
+      "Variadic": 1,
+      "ReturnType": "vector",
+      "Experimental": false
+    }
+  },
+  "go": "go1.26.0",
+  "module": "github.com/prometheus/prometheus",
+  "unicodeProperties": [
+    "ASCII",
+    "Adlam",
+    "Ahom",
+    "Anatolian_Hieroglyphs",
+    "Any",
+    "Arabic",
+    "Armenian",
+    "Assigned",
+    "Avestan",
+    "Balinese",
+    "Bamum",
+    "Bassa_Vah",
+    "Batak",
+    "Bengali",
+    "Bhaiksuki",
+    "Bopomofo",
+    "Brahmi",
+    "Braille",
+    "Buginese",
+    "Buhid",
+    "C",
+    "Canadian_Aboriginal",
+    "Carian",
+    "Caucasian_Albanian",
+    "Cc",
+    "Cf",
+    "Chakma",
+    "Cham",
+    "Cherokee",
+    "Chorasmian",
+    "Cn",
+    "Co",
+    "Common",
+    "Coptic",
+    "Cs",
+    "Cuneiform",
+    "Cypriot",
+    "Cypro_Minoan",
+    "Cyrillic",
+    "Deseret",
+    "Devanagari",
+    "Dives_Akuru",
+    "Dogra",
+    "Duployan",
+    "Egyptian_Hieroglyphs",
+    "Elbasan",
+    "Elymaic",
+    "Ethiopic",
+    "Georgian",
+    "Glagolitic",
+    "Gothic",
+    "Grantha",
+    "Greek",
+    "Gujarati",
+    "Gunjala_Gondi",
+    "Gurmukhi",
+    "Han",
+    "Hangul",
+    "Hanifi_Rohingya",
+    "Hanunoo",
+    "Hatran",
+    "Hebrew",
+    "Hiragana",
+    "Imperial_Aramaic",
+    "Inherited",
+    "Inscriptional_Pahlavi",
+    "Inscriptional_Parthian",
+    "Javanese",
+    "Kaithi",
+    "Kannada",
+    "Katakana",
+    "Kawi",
+    "Kayah_Li",
+    "Kharoshthi",
+    "Khitan_Small_Script",
+    "Khmer",
+    "Khojki",
+    "Khudawadi",
+    "L",
+    "LC",
+    "Lao",
+    "Latin",
+    "Lepcha",
+    "Limbu",
+    "Linear_A",
+    "Linear_B",
+    "Lisu",
+    "Ll",
+    "Lm",
+    "Lo",
+    "Lt",
+    "Lu",
+    "Lycian",
+    "Lydian",
+    "M",
+    "Mahajani",
+    "Makasar",
+    "Malayalam",
+    "Mandaic",
+    "Manichaean",
+    "Marchen",
+    "Masaram_Gondi",
+    "Mc",
+    "Me",
+    "Medefaidrin",
+    "Meetei_Mayek",
+    "Mende_Kikakui",
+    "Meroitic_Cursive",
+    "Meroitic_Hieroglyphs",
+    "Miao",
+    "Mn",
+    "Modi",
+    "Mongolian",
+    "Mro",
+    "Multani",
+    "Myanmar",
+    "N",
+    "Nabataean",
+    "Nag_Mundari",
+    "Nandinagari",
+    "Nd",
+    "New_Tai_Lue",
+    "Newa",
+    "Nko",
+    "Nl",
+    "No",
+    "Nushu",
+    "Nyiakeng_Puachue_Hmong",
+    "Ogham",
+    "Ol_Chiki",
+    "Old_Hungarian",
+    "Old_Italic",
+    "Old_North_Arabian",
+    "Old_Permic",
+    "Old_Persian",
+    "Old_Sogdian",
+    "Old_South_Arabian",
+    "Old_Turkic",
+    "Old_Uyghur",
+    "Oriya",
+    "Osage",
+    "Osmanya",
+    "P",
+    "Pahawh_Hmong",
+    "Palmyrene",
+    "Pau_Cin_Hau",
+    "Pc",
+    "Pd",
+    "Pe",
+    "Pf",
+    "Phags_Pa",
+    "Phoenician",
+    "Pi",
+    "Po",
+    "Ps",
+    "Psalter_Pahlavi",
+    "Rejang",
+    "Runic",
+    "S",
+    "Samaritan",
+    "Saurashtra",
+    "Sc",
+    "Sharada",
+    "Shavian",
+    "Siddham",
+    "SignWriting",
+    "Sinhala",
+    "Sk",
+    "Sm",
+    "So",
+    "Sogdian",
+    "Sora_Sompeng",
+    "Soyombo",
+    "Sundanese",
+    "Syloti_Nagri",
+    "Syriac",
+    "Tagalog",
+    "Tagbanwa",
+    "Tai_Le",
+    "Tai_Tham",
+    "Tai_Viet",
+    "Takri",
+    "Tamil",
+    "Tangsa",
+    "Tangut",
+    "Telugu",
+    "Thaana",
+    "Thai",
+    "Tibetan",
+    "Tifinagh",
+    "Tirhuta",
+    "Toto",
+    "Ugaritic",
+    "Vai",
+    "Vithkuqi",
+    "Wancho",
+    "Warang_Citi",
+    "Yezidi",
+    "Yi",
+    "Z",
+    "Zanabazar_Square",
+    "Zl",
+    "Zp",
+    "Zs"
+  ],
+  "version": "v0.314.0",
+  "validatedRegexUnicodeProperties": [
+    "Adlam",
+    "Ahom",
+    "Anatolian_Hieroglyphs",
+    "Any",
+    "Arabic",
+    "Armenian",
+    "Avestan",
+    "Balinese",
+    "Bamum",
+    "Bassa_Vah",
+    "Batak",
+    "Bengali",
+    "Bhaiksuki",
+    "Bopomofo",
+    "Brahmi",
+    "Braille",
+    "Buginese",
+    "Buhid",
+    "C",
+    "Canadian_Aboriginal",
+    "Carian",
+    "Caucasian_Albanian",
+    "Cc",
+    "Cf",
+    "Chakma",
+    "Cham",
+    "Cherokee",
+    "Chorasmian",
+    "Cn",
+    "Co",
+    "Common",
+    "Coptic",
+    "Cs",
+    "Cuneiform",
+    "Cypriot",
+    "Cypro_Minoan",
+    "Cyrillic",
+    "Deseret",
+    "Devanagari",
+    "Dives_Akuru",
+    "Dogra",
+    "Duployan",
+    "Egyptian_Hieroglyphs",
+    "Elbasan",
+    "Elymaic",
+    "Ethiopic",
+    "Georgian",
+    "Glagolitic",
+    "Gothic",
+    "Grantha",
+    "Greek",
+    "Gujarati",
+    "Gunjala_Gondi",
+    "Gurmukhi",
+    "Han",
+    "Hangul",
+    "Hanifi_Rohingya",
+    "Hanunoo",
+    "Hatran",
+    "Hebrew",
+    "Hiragana",
+    "Imperial_Aramaic",
+    "Inherited",
+    "Inscriptional_Pahlavi",
+    "Inscriptional_Parthian",
+    "Javanese",
+    "Kaithi",
+    "Kannada",
+    "Katakana",
+    "Kawi",
+    "Kayah_Li",
+    "Kharoshthi",
+    "Khitan_Small_Script",
+    "Khmer",
+    "Khojki",
+    "Khudawadi",
+    "L",
+    "LC",
+    "Lao",
+    "Latin",
+    "Lepcha",
+    "Limbu",
+    "Linear_A",
+    "Linear_B",
+    "Lisu",
+    "Ll",
+    "Lm",
+    "Lo",
+    "Lt",
+    "Lu",
+    "Lycian",
+    "Lydian",
+    "M",
+    "Mahajani",
+    "Makasar",
+    "Malayalam",
+    "Mandaic",
+    "Manichaean",
+    "Marchen",
+    "Masaram_Gondi",
+    "Mc",
+    "Me",
+    "Medefaidrin",
+    "Meetei_Mayek",
+    "Mende_Kikakui",
+    "Meroitic_Cursive",
+    "Meroitic_Hieroglyphs",
+    "Miao",
+    "Mn",
+    "Modi",
+    "Mongolian",
+    "Mro",
+    "Multani",
+    "Myanmar",
+    "N",
+    "Nabataean",
+    "Nag_Mundari",
+    "Nandinagari",
+    "Nd",
+    "New_Tai_Lue",
+    "Newa",
+    "Nko",
+    "Nl",
+    "No",
+    "Nushu",
+    "Nyiakeng_Puachue_Hmong",
+    "Ogham",
+    "Ol_Chiki",
+    "Old_Hungarian",
+    "Old_Italic",
+    "Old_North_Arabian",
+    "Old_Permic",
+    "Old_Persian",
+    "Old_Sogdian",
+    "Old_South_Arabian",
+    "Old_Turkic",
+    "Old_Uyghur",
+    "Oriya",
+    "Osage",
+    "Osmanya",
+    "P",
+    "Pahawh_Hmong",
+    "Palmyrene",
+    "Pau_Cin_Hau",
+    "Pc",
+    "Pd",
+    "Pe",
+    "Pf",
+    "Phags_Pa",
+    "Phoenician",
+    "Pi",
+    "Po",
+    "Ps",
+    "Psalter_Pahlavi",
+    "Rejang",
+    "Runic",
+    "S",
+    "Samaritan",
+    "Saurashtra",
+    "Sc",
+    "Sharada",
+    "Shavian",
+    "Siddham",
+    "SignWriting",
+    "Sinhala",
+    "Sk",
+    "Sm",
+    "So",
+    "Sogdian",
+    "Sora_Sompeng",
+    "Soyombo",
+    "Sundanese",
+    "Syloti_Nagri",
+    "Syriac",
+    "Tagalog",
+    "Tagbanwa",
+    "Tai_Le",
+    "Tai_Tham",
+    "Tai_Viet",
+    "Takri",
+    "Tamil",
+    "Tangsa",
+    "Tangut",
+    "Telugu",
+    "Thaana",
+    "Thai",
+    "Tibetan",
+    "Tifinagh",
+    "Tirhuta",
+    "Toto",
+    "Ugaritic",
+    "Vai",
+    "Vithkuqi",
+    "Wancho",
+    "Warang_Citi",
+    "Yezidi",
+    "Yi",
+    "Z",
+    "Zanabazar_Square",
+    "Zl",
+    "Zp",
+    "Zs"
+  ]
+}

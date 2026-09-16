@@ -1,5 +1,8 @@
 import {
   "localreview/promql" @lib,
+  "moonbitlang/core/json",
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/core/encoding/base64",
 }
 
 supported_targets = "js"
@@ -7,5 +10,5 @@ supported_targets = "js"
 pkgtype(kind: "executable")
 
 options(
-  link: { "js": { "exports": [ "run" ], "format": "esm" } },
+  link: { "js": { "exports": [ "run", "inspect_json" ], "format": "esm" } },
 )
