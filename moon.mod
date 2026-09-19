@@ -1,4 +1,4 @@
-name = "localreview/promql"
+name = "zhou-wei97/promql"
 
 version = "0.4.0"
 
