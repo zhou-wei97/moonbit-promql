@@ -1,0 +1,137 @@
+{
+  "utc": "2026-09-20T16:05:53.655718+00:00",
+  "project": "moonbit-promql",
+  "module": "zhou-wei97/promql",
+  "baselineCommit": "84171c4acb17cf7af501c90cc09213decd0b32f4",
+  "localOnly": true,
+  "fullParity": false,
+  "replacements": [
+    {
+      "file": "cmd/main/moon.pkg",
+      "old": "localreview/promql",
+      "new": "zhou-wei97/promql"
+    },
+    {
+      "file": "cmd/web/moon.pkg",
+      "old": "localreview/promql",
+      "new": "zhou-wei97/promql"
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "info"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "check",
+        "--deny-warn"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "build",
+        "--target",
+        "js",
+        "--deny-warn"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "run",
+        "cmd/main"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "tools/test-demo.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "engineSHA256": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+  "scope": "Only module imports and regenerated module identities/JS artifact changed. Core algorithm sources unchanged. Check/build and main/demo entry smoke checks passed; historical behavioral/performance reports not rerun.",
+  "sourceSHA256": {
+    ".gitattributes": "968aed8752f58f3554e38c1db0b611ba4663668909552d8d17c2874ff5966312",
+    ".github/workflows/ci.yml": "19e3f153ccc41d6599cacd63c167c5cd7352a30a07e1642e47e2c57c5d5873d7",
+    ".gitignore": "3d9dc44b0aac4db3956c0de5cf053d34927f4b4105058932d2dc9a6ffcb58a03",
+    "CHANGELOG.md": "5049ca12f8c723ba8302b8aaa1c953ecce7845f813c98678d4685a0cd3e5632e",
+    "CONTRIBUTING.md": "e066713924ff8db789960bf03122a64cea6904cf4dc7666b9747802f3b50d491",
+    "DUPLICATION.md": "8e927b27470bc4b2e4056249bcf06fdc983cc16c176350fe7e20ba2c5c32ec47",
+    "FEATURES.md": "f44637f10ac51e27c268deb82ea6111991405193b5c244c85c15aff47e8dcf12",
+    "LICENSE": "a2ae469f92ac7fd70592f338c7c43657c7e9510be802cfb3db880fff11df3807",
+    "LICENSES/Apache-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "MANIFEST.sha256.json.baseline": "d1393c6c0ca74483d412a7a1b1ffc4cbae8517dce4f5e446193ecd441ba6b4d9",
+    "README.mbt.md": "37c8da7c0f8cd6fca83bae985d1d69456e49bb7081cc60004133c1c340153b51",
+    "README.md": "f27f96c05cbfb98253e6d7a3cf657e9527e1f506bc89eff5ee86d1089f7c6b68",
+    "ROADMAP.md": "3f12e246460defd6600ba6223a29aa1cb18fcda9b3f833bdee8b9a4d52c6d4fd",
+    "TESTING.md": "7ee547765eb31bd2e7f8fc500b5d9474e8278e06804a5cb5833f4ef583dc941e",
+    "THIRD_PARTY_NOTICES.md": "8b639245307ac417b652e5777d3b5e853f7d20ceb266e9f0654023991adc9444",
+    "cmd/main/main.mbt": "7b1b7ece6c737b8fcc99242a551d479df468732f7dee656a69a8031a2e0f5d37",
+    "cmd/main/moon.pkg": "4545f830f29edaa3b5d5e9b6450489377a3833f461da24de69db3af84641e603",
+    "cmd/main/pkg.generated.mbti": "33910cc917faa264d4f808b8426ef8342cdcae3419cf7fb202c5ae0b30d21518",
+    "cmd/web/inspect.mbt": "52bad360df1d90e80afed1d3683fc4a12812e94f41267ceec26efcfe3916c4e2",
+    "cmd/web/main.mbt": "fd6dd1974585a01226dc35f62a6ffffb9c3276e37c641e4ae65f60e7bdc3c97f",
+    "cmd/web/moon.pkg": "1463c52a5b263800a10f82b8c08aaab00bf2b343c92f944ce9844d61d2ecbe29",
+    "core_test.mbt": "6383eac5ed8b771938d4f454d6bce03980e97bcd92dd3147e1b4d6430e966d21",
+    "duration.mbt": "1582f7257e5d1d8065eb7bf2f3236d0fd11a679401a14290eb624452fefca5cc",
+    "function_table.mbt": "dbd4117c63e139c562ff7ce2ec612600234ba89606ed9886b8a6922a96ecca1e",
+    "lexer.mbt": "880551d09b04f7553a1aea9772ea8144cdd4c7f05bfcf02e6a3c38e14b3209b2",
+    "modifiers.mbt": "41593ab5b6c2eb002b8159c2404f9bedf173ffa5ee2e26c0ad11221fe0657091",
+    "modifiers_test.mbt": "64f418d922b8e824c052b493e38f8f26412da11f7e0b90441170f01883d08377",
+    "moon.mod": "022404c5a2423902042f28843af97f701f7f22ed2ae9b05228f27fc09905bdca",
+    "moon.pkg": "ada3a947560d02c7fc679f221a3f9783b0d43496b738c4527921bea8edc3df11",
+    "numbers.mbt": "f14310a1fa913f9b382525f03bc1e1a2da7b53eeab0a23d48ce7c174cf7800d6",
+    "parser.mbt": "96127537372cbc56cc6f3f1cf146783f29fc5d2cc6918448d6f74b3c8b0eb317",
+    "parser_upgrade_test.mbt": "0944307b973d278270635f2cf6606c86c664a70ad285ae24c22c51f661e8f74e",
+    "pkg.generated.mbti": "2dfb2d2532a3e817cf9180c82a24382d55551068db167048fa03a07b9c5ced8b",
+    "regex.mbt": "2ce9015453e2e62dde81012928be78b0931019114d13445232c24156f0c4909b",
+    "regex_properties.mbt": "d011f3f3d21b252ba81cea95d3b4040f13dd49eaf8b753cc7e91a6657eae6868",
+    "sample.txt": "579ce8fd497c9c9f822279f3edb17e77b6cb28dcadcd8a2746061dc6812edda2",
+    "signatures.mbt": "3bb5d015341d5eec8ff14955de649051b37c0ae0eb844c631c5beb18632281fe",
+    "start-review.ps1": "96e6187592ebf7f1620c1ad35474626d8880489263662c56e0ac5c155a37c5ec",
+    "tools/benchmark.mjs": "53ac611536ba7cb3732017d22976ff8f38dbd9e7aa579c2469eab75b0cdc7216",
+    "tools/cli.mjs": "558a09c04cd431a8a958b5e76c96e71b572ac23690eb618c570ea77907191b4a",
+    "tools/generate-tables.py": "dd4801c9e6cadda8a843b198a49a5a7947aa5d920a8c6ea66b38bdc63ef6214f",
+    "tools/invalid-input.txt": "b73eeeed65fb84cb5dd0f1995b13bd9cef3508dedae5c3f4094bbd5ba8d6a258",
+    "tools/prometheus-reference/README.md": "6e3ec37eb6c3dced6054d4968b301f81a6120287b0a0374e0b99acec461aaead",
+    "tools/prometheus-reference/go.mod": "5ffc56a306fc424438d0015bb6ce08138bfcaa9ac42bd74ce29f32269bb9cd13",
+    "tools/prometheus-reference/go.sum": "2b85163b458b0ef5ce3c7f8e3d4c2741b0a5e86cb63b717d9bf841a27a2f18d7",
+    "tools/prometheus-reference/main.go": "f4306ff06c6d57c9ec6a39788f8443b9e7688c3de79eee50ad10b26d9be68587",
+    "tools/robustness.mjs": "24964a078897dccc448ba3d5db4c08f6446d38008424987bf26b4b6f042a21d6",
+    "tools/serve.py": "77361b08fc65d9c6a3d89bda03949d9e1a9754f76e8cc32b20ca11aa9bf1ff5e",
+    "tools/test-cli.mjs": "b1acaf8992e16d37e1527fd60beeea275ce0df574a9622ab3b44d86dcaf08b03",
+    "tools/test-demo.mjs": "02ec6337b9c72c299450db6f0d2b024fd4fd96193d17e5cd501c3a8e6eb87188",
+    "tools/test-inspector.mjs": "469efd92084698213a9e1ba2d2416295b4535b2b7f4c064ea1cff6849c28670f",
+    "tools/test-promtool.mjs": "c89dac1b57465fbb879bcb4e30497bb7086bb9f0207013d4aa718d4b6e7d24ee",
+    "tools/test-reference.mjs": "5c4589b48a48265a012871a2d74c617ba897cce56252ab69173527115275aeb0",
+    "unicode.mbt": "e29dddece38721706fcdcc09a3b1e17dd9c3bc5bc8ca256124174a4537ba7408",
+    "usability.mbt": "e4b1b0e88ac43038f087ff09dfa205a43ff8cf36aff867b532e09e6366fa5570",
+    "verify.ps1": "bba149153f5d486903dcc9f86504c077edc4b69fde72ab444393ba32c4201081",
+    "web/app.mjs": "12a0cf3565b6298e2e3760355ec5da3fed88870be604b7f6e1a2f57d7334578d",
+    "web/config.mjs": "00ef01a2835c721c589101271f60472318a5baa2a9a89e7a5fc7dc0e607770fd",
+    "web/engine.mjs": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+    "web/index.html": "cdcbb5d9f2d455d4335bfd7fdcd30bac065fc0b90843d4fe616ef9726fc7aeb8"
+  },
+  "evidenceSHA256": {
+    "evidence/duplication.json": "81b96012bc7e7b3668c08cd1b1d353474e1f87f9da989580e0c51e37152b0ffc",
+    "evidence/modifiers-focused-validation.json": "642bd59b9a400fe2a61c0cb2b54e8977ac8682b692017b08c5c97bc603044183",
+    "evidence/module-import-fix-log.txt": "e9594589dedd6a4dc81d6df453b648e74556d6c003ecd4e3690c11337af0b2be",
+    "evidence/parser-reference-validation.json": "ac84a4ade415044e3721e1a57cde3a68c9033d2ce2d05db08489ad18cfc2d28e",
+    "evidence/parser-reference-vectors.json": "337b6cf635cb7b73b654a0122e8c6028099bf77e13523deffaa437cd4cb420c1",
+    "evidence/parser-upgrade.json": "48d08cf3c425781e43f31a645fc85b34e5d460e1eb51cee67749df6b8493a19d",
+    "evidence/quality-review.json": "14d855a86267a39cffa889e71b8939c52eef9a57da48ec15c99934a2efe72191",
+    "evidence/reference-metadata.json": "de80f00535ffbccd9cdd1a9faae3c2e66f2845775739a7ff8b6890cff0d40732",
+    "evidence/verification.json": "169b95ae1ef4cb27eb00ff5b13839a268f0aa355ed9ffa123a4913ef215fe3b1"
+  }
+}

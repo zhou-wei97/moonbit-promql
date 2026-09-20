@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "localreview/promql"
+package "zhou-wei97/promql"
 
 import {
   "moonbitlang/core/debug",

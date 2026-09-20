@@ -1,5 +1,5 @@
 import {
-  "localreview/promql" @lib,
+  "zhou-wei97/promql" @lib,
 }
 
 pkgtype(kind: "executable")

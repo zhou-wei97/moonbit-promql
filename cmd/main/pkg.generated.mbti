@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "localreview/promql/cmd/main"
+package "zhou-wei97/promql/cmd/main"
 
 // Values
 

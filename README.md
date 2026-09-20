@@ -1,5 +1,7 @@
 # PromQL 查询解析器
 
+> 2026-09-21 本地构建修复：命令包 import 已同步到当前 moon.mod 模块名；moon info/check、JS 构建、MoonBit 示例和 Node 引擎示例通过。算法未改，本轮未重跑历史全部行为/性能套件。当前提交指纹见 evidence/module-import-fix.json。
+
 MoonBit 0.4.0 本地候选库。解析 PromQL、保留 AST 并检查静态类型，对照基准为 Prometheus **3.14.0**（Go 模块 `v0.314.0`）。查询执行器不在这个解析库的范围内。
 
 ## 试用
