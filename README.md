@@ -1,5 +1,13 @@
 # PromQL 查询解析器
 
+## 获取与验证入口
+
+公开源码：[github.com/zhou-wei97/moonbit-promql](https://github.com/zhou-wei97/moonbit-promql)；MoonBit 模块名为 `zhou-wei97/promql`。
+
+从源码运行：`git clone https://github.com/zhou-wei97/moonbit-promql.git` 后进入该目录，按下文和 [TESTING.md](TESTING.md) 安装所需工具。仓库公开不等于已在 Mooncakes 发布，不承诺 `moon add` 当前可用。
+
+查看 [GitHub Actions](https://github.com/zhou-wei97/moonbit-promql/actions) 时请核对 run 的 commit SHA；历史 evidence、旧 ZIP 与本地测试不能替代当前提交的 CI 结果。下文保留各版本的验证范围和兼容性限制。
+
 MoonBit 0.4.0 本地候选库。解析 PromQL、保留 AST 并检查静态类型，对照基准为 Prometheus **3.14.0**（Go 模块 `v0.314.0`）。查询执行器不在这个解析库的范围内。
 
 ## 试用
