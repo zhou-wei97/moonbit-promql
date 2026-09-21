@@ -58,4 +58,4 @@ node tools/test-reference.mjs --golden
 
 本轮对照不是全量语言正确性证明。仍需补节点级源码区间、上游风格的多错误诊断、格式化/重写和遍历接口、更多版本/平台及性能对照。资源限制与上游不同：输入 100,000 个 UTF-16 单元，表达式/类型递归 64 层；正则输入 100,000 单元、递归 64 层、语法节点 10,000 个。超过限制直接拒绝，未宣称全面追平。
 
-原创实现 MIT。函数签名和 Unicode 属性数据依据官方 API 生成，来源及 Apache-2.0 许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。官方实现未复制进生产源码。仓库独立且仅在本地，没有远程配置或上传；CI 配置不代表远端已执行，旧覆盖率、证据和 ZIP/bundle 为历史快照。
+原创实现 MIT。函数签名和 Unicode 属性数据依据官方 API 生成，来源及 Apache-2.0 许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。官方实现未复制进生产源码。源码现已在文首所列仓库公开；远端 CI 是否通过应核对对应提交的 Actions 结果，旧覆盖率、证据和 ZIP/bundle 仍为各自版本的历史快照。GitHub 上的公开源码不代表已在 Mooncakes 发布。
