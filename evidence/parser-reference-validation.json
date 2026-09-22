@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-16T18:44:15.567Z",
-  "mode": "live independent parser",
+  "date": "2026-09-22T13:14:47.240Z",
+  "mode": "saved independent vectors",
   "reference": "github.com/prometheus/prometheus v0.314.0",
   "scope": "acceptance, result type, normalized AST; RE2 acceptance and empty-string matching; no query evaluation",
   "total": 3213,
@@ -10,7 +10,7 @@
   "passed": 3213,
   "failed": 0,
   "hashes": {
-    "web/engine.mjs": "f0528752f880d884d389c45479852224ab5d34851fd9d87e3510bfb294ff2625",
+    "web/engine.mjs": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
     "tools/test-reference.mjs": "5c4589b48a48265a012871a2d74c617ba897cce56252ab69173527115275aeb0",
     "tools/prometheus-reference/main.go": "f4306ff06c6d57c9ec6a39788f8443b9e7688c3de79eee50ad10b26d9be68587",
     "tools/prometheus-reference/go.mod": "5ffc56a306fc424438d0015bb6ce08138bfcaa9ac42bd74ce29f32269bb9cd13",

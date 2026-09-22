@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-22",
+  "project": "promql",
+  "package": "zhou-wei97/promql",
+  "version": "0.4.0",
+  "code_base_commit_before_materials": "cb49b4a30a6c75ba7a635624f0c7d3b1af982e62",
+  "core_checks": [
+    {
+      "command": [
+        "moon",
+        "test",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "seconds": 2.11,
+      "log": "promql-test---target-js.log"
+    },
+    {
+      "command": [
+        "moon",
+        "test",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit": 0,
+      "seconds": 1.87,
+      "log": "promql-test---target-wasm-gc.log"
+    },
+    {
+      "command": [
+        "moon",
+        "build",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "seconds": 1.18,
+      "log": "promql-build---target-js.log"
+    }
+  ],
+  "workflow_checks": [
+    {
+      "command": [
+        "node",
+        "tools/test-reference.mjs",
+        "--golden"
+      ],
+      "exit": 0,
+      "seconds": 0.62,
+      "log": "promql-workflow-0.log"
+    }
+  ],
+  "interpretation": "本轮重放 3213 个已保存独立官方向量，接受结果、类型、AST 等一致；这次是 golden 重放，不是重新构建 Go 上游。",
+  "limit": "静态类型错误目前定位整个查询；没有节点级源码重写器、完整多错误诊断或任意 RE2 执行；固定版本行为不等于所有 Prometheus 版本。",
+  "remote_push_performed": false
+}
