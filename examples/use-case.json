@@ -1,0 +1,13 @@
+{
+  "title": "一次检查一组告警/面板查询",
+  "scope": "原创查询清单，批处理入口不读取 YAML、不执行查询，不代替 promtool 的完整规则检查。",
+  "steps": [
+    {
+      "args": [
+        "tools/check-queries.mjs",
+        "examples/queries.json"
+      ]
+    }
+  ],
+  "expected": "全部 3 条接受，输出各自 id、类型、AST 及输入 SHA256；任一查询无效返回 2，其他条目仍报告。"
+}

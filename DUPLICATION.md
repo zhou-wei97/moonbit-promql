@@ -1,3 +1,5 @@
+> 2026-09-22 三份初审反馈后的当前判断：**条件复审**。本轮批处理是接入便利，不是新查询算法；不包含 YAML 规则完整验证、执行或性能估计。 本次差异说明：Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。 以下保留之前检索的固定提交与来源；此前“补足场景”不能理解为本次已解除价值异议。
+
 # promql 查重与定位 · 2026-09-22
 
 [Santa968/moonpromql](https://github.com/Santa968/MoonPromQL)。Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。

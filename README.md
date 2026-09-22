@@ -1,57 +1,64 @@
-> 2026-09-22 当前本地版 0.4.0：申报定位为“PromQL 告警查询提交前静态检查”。已更新[现有项目对照](DUPLICATION.md)、[申报草稿](PROPOSAL.md)及[本轮验证](evidence/innovation-review-20260922/results.json)。下面带日期的旧轮次描述保留历史范围；团队已有公开仓库，本次本地修订尚未由本任务推送。
+# PromQL 告警查询提交前静态检查
 
-# PromQL 查询解析器
+**本项目仓库：[https://github.com/zhou-wei97/moonbit-promql](https://github.com/zhou-wei97/moonbit-promql)**
 
-> 2026-09-21 本地构建修复：命令包 import 已同步到当前 moon.mod 模块名；moon info/check、JS 构建、MoonBit 示例和 Node 引擎示例通过。算法未改，本轮未重跑历史全部行为/性能套件。当前提交指纹见 evidence/module-import-fix.json。
+模块 `zhou-wei97/promql`，本地版本 **0.5.0**，MIT。当前评审状态：**条件复审**。本文件是当前入口，旧轮次说明与详细用法保存在 [历史/完整使用说明](README-BEFORE-VALUE-REWORK.md)。
 
-MoonBit 0.4.0 本地候选库。解析 PromQL、保留 AST 并检查静态类型，对照基准为 Prometheus **3.14.0**（Go 模块 `v0.314.0`）。查询执行器不在这个解析库的范围内。
+## 解决什么任务
 
-## 试用
+在告警/仪表盘查询提交之前拒绝语法和类型错误，并向编辑器提供结构化 AST 及位置，而不要求启动查询执行器和时序数据库。
 
-`./start-review.ps1` 启动浏览器演示；网页和 CLI 使用本仓库实际编译的 MoonBit 引擎。
+需要提交前批量语法/类型检查和结构化 AST，而无需运行时序数据库时使用；与 MoonPromQL parser 重叠，限定语法/契约差异必须公开。
 
-```powershell
-node tools/cli.mjs --input 'sum(rate(up[5m] offset 1h)) by(job)'
-node tools/cli.mjs --input 'a / ignoring(code) group_left(job) b' --ast
-node tools/cli.mjs --input 'up[min_of(5m,step()*2)]' --features durations --ast
-node tools/cli.mjs --input 'info(up,{})' --experimental --json
+## 直接复现
+
+安装 MoonBit 和 Node.js 24，在本仓库根目录运行：
+
+```sh
+moon build --target js
+node -e "require('node:fs').copyFileSync('_build/js/debug/build/cmd/web/web.js','web/engine.mjs')"
+node examples/run-use-case.mjs
 ```
 
-`--ast` 输出结构化 JSON，包括接受结果、类型和规范化 AST；错误含可用的位置字段。字符串及标签名/值使用 Base64，避免非法 UTF-8 字节丢失。`--json` 保留原有 `{ok,output}` 格式。无输入参数时读取 stdin，也支持 `--file PATH`。退出码为 0 成功、2 查询错误、1 参数或宿主错误。
+流程：**一次检查一组告警/面板查询**。运行器创建新的系统临时目录，保留每一步的 stdout/stderr、产物及 `report.json`，打印实际目录；重复运行不会覆盖之前产物。它只执行仓库内的本地样例，不连接公网或发送消息。`report.json` 的 `expected` 是应观察的结果，实际结果在各步输出中；成功退出不替代内容核对。
 
-## MoonBit API
+输入性质：原创查询清单，批处理入口不读取 YAML、不执行查询，不代替 promtool 的完整规则检查。
 
-- `parse(source, options?) -> Expr raise ParseError`：现在**同时解析并检查类型**，例如 `1 < 2` 直接报错，必须写 `1 < bool 2`。
-- `infer_type(expr, options?) -> QueryType`：检查表达式类型和函数签名；已启用实验功能的 AST 应传入相同选项。
-- `ParserOptions::new(experimental_functions?, duration_expressions?, extended_ranges?, fill_modifiers?)`：四个开关独立，默认关闭。CLI `--features functions,durations,ranges,fills` 分别开启；`--experimental` 全开。
-- `function_signatures()`：返回 90 个函数的参数类型、最少/最多参数数目、返回类型和实验标记。每次返回独立数据。
-- `number_value()`、`duration_value()`、`timestamp_value()`：字面量数值、经过纳秒整数转换的秒数、毫秒时间戳。
-- `regex_matches_empty()`：验证受限资源范围内的 RE2 语法并判断是否匹配空串；不是正则执行器。
+应观察：全部 3 条接受，输出各自 id、类型、AST 及输入 SHA256；任一查询无效返回 2，其他条目仍报告。
 
-公共类型见 [pkg.generated.mbti](pkg.generated.mbti)。0.4 新增 `StringBytes`、`SelectorBytes`、`Parenthesized`、时长表达式、扩展范围和填充值分支；穷举匹配 Expr 的下游需要更新。
+具体命令和输入路径见 [使用任务](USE-CASE.md) 与 [机器可读流程](examples/use-case.json)。只把这个脚本当复现入口，不把通用运行器计作核心技术贡献。
 
-## 支持范围
+## 实现与已有项目的关系
 
-- 十进制、指数、十六进制、八进制回退、合法下划线、Inf/NaN 和时长字面量；单引号、双引号、反引号、字节/八进制/Unicode 转义。
-- ASCII 指标名、UTF-8 引用指标名和标签名、原始字符串字节、四种标签匹配、RE2 语法和无指标名选择器的非空约束；`info` 第二个参数的例外单独处理。
-- 算术、比较、集合、atan2、运算优先级；bool、on、ignoring、group_left/right；所有 14 个聚合及前后置 by/without。
-- 全部 90 个基准版本函数的静态签名，包含可选/变长参数和实验函数。
-- range/subquery、复合时长、正负/零 offset、时间戳与 start()/end()；可选的时长表达式、anchored/smoothed 和 fill/fill_left/fill_right。
-- `ParseError::Located` 包含起止偏移、行列。偏移按 Unicode 标量计数，从 0 开始；行列从 1 开始。词法/语法错误定位相关 token；静态类型错误目前定位整个查询。
+MoonBit 实现词法、AST、函数类型签名、受限 RE2 语法检查和位置；Node 只接入输入文件与退出码。
 
-边界行为固定到该参考版本：零纳秒 offset 可以被后续 offset 覆盖，相同扩展范围修饰符可重复。时间戳按远离零的半舍入转换为毫秒。参考版本接受某些浮点边界时长、`offset NaN` 和超出毫秒整数范围的时间戳，并转换为 Go/amd64 的最小 int64 哨兵；转换 API 明确复现这些行为，不将其解释为正常正时长。时长表达式的求值和运行期合法性不在静态解析阶段判定。
+Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。
 
-## 验证与范围
+同类项目和检索边界见 [DUPLICATION](DUPLICATION.md)。查重用于避免错误的首创表述；关键词零结果不能证明生态空白，Node 宿主能力也不计为 MoonBit 原生 I/O。
 
-本轮 24 组 MoonBit 测试分别在 JS 和 Wasm-GC 执行；13 组结构化入口/CLI 检查；**3,213 个独立官方解析器对照用例**检查接受结果、类型、规范化 AST，以及正则接受结果和空串匹配。覆盖每个函数的合法调用、参数数量/类型错误、实验开关、词法边界和生成表达式。证据见 `evidence/parser-reference-validation.json`；保存的独立向量可在无 Go 环境回放。
+库使用从 [公共 API](pkg.generated.mbti) 和根包源码开始；可在本 checkout 的消费包中导入 `"zhou-wei97/promql"`。源码中的网络/文件宿主入口及完整参数仍见 [完整使用说明](README-BEFORE-VALUE-REWORK.md)。是否已发布到 Mooncakes 需另核实，本文不把 `moon add` 的下载成功作为已完成事项。
 
-```powershell
-./verify.ps1 -MoonPath C:/path/to/moon.exe
+## 验证与边界
+
+新增 query manifest 批量入口一次报告所有条目，并保留 id、错误、类型/AST 与输入散列；混合有效/无效查询和清单错误已验证。3213 官方 golden 的先前重放记录单列。
+
+[上一轮工程验证](evidence/innovation-review-20260922/results.json) 与 [本轮最小任务回执](evidence/value-rework-20260922/use-case.json) 分开。历史参考版本、golden 重放、本机 peer、真实第三方服务端和本次样例是不同证据，不能合并成“全部生产验证”。
+
+常规核心检查可运行 `moon check --target js`、`moon test --target js`、`moon test --target wasm-gc`。专项命令：
+
+```sh
+node tools/test-query-batch.mjs
 node tools/test-reference.mjs --golden
 ```
 
-实时复现需先按 [参考适配器说明](tools/prometheus-reference/README.md)构建未经修改的官方解析器，再设置 `PROMQL_REFERENCE` 并运行 `node tools/test-reference.mjs`。该适配器只用于测试，生产解析路径完全使用 MoonBit。
+专项所需的参考环境和历史版本见原使用说明及 TESTING 文档；本轮回执只记录实际执行项，不声称上面所有参考服务在任意环境即装即跑。
 
-本轮对照不是全量语言正确性证明。仍需补节点级源码区间、上游风格的多错误诊断、格式化/重写和遍历接口、更多版本/平台及性能对照。资源限制与上游不同：输入 100,000 个 UTF-16 单元，表达式/类型递归 64 层；正则输入 100,000 单元、递归 64 层、语法节点 10,000 个。超过限制直接拒绝，未宣称全面追平。
+静态类型错误目前定位整个查询；没有节点级源码重写器、完整多错误诊断或任意 RE2 执行；固定版本行为不等于所有 Prometheus 版本。
 
-原创实现 MIT。函数签名和 Unicode 属性数据依据官方 API 生成，来源及 Apache-2.0 许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。官方实现未复制进生产源码。仓库独立且仅在本地，没有远程配置或上传；CI 配置不代表远端已执行，旧覆盖率、证据和 ZIP/bundle 为历史快照。
+## 复审材料状态
+
+本轮批处理是接入便利，不是新查询算法；不包含 YAML 规则完整验证、执行或性能估计。
+
+2026-09-22 匿名新克隆成功；默认分支 `main`，核验公开提交 `3d3202dcdde7b17596a3175ba330357a8c82733a`。本轮源码修订仅在本地，尚未推送；此记录不证明当时报名表中的地址正确，也不证明新修订已上线。
+
+[申报草稿](PROPOSAL.md) 已压缩为 30 行以内，并单独标明本项目仓库；[复核说明](REVIEW-RESPONSE.md) 区分材料错误、功能变化及尚未解决的问题。没有编造用户、设备接入、生产部署或评审认可。

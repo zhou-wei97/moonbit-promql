@@ -1,0 +1,7 @@
+{
+  "queries": [
+    {"id":"request-rate", "query":"sum by (job) (rate(http_requests_total[5m]))"},
+    {"id":"subquery-window", "query":"max_over_time(rate(http_requests_total[5m])[1h:5m])"},
+    {"id":"offset-window", "query":"http_requests_total offset 1h30m"}
+  ]
+}

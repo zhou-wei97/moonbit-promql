@@ -1,9 +1,9 @@
 name = "zhou-wei97/promql"
 
-version = "0.4.0"
+version = "0.5.0"
 
 license = "MIT"
 
 readme = "README.md"
 
-description = "PromQL 查询解析器本地候选"
+description = "PromQL 语法类型分析与批量查询检查"

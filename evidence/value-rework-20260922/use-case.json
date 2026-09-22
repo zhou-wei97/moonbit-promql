@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-22",
+  "command": "node examples/run-use-case.mjs",
+  "passed": true,
+  "scope": "原创查询清单，批处理入口不读取 YAML、不执行查询，不代替 promtool 的完整规则检查。",
+  "actualUsersProven": false,
+  "externalServicesContacted": false,
+  "sourceSha256": {
+    "core_test.mbt": "6383eac5ed8b771938d4f454d6bce03980e97bcd92dd3147e1b4d6430e966d21",
+    "duration.mbt": "1582f7257e5d1d8065eb7bf2f3236d0fd11a679401a14290eb624452fefca5cc",
+    "function_table.mbt": "dbd4117c63e139c562ff7ce2ec612600234ba89606ed9886b8a6922a96ecca1e",
+    "lexer.mbt": "880551d09b04f7553a1aea9772ea8144cdd4c7f05bfcf02e6a3c38e14b3209b2",
+    "modifiers.mbt": "41593ab5b6c2eb002b8159c2404f9bedf173ffa5ee2e26c0ad11221fe0657091",
+    "modifiers_test.mbt": "64f418d922b8e824c052b493e38f8f26412da11f7e0b90441170f01883d08377",
+    "moon.mod": "06cec25e23b629f03c0de5b1a66bc6fca7d771e87c5ec51e3598807240e29222",
+    "moon.pkg": "ada3a947560d02c7fc679f221a3f9783b0d43496b738c4527921bea8edc3df11",
+    "numbers.mbt": "f14310a1fa913f9b382525f03bc1e1a2da7b53eeab0a23d48ce7c174cf7800d6",
+    "parser.mbt": "96127537372cbc56cc6f3f1cf146783f29fc5d2cc6918448d6f74b3c8b0eb317",
+    "parser_upgrade_test.mbt": "0944307b973d278270635f2cf6606c86c664a70ad285ae24c22c51f661e8f74e",
+    "pkg.generated.mbti": "2dfb2d2532a3e817cf9180c82a24382d55551068db167048fa03a07b9c5ced8b",
+    "regex.mbt": "2ce9015453e2e62dde81012928be78b0931019114d13445232c24156f0c4909b",
+    "regex_properties.mbt": "d011f3f3d21b252ba81cea95d3b4040f13dd49eaf8b753cc7e91a6657eae6868",
+    "signatures.mbt": "3bb5d015341d5eec8ff14955de649051b37c0ae0eb844c631c5beb18632281fe",
+    "unicode.mbt": "e29dddece38721706fcdcc09a3b1e17dd9c3bc5bc8ca256124174a4537ba7408",
+    "usability.mbt": "e4b1b0e88ac43038f087ff09dfa205a43ff8cf36aff867b532e09e6366fa5570",
+    "examples/queries.json": "1240ec91d8f06c3f6d8682955ae9fb9b761819ab578ee5eee7d6313b535e5b7c",
+    "examples/run-use-case.mjs": "359ea34b13ee185b6cae0536da5e25bb56bfc51d2e5dd166c304b1684003a3bb",
+    "examples/use-case.json": "47dcedeb0e7770b9ca205f3a51b5e33e160edb9826aa7c57737d7330133c9745",
+    "tools/benchmark.mjs": "53ac611536ba7cb3732017d22976ff8f38dbd9e7aa579c2469eab75b0cdc7216",
+    "tools/check-queries.mjs": "4efcc3dec5e9520ec4877209faa6649f00f71f52c0b6431720b79cda41258458",
+    "tools/cli.mjs": "558a09c04cd431a8a958b5e76c96e71b572ac23690eb618c570ea77907191b4a",
+    "tools/robustness.mjs": "24964a078897dccc448ba3d5db4c08f6446d38008424987bf26b4b6f042a21d6",
+    "tools/test-cli.mjs": "b1acaf8992e16d37e1527fd60beeea275ce0df574a9622ab3b44d86dcaf08b03",
+    "tools/test-demo.mjs": "02ec6337b9c72c299450db6f0d2b024fd4fd96193d17e5cd501c3a8e6eb87188",
+    "tools/test-inspector.mjs": "469efd92084698213a9e1ba2d2416295b4535b2b7f4c064ea1cff6849c28670f",
+    "tools/test-promtool.mjs": "c89dac1b57465fbb879bcb4e30497bb7086bb9f0207013d4aa718d4b6e7d24ee",
+    "tools/test-query-batch.mjs": "685c53d72b8efcb978dc5ece52ec12f47c9f7534ccad12c36cd5605ca127b768",
+    "tools/test-reference.mjs": "5c4589b48a48265a012871a2d74c617ba897cce56252ab69173527115275aeb0",
+    "web/app.mjs": "12a0cf3565b6298e2e3760355ec5da3fed88870be604b7f6e1a2f57d7334578d",
+    "web/config.mjs": "00ef01a2835c721c589101271f60472318a5baa2a9a89e7a5fc7dc0e607770fd",
+    "web/engine.mjs": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+    "cmd/main/main.mbt": "7b1b7ece6c737b8fcc99242a551d479df468732f7dee656a69a8031a2e0f5d37",
+    "cmd/main/moon.pkg": "4545f830f29edaa3b5d5e9b6450489377a3833f461da24de69db3af84641e603",
+    "cmd/main/pkg.generated.mbti": "33910cc917faa264d4f808b8426ef8342cdcae3419cf7fb202c5ae0b30d21518",
+    "cmd/web/inspect.mbt": "52bad360df1d90e80afed1d3683fc4a12812e94f41267ceec26efcfe3916c4e2",
+    "cmd/web/main.mbt": "fd6dd1974585a01226dc35f62a6ffffb9c3276e37c641e4ae65f60e7bdc3c97f",
+    "cmd/web/moon.pkg": "1463c52a5b263800a10f82b8c08aaab00bf2b343c92f944ce9844d61d2ecbe29"
+  },
+  "outputs": [
+    {
+      "file": "step-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "step-1.stdout.txt",
+      "bytes": 970,
+      "sha256": "d8028eb67bd91d4456e82fa8b352c15b6f06253994b21aee17230149d659cc0a"
+    }
+  ],
+  "additionalChecks": {
+    "checks": [
+      "node tools/test-query-batch.mjs"
+    ],
+    "output": [
+      "batch queries: all records checked, stable ids, duplicate/UTF-8/options rejected"
+    ],
+    "coreChanged": false
+  },
+  "previousCoreValidation": "evidence/innovation-review-20260922/results.json",
+  "note": "New sample execution only; earlier core/reference checks retain their original scope. Command output logs replace the machine-specific temporary directory with {output}; output hashes refer to original bytes.",
+  "sourceHashBasis": "Git-normalized blobs in the delivered source archive. Protocol fixtures are explicitly -text to preserve CRLF; ordinary source line endings normalize to LF."
+}
