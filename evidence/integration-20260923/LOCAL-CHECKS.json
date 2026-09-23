@@ -1,0 +1,190 @@
+{
+  "date": "2026-09-23",
+  "project": "promql",
+  "checks": [
+    {
+      "check": "toolchain",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "version",
+        "--all"
+      ],
+      "exit": 0,
+      "log": "toolchain.log"
+    },
+    {
+      "check": "node-version",
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit": 0,
+      "log": "node-version.log"
+    },
+    {
+      "check": "fmt",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exit": 0,
+      "log": "fmt.log"
+    },
+    {
+      "check": "info",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "info"
+      ],
+      "exit": 0,
+      "log": "info.log"
+    },
+    {
+      "check": "check-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "check",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "log": "check-js.log"
+    },
+    {
+      "check": "test-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "log": "test-js.log"
+    },
+    {
+      "check": "test-wasm-gc",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit": 0,
+      "log": "test-wasm-gc.log"
+    },
+    {
+      "check": "build-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "build",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "log": "build-js.log"
+    },
+    {
+      "check": "refresh-engines",
+      "command": [
+        "node",
+        "tools/refresh-engines.mjs"
+      ],
+      "exit": 0,
+      "log": "refresh-engines.log"
+    },
+    {
+      "check": "upstream-integration",
+      "command": [
+        "node",
+        "examples/run-upstream-integration.mjs",
+        "evidence/integration-20260923/example-output"
+      ],
+      "exit": 0,
+      "log": "upstream-integration.log"
+    },
+    {
+      "check": "test-demo",
+      "command": [
+        "node",
+        "tools/test-demo.mjs"
+      ],
+      "exit": 0,
+      "log": "test-demo.log"
+    },
+    {
+      "check": "test-cli",
+      "command": [
+        "node",
+        "tools/test-cli.mjs"
+      ],
+      "exit": 0,
+      "log": "test-cli.log"
+    },
+    {
+      "check": "test-inspector",
+      "command": [
+        "node",
+        "tools/test-inspector.mjs"
+      ],
+      "exit": 0,
+      "log": "test-inspector.log"
+    },
+    {
+      "check": "test-query-batch",
+      "command": [
+        "node",
+        "tools/test-query-batch.mjs"
+      ],
+      "exit": 0,
+      "log": "test-query-batch.log"
+    },
+    {
+      "check": "test-reference",
+      "command": [
+        "node",
+        "tools/test-reference.mjs",
+        "--golden"
+      ],
+      "exit": 0,
+      "log": "test-reference.log"
+    },
+    {
+      "check": "main-entry",
+      "command": [
+        "node",
+        "examples/run-use-case.mjs"
+      ],
+      "exit": 0,
+      "log": "main-entry.log"
+    },
+    {
+      "check": "linux-integration",
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-D",
+        "--cd",
+        "/mnt/c/Users/uiwcv/Documents/Codex/2026-09-10/ban/outputs/repos/moonbit-promql",
+        "--",
+        "node",
+        "examples/run-upstream-integration.mjs"
+      ],
+      "exit": 0,
+      "log": "linux-integration.log"
+    }
+  ],
+  "sourceSha256": {
+    "moon.mod": "b6541d39731bea6f8e49e18bd3360ee05bf29ce1e18c68346071584a0037d1b2",
+    "web/engine.mjs": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+    "examples/integration-engine.mjs": "a504ca5f22774172633c50d54dc9d3a032d9166013c207fef2fcaee8d1ba8aee",
+    "examples/run-upstream-integration.mjs": "5bf546fd7439d0be998411279fc2892a2a076c75c64998e167fd041b06f3aef3",
+    "moonpromql/prepare.mbt": "616d2ef6fb922ed7cbc16c3cb2474fe8c4ef9ca1ace6f9c255f4a9975b6a19c6",
+    "moonpromql/prepare_test.mbt": "9392b517a3d3b309ae24c21f5ab45bdb0ece539fafc67264d5ed02482fec7b84",
+    "cmd/integration/main.mbt": "86fb0ec1c111acc8510151f5b0b1bf5d854084387a177fb179ffc9dfdf568d18"
+  },
+  "historicalEvidencePreserved": true,
+  "remoteCIExecuted": false,
+  "published": false,
+  "productionUsersClaimed": false,
+  "scope": "Actual upstream integration plus core and selected related checks; no fresh Go or native chess-engine run"
+}

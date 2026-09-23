@@ -1,0 +1,443 @@
+{
+  "ok": true,
+  "upstream": "Santa968/moonpromql@0.1.0",
+  "fixture": "Original synthetic temperature: (0ms,1),(60000ms,2),(120000ms,3); evaluation=120000ms",
+  "scope": "Actual upstream parser/evaluator; selected cases only; static success is not runtime or Prometheus equivalence",
+  "cases": [
+    {
+      "source": "1 + 2",
+      "static": {
+        "ok": true,
+        "type": "Scalar"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "scalar",
+          "numbers": [
+            3
+          ],
+          "text": "3"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "scalar",
+            "numbers": [
+              3
+            ],
+            "text": "3"
+          }
+        }
+      }
+    },
+    {
+      "source": "temperature",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            3
+          ],
+          "text": "[{job=\"@mail\",__name__=\"temperature\"} => 3]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              3
+            ],
+            "text": "[{job=\"@mail\",__name__=\"temperature\"} => 3]"
+          }
+        }
+      }
+    },
+    {
+      "source": "temperature{job=\"@mail\"}",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            3
+          ],
+          "text": "[{job=\"@mail\",__name__=\"temperature\"} => 3]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              3
+            ],
+            "text": "[{job=\"@mail\",__name__=\"temperature\"} => 3]"
+          }
+        }
+      }
+    },
+    {
+      "source": "avg_over_time(temperature[2m])",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            2.5
+          ],
+          "text": "[{job=\"@mail\"} => 2.5]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              2.5
+            ],
+            "text": "[{job=\"@mail\"} => 2.5]"
+          }
+        }
+      }
+    },
+    {
+      "source": "sum(temperature)",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            3
+          ],
+          "text": "[{} => 3]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              3
+            ],
+            "text": "[{} => 3]"
+          }
+        }
+      }
+    },
+    {
+      "source": "rate(temperature[2m])",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            0.016666666666666666
+          ],
+          "text": "[{job=\"@mail\"} => 0.016666666666666666]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              0.016666666666666666
+            ],
+            "text": "[{job=\"@mail\"} => 0.016666666666666666]"
+          }
+        }
+      }
+    },
+    {
+      "source": "temperature[1h30m]",
+      "static": {
+        "ok": true,
+        "type": "RangeVector"
+      },
+      "upstreamParse": {
+        "ok": false,
+        "error": "parse error at 4: expected `]`, found duration `1800000ms`"
+      },
+      "direct": {
+        "ok": false,
+        "error": "parse error at 4: expected `]`, found duration `1800000ms`"
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "runtime-syntax",
+        "error": "parse error at 4: expected `]`, found duration `1800000ms`"
+      }
+    },
+    {
+      "source": "rate(temperature[5m])[30m:1m]",
+      "static": {
+        "ok": true,
+        "type": "RangeVector"
+      },
+      "upstreamParse": {
+        "ok": false,
+        "error": "parse error at 7: unexpected trailing `[`"
+      },
+      "direct": {
+        "ok": false,
+        "error": "parse error at 7: unexpected trailing `[`"
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "runtime-syntax",
+        "error": "parse error at 7: unexpected trailing `[`"
+      }
+    },
+    {
+      "source": "temperature @ 120",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            1
+          ],
+          "text": "[{job=\"@mail\",__name__=\"temperature\"} => 1]"
+        }
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "unsupported",
+        "error": "@ timestamps differ: Prometheus seconds versus MoonPromQL milliseconds"
+      }
+    },
+    {
+      "source": "sum(rate(temperature[2m] @ 60000))",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            0.016666666666666666
+          ],
+          "text": "[{} => 0.016666666666666666]"
+        }
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "unsupported",
+        "error": "@ timestamps differ: Prometheus seconds versus MoonPromQL milliseconds"
+      }
+    },
+    {
+      "source": "sum(1)",
+      "static": {
+        "ok": false,
+        "error": "Located(\n  \"aggregation requires instant vector\",\n  { start: 0, end: 6, line: 1, column: 1 },\n)"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": false,
+        "error": "evaluation error: aggregation expects an instant vector, got scalar"
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "static",
+        "error": "Located(\n  \"aggregation requires instant vector\",\n  { start: 0, end: 6, line: 1, column: 1 },\n)"
+      }
+    },
+    {
+      "source": "temperature +",
+      "static": {
+        "ok": false,
+        "error": "Located(\"unexpected end\", { start: 13, end: 13, line: 1, column: 14 })"
+      },
+      "upstreamParse": {
+        "ok": false,
+        "error": "parse error at 2: expected expression, found end of input"
+      },
+      "direct": {
+        "ok": false,
+        "error": "parse error at 2: expected expression, found end of input"
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "static",
+        "error": "Located(\"unexpected end\", { start: 13, end: 13, line: 1, column: 14 })"
+      }
+    },
+    {
+      "source": "absent(up)",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": false,
+        "error": "evaluation error: unsupported function `absent`"
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": false,
+          "error": "evaluation error: unsupported function `absent`"
+        }
+      }
+    },
+    {
+      "source": "mystery(temperature)",
+      "static": {
+        "ok": false,
+        "error": "Located(\n  \"unknown function: mystery\",\n  { start: 0, end: 20, line: 1, column: 1 },\n)"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": false,
+        "error": "evaluation error: unsupported function `mystery`"
+      },
+      "prepared": {
+        "ok": false,
+        "stage": "static",
+        "error": "Located(\n  \"unknown function: mystery\",\n  { start: 0, end: 20, line: 1, column: 1 },\n)"
+      }
+    },
+    {
+      "source": "temperature{job=~\".*mail\"}",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            3
+          ],
+          "text": "[{job=\"@mail\",__name__=\"temperature\"} => 3]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              3
+            ],
+            "text": "[{job=\"@mail\",__name__=\"temperature\"} => 3]"
+          }
+        }
+      }
+    },
+    {
+      "source": "temperature offset 1m",
+      "static": {
+        "ok": true,
+        "type": "InstantVector"
+      },
+      "upstreamParse": {
+        "ok": true
+      },
+      "direct": {
+        "ok": true,
+        "value": {
+          "kind": "instant vector",
+          "numbers": [
+            2
+          ],
+          "text": "[{job=\"@mail\",__name__=\"temperature\"} => 2]"
+        }
+      },
+      "prepared": {
+        "ok": true,
+        "execution": {
+          "ok": true,
+          "value": {
+            "kind": "instant vector",
+            "numbers": [
+              2
+            ],
+            "text": "[{job=\"@mail\",__name__=\"temperature\"} => 2]"
+          }
+        }
+      }
+    }
+  ]
+}
+
+STDERR

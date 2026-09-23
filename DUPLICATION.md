@@ -1,19 +1,11 @@
-> 2026-09-22 三份初审反馈后的当前判断：**条件复审**。本轮批处理是接入便利，不是新查询算法；不包含 YAML 规则完整验证、执行或性能估计。 本次差异说明：Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。 以下保留之前检索的固定提交与来源；此前“补足场景”不能理解为本次已解除价值异议。
+# 同类项目与扩展关系
 
-# promql 查重与定位 · 2026-09-22
+https://github.com/zhou-wei97/moonbit-promql
 
-[Santa968/moonpromql](https://github.com/Santa968/MoonPromQL)。Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。
+本项目与 [Santa968/moonpromql](https://github.com/Santa968/MoonPromQL) 有明确重叠，不宣称生态空白。独立静态解析器、批量清单检查及可选执行适配器。执行算法来自 MoonPromQL，未新写查询执行器、TSDB 或完整告警系统。
 
-- [Santa968/MoonPromQL 固定提交](https://github.com/Santa968/MoonPromQL/tree/b1b7f90dd943bda68614b670e2420fc802db684f)：依据该版本的公开说明对照，不冒充本轮运行了对方全部实现。
+本版本实际依赖 Santa968/moonpromql@0.1.0，公开适配包位于 /moonpromql。本项目 parse/infer_type → 上游真实 parser → 保留上游 AST → 调用上游 evaluate；静态错误、上游语法错误、已知不支持范围和数据相关运行错误分别保留。
 
-本轮材料采用定位：**PromQL 告警查询提交前静态检查**。
+区别、实际调用链、固定版本、数据与错误边界详见 [UPSTREAM-RELATION.md](UPSTREAM-RELATION.md)。适配层明确拒绝 @ 时间戳，因为 Prometheus 秒和该版 MoonPromQL 毫秒语义不同。上下文时间仍使用上游毫秒。prepare 成功不保证执行成功：absent(up)就是记录的反例。正则、计数器外推及向量匹配沿用上游局限，未证明 Prometheus 执行等价。
 
-MoonBit 与宿主分工：MoonBit 实现词法、AST、函数类型签名、受限 RE2 语法检查和位置；Node 只接入输入文件与退出码。
-
-本轮证据：本轮重放 3213 个已保存独立官方向量，接受结果、类型、AST 等一致；这次是 golden 重放，不是重新构建 Go 上游。 具体输入、脚本、已执行与历史对照分开记录在 [PROPOSAL.md](PROPOSAL.md) 和 evidence/innovation-review-20260922/。
-
-边界：静态类型错误目前定位整个查询；没有节点级源码重写器、完整多错误诊断或任意 RE2 执行；固定版本行为不等于所有 Prometheus 版本。
-
-检索覆盖 Mooncakes 官方关键词/别名、GitHub 仓库查询、GitLink 公开索引、直接来源文档；没有完整赛事报名表、私有仓库、未公开分支或 GitHub 全代码索引。GitLink 索引也不完整。未找到同范围项目不等于生态空白；已有相关项目不自动等于无独立贡献。完整查询和固定提交快照在总交付目录 innovation-review-20260922/。
-
-初次复核风险为“高”。本次补足差异和可复现工作流，没有自行将重叠归零，也不替评委作创新性认定。最终公开代码与表单附件须使用一致版本。
+没有真实使用方；新增部分是静态检查与既有执行器的保守适配，不主张新执行算法。 既有规则或协议能力不能再次计为独有；新适配工作也不等于算法创新。[历史检索](docs/before-integration/DUPLICATION.md)仅保留审计线索。

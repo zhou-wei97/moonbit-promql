@@ -1,0 +1,30 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "zhou-wei97/promql/moonpromql"
+
+import {
+  "Santa968/moonpromql/eval",
+  "Santa968/moonpromql/model",
+  "moonbitlang/core/debug",
+  "zhou-wei97/promql",
+}
+
+// Values
+pub fn prepare(String) -> PreparedQuery raise PreparationError
+
+// Errors
+pub suberror PreparationError {
+  StaticError(String)
+  RuntimeSyntax(String)
+  Unsupported(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub struct PreparedQuery {
+  // private fields
+} derive(@debug.Debug)
+pub fn PreparedQuery::evaluate(Self, @eval.EvalContext) -> @model.Value raise @model.PromqlError
+pub fn PreparedQuery::query_type(Self) -> @promql.QueryType
+
+// Type aliases
+
+// Traits

@@ -1,0 +1,25 @@
+{
+  "title": "静态检查后交给 MoonPromQL 执行",
+  "scope": "原创确定性数据；实际调用既有 MoonBit 依赖。没有真实部署或性能优越性证明。",
+  "expected": "上游接入断言通过并保存逐项结果；保留原示例作为附加入口。",
+  "output": "C:\\Users\\uiwcv\\AppData\\Local\\Temp\\moonbit-use-case-NCkj0I",
+  "ok": true,
+  "results": [
+    {
+      "args": [
+        "examples/run-upstream-integration.mjs",
+        "C:\\Users\\uiwcv\\AppData\\Local\\Temp\\moonbit-use-case-NCkj0I/upstream"
+      ],
+      "exit": 0
+    },
+    {
+      "args": [
+        "tools/check-queries.mjs",
+        "examples/queries.json"
+      ],
+      "exit": 0
+    }
+  ]
+}
+
+STDERR

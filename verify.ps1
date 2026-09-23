@@ -23,9 +23,10 @@ try {
   if ($LASTEXITCODE -ne 0) {throw 'build failed'}
   & $MoonPath run cmd/main
   if ($LASTEXITCODE -ne 0) {throw 'example failed'}
-  $engine=Get-ChildItem '_build/js' -Recurse -File | Where-Object { $_.Name -in @('main.js','web.js') -and $_.FullName -match '[\\/]cmd[\\/]web[\\/]' } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-  if (-not $engine) {throw 'Missing browser engine'}
-  Copy-Item -LiteralPath $engine.FullName -Destination 'web/engine.mjs' -Force
+  node tools/refresh-engines.mjs
+  if ($LASTEXITCODE -ne 0) {throw 'engine refresh failed'}
+  node examples/run-upstream-integration.mjs
+  if ($LASTEXITCODE -ne 0) {throw 'upstream integration failed'}
   node tools/test-demo.mjs
   if ($LASTEXITCODE -ne 0) {throw 'browser engine test failed'}
   node tools/test-cli.mjs

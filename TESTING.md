@@ -1,11 +1,13 @@
-# Validation contract
+# 0.6.0 当前验证范围
 
-Run `./verify.ps1 -MoonPath /absolute/path/to/moon` before committing. It formats source, refreshes the public API, checks warnings, executes 24 public API tests on both Wasm-GC and JS, rebuilds the browser engine, runs browser/legacy CLI and 13 structured inspector/CLI fixture groups, replays the 3,213 saved independent reference cases, and runs the existing 307-input robustness probe and 30-sample example benchmark.
+JS/Wasm-GC各28项（含4个新适配器用例）；16个实际上游对照；既有浏览器、CLI、结构化检查、批处理和3213条静态golden重放。
 
-`node tools/test-reference.mjs --golden` replays answers recorded from the unmodified Prometheus v0.314.0 parser. Without `--golden`, it invokes the executable in `PROMQL_REFERENCE` and regenerates both the answers and validation report. The runner requires exactly one reference reply per request and rejects adapter errors. See tools/prometheus-reference/README.md for a reproducible build. Production code does not call Go or a reference executable.
+新适配器测试在公开API级执行；示例实际链接并调用 Santa968/moonpromql@0.1.0，不使用JavaScript替代核心算法。Windows与WSL Node新例子通过。原始命令、工具链和逐项退出码见 [LOCAL-CHECKS.json](evidence/integration-20260923/LOCAL-CHECKS.json)，新报表位于同目录；旧报告保留原字节，不改写成当前证据。
 
-The corpus includes all 90 function signatures, valid/minimum/extra/incorrect arguments, every binary operator and scalar/vector/matrix/string combinations, feature flags in isolation, numeric/escape/quoted-label boundaries, temporal and experimental syntax, RE2 cases and Unicode properties, and fixed-seed generated expressions. Accepted queries compare result type and normalized AST. Normalization removes redundant parentheses, folds numeric unary operators, treats omitted/empty grouping arrays alike, and discards upstream-ignored scalar matching metadata. It retains matcher bytes, operand order, grouping, fills, durations, timestamps, and extended-range flags. Error wording/positions are tested locally, not claimed identical to upstream. Duration expression evaluation and query execution are not tested.
+16个选定查询实际调用上游；四个数值结果有手工期望，成功准备后的执行结果与直接调用上游一致。子查询/复合时长可通过本项目静态检查，但被上游解析器拒绝；sum(1)在准备阶段报告类型错误。
 
-The AST inspector is the actual compiled MoonBit adapter, not a substitute JavaScript parser. Its host test runs CLI child processes and checks exit codes, feature isolation, byte-safe output, and Unicode error positions. The 24 cross-backend tests exercise public MoonBit APIs including BOM preservation, invalid UTF-8 bytes, RE2 quoting, conversion rounding, info's selector exception, and opt-in behavior.
+本轮没有重跑新的Go参考进程、原生棋力引擎、完整性能比较或覆盖率统计。历史独立参考仍明确属于其旧版本。本地成功不能推导远端CI已运行或使用方已采用。
 
-The earlier coverage and 0.3 focused reports are historical. This round does not claim current coverage percentages. The 30-sample benchmark measures the documented example on this machine, not upstream performance. CI is prepared locally but has not run remotely. Bounded resource rejection and the remaining API/diagnostic gaps in README are intentional scope limits, not language equivalence claims.
+复验最小命令见README；verify.ps1与CI同时刷新两个实际编译引擎并运行新例子，旧检查按原范围保留。适配层明确拒绝 @ 时间戳，因为 Prometheus 秒和该版 MoonPromQL 毫秒语义不同。上下文时间仍使用上游毫秒。prepare 成功不保证执行成功：absent(up)就是记录的反例。正则、计数器外推及向量匹配沿用上游局限，未证明 Prometheus 执行等价。
+
+[历史验证说明](docs/before-integration/TESTING.md)保留供追溯。

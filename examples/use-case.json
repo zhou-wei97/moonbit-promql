@@ -1,7 +1,13 @@
 {
-  "title": "一次检查一组告警/面板查询",
-  "scope": "原创查询清单，批处理入口不读取 YAML、不执行查询，不代替 promtool 的完整规则检查。",
+  "title": "静态检查后交给 MoonPromQL 执行",
+  "scope": "原创确定性数据；实际调用既有 MoonBit 依赖。没有真实部署或性能优越性证明。",
   "steps": [
+    {
+      "args": [
+        "examples/run-upstream-integration.mjs",
+        "{out}/upstream"
+      ]
+    },
     {
       "args": [
         "tools/check-queries.mjs",
@@ -9,5 +15,5 @@
       ]
     }
   ],
-  "expected": "全部 3 条接受，输出各自 id、类型、AST 及输入 SHA256；任一查询无效返回 2，其他条目仍报告。"
+  "expected": "上游接入断言通过并保存逐项结果；保留原示例作为附加入口。"
 }

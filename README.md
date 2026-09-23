@@ -1,64 +1,38 @@
-# PromQL 告警查询提交前静态检查
+# PromQL 静态检查与 MoonPromQL 执行接入 · 0.6.0
+仓库：https://github.com/zhou-wei97/moonbit-promql
 
-**本项目仓库：[https://github.com/zhou-wei97/moonbit-promql](https://github.com/zhou-wei97/moonbit-promql)**
+告警或面板查询提交前需要类型检查；仅通过静态检查还不足以证明既有执行器支持该查询。 独立静态解析器、批量清单检查及可选执行适配器。执行算法来自 MoonPromQL，未新写查询执行器、TSDB 或完整告警系统。
 
-模块 `zhou-wei97/promql`，本地版本 **0.5.0**，MIT。当前评审状态：**条件复审**。本文件是当前入口，旧轮次说明与详细用法保存在 [历史/完整使用说明](README-BEFORE-VALUE-REWORK.md)。
+本版本明确依赖 [Santa968/moonpromql@0.1.0](https://github.com/Santa968/MoonPromQL)，实际实现的关系是：本项目 parse/infer_type → 上游真实 parser → 保留上游 AST → 调用上游 evaluate；静态错误、上游语法错误、已知不支持范围和数据相关运行错误分别保留。
 
-## 解决什么任务
+## 一次运行
 
-在告警/仪表盘查询提交之前拒绝语法和类型错误，并向编辑器提供结构化 AST 及位置，而不要求启动查询执行器和时序数据库。
-
-需要提交前批量语法/类型检查和结构化 AST，而无需运行时序数据库时使用；与 MoonPromQL parser 重叠，限定语法/契约差异必须公开。
-
-## 直接复现
-
-安装 MoonBit 和 Node.js 24，在本仓库根目录运行：
+安装 MoonBit 和 Node.js 20+ 后，在仓库根目录执行：
 
 ```sh
+moon update
+moon check
+moon test --target js
+moon test --target wasm-gc
 moon build --target js
-node -e "require('node:fs').copyFileSync('_build/js/debug/build/cmd/web/web.js','web/engine.mjs')"
-node examples/run-use-case.mjs
+node tools/refresh-engines.mjs
+node examples/run-upstream-integration.mjs output/upstream
 ```
 
-流程：**一次检查一组告警/面板查询**。运行器创建新的系统临时目录，保留每一步的 stdout/stderr、产物及 `report.json`，打印实际目录；重复运行不会覆盖之前产物。它只执行仓库内的本地样例，不连接公网或发送消息。`report.json` 的 `expected` 是应观察的结果，实际结果在各步输出中；成功退出不替代内容核对。
+该入口通过真实编译的 MoonBit 适配器调用依赖，生成 report.json；不需要独立服务或账户。源码见 [适配包](moonpromql)、[示例](examples/run-upstream-integration.mjs)。`node examples/run-use-case.mjs` 同时执行本例和原有主例。
 
-输入性质：原创查询清单，批处理入口不读取 YAML、不执行查询，不代替 promtool 的完整规则检查。
+## 公开接口和证据
 
-应观察：全部 3 条接受，输出各自 id、类型、AST 及输入 SHA256；任一查询无效返回 2，其他条目仍报告。
+导入 `zhou-wei97/promql/moonpromql` 后调用 `prepare(source)`，再使用返回值的 `query_type()` 和 `evaluate(context)`；context 是 `Santa968/moonpromql/eval.EvalContext`。用户直接使用上游 Series/LabelSet/Sample 建立输入，不需要转造模型。
 
-具体命令和输入路径见 [使用任务](USE-CASE.md) 与 [机器可读流程](examples/use-case.json)。只把这个脚本当复现入口，不把通用运行器计作核心技术贡献。
+16个选定查询实际调用上游；四个数值结果有手工期望，成功准备后的执行结果与直接调用上游一致。子查询/复合时长可通过本项目静态检查，但被上游解析器拒绝；sum(1)在准备阶段报告类型错误。 输入均为原创确定性样例，没有真实用户或生产部署证据。详细结果见 [本轮报告](evidence/integration-20260923/example-output/report.json) 和 [验证说明](TESTING.md)。
 
-## 实现与已有项目的关系
+## 边界
 
-MoonBit 实现词法、AST、函数类型签名、受限 RE2 语法检查和位置；Node 只接入输入文件与退出码。
+适配层明确拒绝 @ 时间戳，因为 Prometheus 秒和该版 MoonPromQL 毫秒语义不同。上下文时间仍使用上游毫秒。prepare 成功不保证执行成功：absent(up)就是记录的反例。正则、计数器外推及向量匹配沿用上游局限，未证明 Prometheus 执行等价。
 
-Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。
+保留 root parser 的较宽语法范围和 Prometheus 3.14.0 静态契约；3213个保存的独立参考答案仅用于静态重放，不能当作运行语义证据。 没有真实使用方；新增部分是静态检查与既有执行器的保守适配，不主张新执行算法。
 
-同类项目和检索边界见 [DUPLICATION](DUPLICATION.md)。查重用于避免错误的首创表述；关键词零结果不能证明生态空白，Node 宿主能力也不计为 MoonBit 原生 I/O。
+[上游关系与许可](UPSTREAM-RELATION.md)、[申报正文](PROPOSAL.md)、[复核说明](REVIEW-RESPONSE.md)、[用例](USE-CASE.md)。本轮仅本地交付，远端CI/发布/表单状态不由本地检查推导。[历史说明](docs/before-integration/README.md)只记录旧版本，不能作为本版本成熟度承诺。
 
-库使用从 [公共 API](pkg.generated.mbti) 和根包源码开始；可在本 checkout 的消费包中导入 `"zhou-wei97/promql"`。源码中的网络/文件宿主入口及完整参数仍见 [完整使用说明](README-BEFORE-VALUE-REWORK.md)。是否已发布到 Mooncakes 需另核实，本文不把 `moon add` 的下载成功作为已完成事项。
-
-## 验证与边界
-
-新增 query manifest 批量入口一次报告所有条目，并保留 id、错误、类型/AST 与输入散列；混合有效/无效查询和清单错误已验证。3213 官方 golden 的先前重放记录单列。
-
-[上一轮工程验证](evidence/innovation-review-20260922/results.json) 与 [本轮最小任务回执](evidence/value-rework-20260922/use-case.json) 分开。历史参考版本、golden 重放、本机 peer、真实第三方服务端和本次样例是不同证据，不能合并成“全部生产验证”。
-
-常规核心检查可运行 `moon check --target js`、`moon test --target js`、`moon test --target wasm-gc`。专项命令：
-
-```sh
-node tools/test-query-batch.mjs
-node tools/test-reference.mjs --golden
-```
-
-专项所需的参考环境和历史版本见原使用说明及 TESTING 文档；本轮回执只记录实际执行项，不声称上面所有参考服务在任意环境即装即跑。
-
-静态类型错误目前定位整个查询；没有节点级源码重写器、完整多错误诊断或任意 RE2 执行；固定版本行为不等于所有 Prometheus 版本。
-
-## 复审材料状态
-
-本轮批处理是接入便利，不是新查询算法；不包含 YAML 规则完整验证、执行或性能估计。
-
-2026-09-22 匿名新克隆成功；默认分支 `main`，核验公开提交 `3d3202dcdde7b17596a3175ba330357a8c82733a`。本轮源码修订仅在本地，尚未推送；此记录不证明当时报名表中的地址正确，也不证明新修订已上线。
-
-[申报草稿](PROPOSAL.md) 已压缩为 30 行以内，并单独标明本项目仓库；[复核说明](REVIEW-RESPONSE.md) 区分材料错误、功能变化及尚未解决的问题。没有编造用户、设备接入、生产部署或评审认可。
+本项目原创源码继续MIT；链接的上游Apache-2.0代码及编译产物按其许可分发，见 [第三方说明](THIRD-PARTY-NOTICES.md)。不主张生态首个或算法创新。

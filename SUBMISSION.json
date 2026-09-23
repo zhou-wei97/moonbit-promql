@@ -1,17 +1,18 @@
 {
   "project": "promql",
-  "title": "PromQL 告警查询提交前静态检查",
+  "title": "PromQL 静态检查与 MoonPromQL 执行接入",
   "module": "zhou-wei97/promql",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "repository": "https://github.com/zhou-wei97/moonbit-promql",
-  "status": "条件复审",
-  "remainingRisk": "本轮批处理是接入便利，不是新查询算法；不包含 YAML 规则完整验证、执行或性能估计。",
+  "status": "本地整改完成；审核结果未知",
+  "remainingRisk": "没有真实使用方；新增部分是静态检查与既有执行器的保守适配，不主张新执行算法。 适配层明确拒绝 @ 时间戳，因为 Prometheus 秒和该版 MoonPromQL 毫秒语义不同。上下文时间仍使用上游毫秒。prepare 成功不保证执行成功：absent(up)就是记录的反例。正则、计数器外推及向量匹配沿用上游局限，未证明 Prometheus 执行等价。",
   "actualUsersClaimed": false,
   "anonymousCloneVerified": true,
   "publicHead": "3d3202dcdde7b17596a3175ba330357a8c82733a",
   "defaultBranch": "origin/main",
   "localChangesPublished": false,
   "proposalLines": 25,
-  "useCase": "一次检查一组告警/面板查询",
-  "diff": "Santa968/MoonPromQL 已有 parser 和内存执行器。其固定提交说明缺 subquery/compound duration，时间戳和位置接口也有边界；本项目提供这些语法以及固定 Prometheus3.14.0 的类型/AST 契约，不把 parser 或执行器说成首个。本项目没有查询执行器。"
+  "useCase": "告警或面板查询提交前需要类型检查；仅通过静态检查还不足以证明既有执行器支持该查询。",
+  "diff": "独立静态解析器、批量清单检查及可选执行适配器。执行算法来自 MoonPromQL，未新写查询执行器、TSDB 或完整告警系统。 本项目 parse/infer_type → 上游真实 parser → 保留上游 AST → 调用上游 evaluate；静态错误、上游语法错误、已知不支持范围和数据相关运行错误分别保留。",
+  "upstreamDependency": "Santa968/moonpromql@0.1.0"
 }

@@ -1,0 +1,16 @@
+import {
+  "zhou-wei97/promql" @syntax,
+  "zhou-wei97/promql/moonpromql" @bridge,
+  "Santa968/moonpromql" @upstream,
+  "Santa968/moonpromql/model",
+  "Santa968/moonpromql/eval",
+  "moonbitlang/core/json",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")
+
+options(
+  link: { "js": { "exports": [ "inspect_query" ], "format": "esm" } },
+)
