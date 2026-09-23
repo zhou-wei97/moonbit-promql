@@ -36,3 +36,5 @@ node examples/run-upstream-integration.mjs output/upstream
 [上游关系与许可](UPSTREAM-RELATION.md)、[申报正文](PROPOSAL.md)、[复核说明](REVIEW-RESPONSE.md)、[用例](USE-CASE.md)。本轮仅本地交付，远端CI/发布/表单状态不由本地检查推导。[历史说明](docs/before-integration/README.md)只记录旧版本，不能作为本版本成熟度承诺。
 
 本项目原创源码继续MIT；链接的上游Apache-2.0代码及编译产物按其许可分发，见 [第三方说明](THIRD-PARTY-NOTICES.md)。不主张生态首个或算法创新。
+
+CI固定的编译器与标准库版本见 [TOOLCHAIN.md](TOOLCHAIN.md)；升级时需同时核对生成产物。
