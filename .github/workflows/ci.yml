@@ -28,6 +28,9 @@ jobs:
       - run: node tools/test-reference.mjs --golden
       - run: node tools/robustness.mjs
       - run: node tools/benchmark.mjs
+      - run: node examples/public-rule-expressions.mjs
+      - run: moon run examples/portable-check --target js
+      - run: moon run examples/portable-check --target wasm-gc
       - uses: actions/upload-artifact@v4
         with:
           name: quality-evidence
