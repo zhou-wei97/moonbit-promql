@@ -1,0 +1,31 @@
+{
+  "retrieved_on": "2026-09-27",
+  "cache_path": "work/reassessment-20260927/research-cache/cnnum-promql",
+  "files": [
+    {
+      "file": "prometheus-rules.lint.yml",
+      "url": "https://raw.githubusercontent.com/prometheus/prometheus/ea954809ceafceb53ecfa295ab0947753929de9e/cmd/promtool/testdata/prometheus-rules.lint.yml",
+      "repository_commit": "ea954809ceafceb53ecfa295ab0947753929de9e",
+      "license": "Apache-2.0; LICENSE is cached as prometheus-LICENSE",
+      "sha256": "17C5CFA28DCE50A6A9B2AADEA2E9CD0A55FD4A4148EE031182E017CB703BE457"
+    },
+    {
+      "file": "prometheus-LICENSE",
+      "url": "https://raw.githubusercontent.com/prometheus/prometheus/ea954809ceafceb53ecfa295ab0947753929de9e/LICENSE",
+      "repository_commit": "ea954809ceafceb53ecfa295ab0947753929de9e",
+      "license": "Apache-2.0",
+      "sha256": "C71D239DF91726FC519C6EB72D318EC65820627232B2F796219E87DCF35D0AB4"
+    }
+  ],
+  "official_registry_queries": [
+    "https://mooncakes.io/api/v0/search?kw=bodymate&limit=20",
+    "https://mooncakes.io/api/v0/search?kw=zhnum&limit=10",
+    "https://mooncakes.io/api/v0/search?kw=promql&limit=30",
+    "https://mooncakes.io/api/v0/search?kw=moonpromql&limit=10"
+  ],
+  "notes": [
+    "Mooncakes query kw=promql returned public zhou-wei97/promql@0.4.0, while the local project tree is 0.6.0; do not present 0.6.0 as a published release.",
+    "Prometheus release listing on the retrieval date showed 3.14.0 stable and 3.15.0-rc.1 pre-release.",
+    "A browser open of the BodyMate Mooncakes docs endpoint returned Internal Error; direct registry REST and GitHub README were readable. This is a retrieval failure, not an absence result."
+  ]
+}

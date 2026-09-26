@@ -2,3 +2,6 @@
 *.png -text
 *.jpg -text
 *.wasm -text
+
+/examples/prometheus-rules/prometheus-rules.lint.yml -text
+/examples/prometheus-rules/LICENSE -text

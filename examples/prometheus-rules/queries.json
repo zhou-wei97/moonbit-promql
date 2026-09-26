@@ -1,0 +1,12 @@
+{
+  "queries": [
+    {
+      "id": "HighRequestLatency#1",
+      "query": "job:request_latency_seconds:mean5m{job=\"myjob\"} > 0.5"
+    },
+    {
+      "id": "HighRequestLatency#2",
+      "query": "job:request_latency_seconds:mean5m{job=\"myjob\"} > 0.5"
+    }
+  ]
+}

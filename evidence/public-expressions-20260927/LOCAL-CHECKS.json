@@ -1,0 +1,86 @@
+{
+  "date": "2026-09-27",
+  "version": "0.6.0",
+  "coreChanged": false,
+  "oldSourceMatches": [
+    {
+      "file": "moon.mod",
+      "expected": "b6541d39731bea6f8e49e18bd3360ee05bf29ce1e18c68346071584a0037d1b2",
+      "matched": "raw"
+    },
+    {
+      "file": "web/engine.mjs",
+      "expected": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+      "matched": "raw"
+    },
+    {
+      "file": "examples/integration-engine.mjs",
+      "expected": "a504ca5f22774172633c50d54dc9d3a032d9166013c207fef2fcaee8d1ba8aee",
+      "matched": "raw"
+    },
+    {
+      "file": "examples/run-upstream-integration.mjs",
+      "expected": "5bf546fd7439d0be998411279fc2892a2a076c75c64998e167fd041b06f3aef3",
+      "matched": "raw"
+    },
+    {
+      "file": "moonpromql/prepare.mbt",
+      "expected": "616d2ef6fb922ed7cbc16c3cb2474fe8c4ef9ca1ace6f9c255f4a9975b6a19c6",
+      "matched": "raw"
+    },
+    {
+      "file": "moonpromql/prepare_test.mbt",
+      "expected": "9392b517a3d3b309ae24c21f5ab45bdb0ece539fafc67264d5ed02482fec7b84",
+      "matched": "raw"
+    },
+    {
+      "file": "cmd/integration/main.mbt",
+      "expected": "86fb0ec1c111acc8510151f5b0b1bf5d854084387a177fb179ffc9dfdf568d18",
+      "matched": "raw"
+    }
+  ],
+  "checks": [
+    {
+      "check": "fmt",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "public-expressions",
+      "command": [
+        "node",
+        "examples/public-rule-expressions.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "portable-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "run",
+        "examples/portable-check",
+        "--target",
+        "js"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "portable-wasm",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "run",
+        "examples/portable-check",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit": 0
+    }
+  ],
+  "promtoolExecuted": false,
+  "publicRulesCertified": false,
+  "published": false,
+  "remoteCI": false
+}

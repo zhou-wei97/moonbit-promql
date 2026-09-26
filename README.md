@@ -1,4 +1,4 @@
-# PromQL 静态检查与 MoonPromQL 执行接入 · 0.6.0
+# MoonBit PromQL 表达式类型检查库与 MoonPromQL 接入 · 0.6.0
 仓库：https://github.com/zhou-wei97/moonbit-promql
 
 告警或面板查询提交前需要类型检查；仅通过静态检查还不足以证明既有执行器支持该查询。 独立静态解析器、批量清单检查及可选执行适配器。执行算法来自 MoonPromQL，未新写查询执行器、TSDB 或完整告警系统。
@@ -38,3 +38,21 @@ node examples/run-upstream-integration.mjs output/upstream
 本项目原创源码继续MIT；链接的上游Apache-2.0代码及编译产物按其许可分发，见 [第三方说明](THIRD-PARTY-NOTICES.md)。不主张生态首个或算法创新。
 
 CI固定的编译器与标准库版本见 [TOOLCHAIN.md](TOOLCHAIN.md)；升级时需同时核对生成产物。
+
+## 2026-09-27：表达式与规则文件的边界
+
+本库提供可嵌入MoonBit程序的纯表达式解析/类型推断；保留0.6.0运行时，没有为了命名重新实现执行器。`tools/check-queries.mjs`只读取JSON查询清单，**不读取Prometheus YAML规则文件，不检查重复规则、告警模板或group顺序**。MoonPromQL已有parser/evaluator，语言层重叠被明确承认；增量范围是较宽的静态契约与保守执行接入，不是完整规则系统。
+
+官方[Prometheus3.14.0 promtool](https://github.com/prometheus/prometheus/blob/v3.14.0/docs/command-line/promtool.md)已经能够离线检查本地规则文件及duplicate-rules，无需启动Prometheus服务。已有规则文件任务应优先用它。本库的部署位置是不能依赖Go命令行进程、需要嵌入式MoonBit表达式API的程序；当前没有确认采用方或优于官方工具的性能证据。
+
+固定官方Apache-2.0测试文件中两条同名告警的表达式都能通过类型检查，**不代表该规则文件无重复错误**：
+
+```sh
+node examples/public-rule-expressions.mjs
+moon run examples/portable-check --target js
+moon run examples/portable-check --target wasm-gc
+```
+
+前者按固定文件核对手工选取的两条表达式并调用现有清单CLI；后两条直接消费MoonBit库，支持成功输出与`sum(1)`类型拒绝，宿主不替代解析/推断。来源/hash/许可在examples/prometheus-rules。公开软件测试不是客户部署。
+
+本轮尝试取得promtool3.14.0独立二进制，下载未完成，因此**没有运行其规则检查或观察退出码**；官方能力依据文档，未将预期冒充实跑。记录在evidence/public-expressions-20260927/PROMTOOL-NOT-RUN.md。既有3213条Go静态golden及28项/后端仍是原0.6.0证据，本次核心、引擎与适配指纹匹配；没有重复声称执行等价。是否认可纯MoonBit基础库的独立性，仍由赛事判断。

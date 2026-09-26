@@ -1,0 +1,102 @@
+{
+  "expressions": [
+    {
+      "id": "HighRequestLatency#1",
+      "accepted": true,
+      "type": "vector",
+      "ast": [
+        "binary",
+        ">",
+        [
+          "selector",
+          "job:request_latency_seconds:mean5m",
+          [
+            [
+              "am9i",
+              "=",
+              "bXlqb2I="
+            ],
+            [
+              "X19uYW1lX18=",
+              "=",
+              "am9iOnJlcXVlc3RfbGF0ZW5jeV9zZWNvbmRzOm1lYW41bQ=="
+            ]
+          ],
+          [
+            "number",
+            "0"
+          ],
+          null,
+          "",
+          false,
+          false
+        ],
+        [
+          "number",
+          "0.5"
+        ],
+        false,
+        {
+          "mode": "",
+          "labels": [],
+          "group": "",
+          "include": [],
+          "left": null,
+          "right": null
+        }
+      ]
+    },
+    {
+      "id": "HighRequestLatency#2",
+      "accepted": true,
+      "type": "vector",
+      "ast": [
+        "binary",
+        ">",
+        [
+          "selector",
+          "job:request_latency_seconds:mean5m",
+          [
+            [
+              "am9i",
+              "=",
+              "bXlqb2I="
+            ],
+            [
+              "X19uYW1lX18=",
+              "=",
+              "am9iOnJlcXVlc3RfbGF0ZW5jeV9zZWNvbmRzOm1lYW41bQ=="
+            ]
+          ],
+          [
+            "number",
+            "0"
+          ],
+          null,
+          "",
+          false,
+          false
+        ],
+        [
+          "number",
+          "0.5"
+        ],
+        false,
+        {
+          "mode": "",
+          "labels": [],
+          "group": "",
+          "include": [],
+          "left": null,
+          "right": null
+        }
+      ]
+    }
+  ],
+  "ruleFileValidated": false,
+  "duplicateRuleDetection": false,
+  "executionPerformed": false,
+  "explanation": "Both duplicated alert expressions are valid instant vectors; rule-level duplicate detection belongs to promtool."
+}
+
+STDERR

@@ -1,0 +1,6 @@
+HighRequestLatency#1: instant-vector; expression accepted, rule validity unknown
+HighRequestLatency#2: instant-vector; expression accepted, rule validity unknown
+synthetic-type-error: rejected
+scope: no YAML/rule metadata, duplicate-rule detection or evaluation
+
+STDERR
