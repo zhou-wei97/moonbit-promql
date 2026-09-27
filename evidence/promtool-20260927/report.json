@@ -1,0 +1,482 @@
+{
+  "date": "2026-09-27T04:37:40.175Z",
+  "reference": "Prometheus promtool 3.14.0",
+  "version": {
+    "args": [
+      "--version"
+    ],
+    "exit": 0,
+    "stdout": "promtool, version 3.14.0 (branch: HEAD, revision: d7598b7141418fa35be2b5ec5d0fefb634199610)\n  build user:       root@8eb57d26b86c\n  build date:       20260817-16:49:25\n  go version:       go1.26.6\n  platform:         windows/amd64\n  tags:             builtinassets\n",
+    "stderr": ""
+  },
+  "binarySha256": "78b0d964ce421256ae3fab858194f890541553d59feba0e5ae24550a1704197a",
+  "sourceHash": "17c5cfa28dce50a6a9b2aadea2e9cd0a55fd4a4148ee031182e017cb703be457",
+  "cases": [
+    {
+      "id": "official-duplicate-default",
+      "input": "examples/prometheus-rules/prometheus-rules.lint.yml",
+      "inputSha256": "17c5cfa28dce50a6a9b2aadea2e9cd0a55fd4a4148ee031182e017cb703be457",
+      "args": [
+        "check",
+        "rules"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n\n",
+      "stderr": "  FAILED:\nlint error 1 duplicate rule(s) found.\nMetric: HighRequestLatency\nLabel(s):\n\tseverity: page\nMight cause inconsistency while recording expressions\n"
+    },
+    {
+      "id": "official-duplicate-fatal",
+      "input": "examples/prometheus-rules/prometheus-rules.lint.yml",
+      "inputSha256": "17c5cfa28dce50a6a9b2aadea2e9cd0a55fd4a4148ee031182e017cb703be457",
+      "args": [
+        "check",
+        "rules",
+        "--lint=duplicate-rules",
+        "--lint-fatal"
+      ],
+      "exit": 3,
+      "stdout": "Checking standard input\n\n",
+      "stderr": "  FAILED:\nlint error 1 duplicate rule(s) found.\nMetric: HighRequestLatency\nLabel(s):\n\tseverity: page\nMight cause inconsistency while recording expressions\n"
+    },
+    {
+      "id": "official-duplicate-disabled",
+      "input": "examples/prometheus-rules/prometheus-rules.lint.yml",
+      "inputSha256": "17c5cfa28dce50a6a9b2aadea2e9cd0a55fd4a4148ee031182e017cb703be457",
+      "args": [
+        "check",
+        "rules",
+        "--lint=none",
+        "--lint-fatal"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 2 rules found\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "official-expression",
+      "query": "job:request_latency_seconds:mean5m{job=\"myjob\"} > 0.5",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"job:request_latency_seconds:mean5m{job=\\\"myjob\\\"} > 0.5\"}]}]}\n",
+      "inputSha256": "0933058c38d6e8e521e22f369ec9a9f72eb0d3ded7cc73720c4da2e645f7473e",
+      "moonbit": {
+        "accepted": true,
+        "type": "vector",
+        "ast": [
+          "binary",
+          ">",
+          [
+            "selector",
+            "job:request_latency_seconds:mean5m",
+            [
+              [
+                "am9i",
+                "=",
+                "bXlqb2I="
+              ],
+              [
+                "X19uYW1lX18=",
+                "=",
+                "am9iOnJlcXVlc3RfbGF0ZW5jeV9zZWNvbmRzOm1lYW41bQ=="
+              ]
+            ],
+            [
+              "number",
+              "0"
+            ],
+            null,
+            "",
+            false,
+            false
+          ],
+          [
+            "number",
+            "0.5"
+          ],
+          false,
+          {
+            "mode": "",
+            "labels": [],
+            "group": "",
+            "include": [],
+            "left": null,
+            "right": null
+          }
+        ]
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 1 rules found\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "rate-aggregation",
+      "query": "sum by(job)(rate(http_requests_total[5m]))",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"sum by(job)(rate(http_requests_total[5m]))\"}]}]}\n",
+      "inputSha256": "a7f3cc9366532195a473dccd1d44bae2ee30f6e4a9a9b4a1b28c6d1e0f975886",
+      "moonbit": {
+        "accepted": true,
+        "type": "vector",
+        "ast": [
+          "aggregate",
+          "sum",
+          [
+            "job"
+          ],
+          false,
+          null,
+          [
+            "call",
+            "rate",
+            [
+              [
+                "range",
+                [
+                  "selector",
+                  "http_requests_total",
+                  [
+                    [
+                      "X19uYW1lX18=",
+                      "=",
+                      "aHR0cF9yZXF1ZXN0c190b3RhbA=="
+                    ]
+                  ],
+                  [
+                    "number",
+                    "0"
+                  ],
+                  null,
+                  "",
+                  false,
+                  false
+                ],
+                [
+                  "number",
+                  "300"
+                ]
+              ]
+            ]
+          ]
+        ]
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 1 rules found\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "scalar-aggregation",
+      "query": "sum(1)",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"sum(1)\"}]}]}\n",
+      "inputSha256": "0ff968c49f505305bcce47e50aea9bf7857ce2dac4d1ffcc1c09ac064ea54c2e",
+      "moonbit": {
+        "accepted": false,
+        "error": "aggregation requires instant vector",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "line": 1,
+          "column": 1
+        }
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 1,
+      "stdout": "Checking standard input\n",
+      "stderr": "  FAILED:\n1:86: group \"local-boundary-check\", rule 1, \"BoundaryExample\": could not parse expression: 1:5: parse error: expected type instant vector in aggregation expression, got scalar\n"
+    },
+    {
+      "id": "instant-vector-rate",
+      "query": "rate(up)",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"rate(up)\"}]}]}\n",
+      "inputSha256": "c037e1ea510b4dadf77b2ccb58e024a414eb64a6c4a92b3b10c850d0e9e40bd1",
+      "moonbit": {
+        "accepted": false,
+        "error": "function argument type: rate",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "line": 1,
+          "column": 1
+        }
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 1,
+      "stdout": "Checking standard input\n",
+      "stderr": "  FAILED:\n1:86: group \"local-boundary-check\", rule 1, \"BoundaryExample\": could not parse expression: 1:6: parse error: expected type range vector in call to function \"rate\", got instant vector\n"
+    },
+    {
+      "id": "broken-selector",
+      "query": "up{job=",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"up{job=\"}]}]}\n",
+      "inputSha256": "fad12e0b1fdba7f8b055086078f5b2c6b5b88eaa8f788d9c260450fc44c523c0",
+      "moonbit": {
+        "accepted": false,
+        "error": "unexpected end",
+        "span": {
+          "start": 7,
+          "end": 7,
+          "line": 1,
+          "column": 8
+        }
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 1,
+      "stdout": "Checking standard input\n",
+      "stderr": "  FAILED:\n1:86: group \"local-boundary-check\", rule 1, \"BoundaryExample\": could not parse expression: 1:8: parse error: unexpected end of input inside braces\n"
+    },
+    {
+      "id": "absent-static-only",
+      "query": "absent(up)",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"absent(up)\"}]}]}\n",
+      "inputSha256": "af2f3ba64e861e2717f96f204b3dafe3ec5273c864034a9a7ccdf9de5b3c51dd",
+      "moonbit": {
+        "accepted": true,
+        "type": "vector",
+        "ast": [
+          "call",
+          "absent",
+          [
+            [
+              "selector",
+              "up",
+              [
+                [
+                  "X19uYW1lX18=",
+                  "=",
+                  "dXA="
+                ]
+              ],
+              [
+                "number",
+                "0"
+              ],
+              null,
+              "",
+              false,
+              false
+            ]
+          ]
+        ]
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 1 rules found\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "subquery-static-only",
+      "query": "rate(up[5m])[1h:5m]",
+      "input": "{\"groups\":[{\"name\":\"local-boundary-check\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"rate(up[5m])[1h:5m]\"}]}]}\n",
+      "inputSha256": "c3c6f1d8c79934c013b4d16117ab6fab403fd3ee00aa27a621045188b2749f5e",
+      "moonbit": {
+        "accepted": true,
+        "type": "matrix",
+        "ast": [
+          "subquery",
+          [
+            "call",
+            "rate",
+            [
+              [
+                "range",
+                [
+                  "selector",
+                  "up",
+                  [
+                    [
+                      "X19uYW1lX18=",
+                      "=",
+                      "dXA="
+                    ]
+                  ],
+                  [
+                    "number",
+                    "0"
+                  ],
+                  null,
+                  "",
+                  false,
+                  false
+                ],
+                [
+                  "number",
+                  "300"
+                ]
+              ]
+            ]
+          ],
+          [
+            "number",
+            "3600"
+          ],
+          [
+            "number",
+            "300"
+          ],
+          [
+            "number",
+            "0"
+          ],
+          null,
+          "",
+          false,
+          false
+        ]
+      },
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 1 rules found\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "missing-group-name",
+      "input": "{\"groups\":[{\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"up\"}]}]}\n",
+      "inputSha256": "e5424e7900844078b1053da898b3e88232a6b04f389886a9296011a152f06815",
+      "moonbitExpression": {
+        "accepted": true,
+        "type": "vector",
+        "ast": [
+          "selector",
+          "up",
+          [
+            [
+              "X19uYW1lX18=",
+              "=",
+              "dXA="
+            ]
+          ],
+          [
+            "number",
+            "0"
+          ],
+          null,
+          "",
+          false,
+          false
+        ]
+      },
+      "ruleStructureCheckedByMoonBit": false,
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 1,
+      "stdout": "Checking standard input\n",
+      "stderr": "  FAILED:\n0:0: Groupname must not be empty\n"
+    },
+    {
+      "id": "unknown-rule-field",
+      "input": "{\"groups\":[{\"name\":\"example\",\"rules\":[{\"alert\":\"BoundaryExample\",\"expr\":\"up\",\"unknown_field\":true}]}]}\n",
+      "inputSha256": "8824c43ed0a84c8c8e16cce931e585cf64450e9b3ea1a59661450cf3c1b2aae3",
+      "moonbitExpression": {
+        "accepted": true,
+        "type": "vector",
+        "ast": [
+          "selector",
+          "up",
+          [
+            [
+              "X19uYW1lX18=",
+              "=",
+              "dXA="
+            ]
+          ],
+          [
+            "number",
+            "0"
+          ],
+          null,
+          "",
+          false,
+          false
+        ]
+      },
+      "ruleStructureCheckedByMoonBit": false,
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 1,
+      "stdout": "Checking standard input\n",
+      "stderr": "  FAILED:\nyaml: unmarshal errors:\n  line 1: field unknown_field not found in type rulefmt.Rule\n"
+    },
+    {
+      "id": "local-ast-depth-limit",
+      "inputGenerator": "local-ast-depth-limit",
+      "queryCharacters": 299,
+      "inputSha256": "1ec1dd5631fd59b1faecb6f5655e948eecd8f9fc090f00b6998f6da886b9b852",
+      "moonbit": {
+        "accepted": false,
+        "error": "type expression depth exceeds 64",
+        "span": {
+          "start": 0,
+          "end": 299,
+          "line": 1,
+          "column": 1
+        }
+      },
+      "intentionalLocalResourceLimit": true,
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 1 rules found\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "local-source-limit",
+      "inputGenerator": "local-source-limit",
+      "queryCharacters": 100005,
+      "inputSha256": "f49f7e1224ea80a9be6d25fe1fee9ca7601c31433a029b9fff2d7c3eeb3c27ed",
+      "moonbit": {
+        "accepted": false,
+        "error": "Invalid(\"source limit\")"
+      },
+      "intentionalLocalResourceLimit": true,
+      "args": [
+        "check",
+        "rules",
+        "--lint=none"
+      ],
+      "exit": 0,
+      "stdout": "Checking standard input\n  SUCCESS: 1 rules found\n\n",
+      "stderr": ""
+    }
+  ],
+  "checksPassed": 14,
+  "coreChanged": false,
+  "executionPerformed": false,
+  "serverRequired": false,
+  "scope": "Seven selected expression parse/type outcomes, five rule-file/lint checks, and two intentional local resource limits. Promtool runs locally with stdin; no Prometheus server or query evaluation. MoonBit does not validate rule YAML or rule-level duplication.",
+  "engineSha256": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691"
+}

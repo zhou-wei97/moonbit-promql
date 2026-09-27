@@ -5,7 +5,7 @@
   "version": "0.6.0",
   "repository": "https://github.com/zhou-wei97/moonbit-promql",
   "status": "审核结果未知；本地工程复核完成，待团队同步",
-  "remainingRisk": "新promtool二进制下载未完成，未运行；静态通过不保证上游执行成功；不是TSDB或规则引擎",
+  "remainingRisk": "静态通过不保证MoonPromQL执行成功；AST深度和源码长度有本地限额；不验证完整规则YAML或执行等价；不是TSDB或规则引擎",
   "actualUsersClaimed": false,
   "defaultBranch": "origin/main",
   "localChangesPublished": false,
@@ -22,9 +22,12 @@
   "license": "MIT AND Apache-2.0",
   "acceptance": "not established",
   "remoteCIRunByThisTask": false,
-  "currentValidation": "evidence/public-expressions-20260927/LOCAL-CHECKS.json",
-  "currentEvidence": "evidence/public-expressions-20260927/LOCAL-CHECKS.json",
+  "currentValidation": "evidence/promtool-20260927/LOCAL-CHECKS.json",
+  "currentEvidence": "evidence/promtool-20260927/LOCAL-CHECKS.json",
   "metadataReviewedOn": "2026-09-27",
-  "currentEvidenceScope": "Pure MoonBit JS/Wasm public expression consumer; existing static core and upstream hashes retained; promtool full-rule binary download incomplete, no runtime result claimed",
-  "reviewDecision": "保留表达式静态库，收窄申报"
+  "currentEvidenceScope": "14 actual Prometheus3.14.0 promtool checks:7 expression outcomes,5 rule-file/lint boundaries,2 explicit local resource limits; unchanged core and engines",
+  "reviewDecision": "保留表达式静态库，收窄申报",
+  "historicalEvidencePointers": {
+    "beforePromtoolContinuation": "evidence/public-expressions-20260927/LOCAL-CHECKS.json"
+  }
 }

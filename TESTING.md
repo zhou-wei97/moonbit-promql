@@ -12,4 +12,6 @@ JS/Wasm-GC各28项（含4个新适配器用例）；16个实际上游对照；�
 
 [历史验证说明](docs/before-integration/TESTING.md)保留供追溯。
 
-2026-09-27验证限定为公开表达式、两个后端的直接消费者与旧指纹；promtool新二进制未取得，未运行。见evidence/public-expressions-20260927。
+2026-09-27第一阶段为公开表达式、两个后端直接消费者及旧指纹核对，保留在evidence/public-expressions-20260927。
+
+2026-09-27后续核验：已补齐官方promtool3.14.0并核对完整发布包SHA-256，实际运行14项对照。其中7项表达式解析/类型结果一致，3项检查官方重复规则夹具的lint模式，2项验证规则文件结构错误，另2项记录本地源码/AST深度资源限制带来的有意拒绝。默认重复规则会输出失败文字但退出0；`--lint-fatal`退出3；表达式/结构错误退出1。源码和引擎保持0.6.0，未重跑全部旧套件。复现、原始输出、来源散列见 [PROMTOOL-REFERENCE](PROMTOOL-REFERENCE.md) 和 [本次回执](evidence/promtool-20260927/LOCAL-CHECKS.json)。先前下载失败记录保留为历史，不再是当前未完成项。静态通过仍不证明MoonPromQL支持或能执行该查询，也不代表赛事认可独立性。

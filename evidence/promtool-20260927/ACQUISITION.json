@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/prometheus/prometheus/releases/download/v3.14.0/prometheus-3.14.0.windows-amd64.zip",
+  "release": "3.14.0",
+  "bytes": 110095743,
+  "archiveSha256": "e57fbb99e4d0bc734d2f2b3aeb68c02fba38862259dc99a95c27ea46d9ccba0a",
+  "officialDigestVerified": true,
+  "binarySha256": "78b0d964ce421256ae3fab858194f890541553d59feba0e5ae24550a1704197a",
+  "binary": "promtool.exe (development reference; not redistributed)",
+  "elapsedSeconds": 17
+}

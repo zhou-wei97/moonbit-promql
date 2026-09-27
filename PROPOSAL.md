@@ -40,4 +40,4 @@ moon run examples/portable-check --target wasm-gc
 
 前者按固定文件核对手工选取的两条表达式并调用现有清单CLI；后两条直接消费MoonBit库，支持成功输出与`sum(1)`类型拒绝，宿主不替代解析/推断。来源/hash/许可在examples/prometheus-rules。公开软件测试不是客户部署。
 
-本轮尝试取得promtool3.14.0独立二进制，下载未完成，因此**没有运行其规则检查或观察退出码**；官方能力依据文档，未将预期冒充实跑。记录在evidence/public-expressions-20260927/PROMTOOL-NOT-RUN.md。既有3213条Go静态golden及28项/后端仍是原0.6.0证据，本次核心、引擎与适配指纹匹配；没有重复声称执行等价。是否认可纯MoonBit基础库的独立性，仍由赛事判断。
+2026-09-27后续核验：已补齐官方promtool3.14.0并核对完整发布包SHA-256，实际运行14项对照。其中7项表达式解析/类型结果一致，3项检查官方重复规则夹具的lint模式，2项验证规则文件结构错误，另2项记录本地源码/AST深度资源限制带来的有意拒绝。默认重复规则会输出失败文字但退出0；`--lint-fatal`退出3；表达式/结构错误退出1。源码和引擎保持0.6.0，未重跑全部旧套件。复现、原始输出、来源散列见 [PROMTOOL-REFERENCE](PROMTOOL-REFERENCE.md) 和 [本次回执](evidence/promtool-20260927/LOCAL-CHECKS.json)。先前下载失败记录保留为历史，不再是当前未完成项。静态通过仍不证明MoonPromQL支持或能执行该查询，也不代表赛事认可独立性。

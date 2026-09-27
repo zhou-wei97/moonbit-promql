@@ -1,0 +1,201 @@
+{
+  "date": "2026-09-27T04:43:26.513316+00:00",
+  "version": "0.6.0",
+  "priorEvidence": "evidence/public-expressions-20260927/LOCAL-CHECKS.json",
+  "referenceReport": "report.json",
+  "referenceAcquisition": "ACQUISITION.json",
+  "checksPassed": 14,
+  "sourceAndAstResourceLimits": 2,
+  "coreChanged": false,
+  "engineChanged": false,
+  "unchangedRuntimeFiles": [
+    {
+      "file": "cmd/integration/main.mbt",
+      "gitBlobSha256": "86fb0ec1c111acc8510151f5b0b1bf5d854084387a177fb179ffc9dfdf568d18",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/integration/moon.pkg",
+      "gitBlobSha256": "afcdb25f0b8849d70c6466b38448d599ba448b98c6088b146065e704917c1156",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/main/main.mbt",
+      "gitBlobSha256": "7b1b7ece6c737b8fcc99242a551d479df468732f7dee656a69a8031a2e0f5d37",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/main/moon.pkg",
+      "gitBlobSha256": "4545f830f29edaa3b5d5e9b6450489377a3833f461da24de69db3af84641e603",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/main/pkg.generated.mbti",
+      "gitBlobSha256": "33910cc917faa264d4f808b8426ef8342cdcae3419cf7fb202c5ae0b30d21518",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/web/inspect.mbt",
+      "gitBlobSha256": "52bad360df1d90e80afed1d3683fc4a12812e94f41267ceec26efcfe3916c4e2",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/web/main.mbt",
+      "gitBlobSha256": "fd6dd1974585a01226dc35f62a6ffffb9c3276e37c641e4ae65f60e7bdc3c97f",
+      "unchanged": true
+    },
+    {
+      "file": "cmd/web/moon.pkg",
+      "gitBlobSha256": "1463c52a5b263800a10f82b8c08aaab00bf2b343c92f944ce9844d61d2ecbe29",
+      "unchanged": true
+    },
+    {
+      "file": "core_test.mbt",
+      "gitBlobSha256": "6383eac5ed8b771938d4f454d6bce03980e97bcd92dd3147e1b4d6430e966d21",
+      "unchanged": true
+    },
+    {
+      "file": "duration.mbt",
+      "gitBlobSha256": "1582f7257e5d1d8065eb7bf2f3236d0fd11a679401a14290eb624452fefca5cc",
+      "unchanged": true
+    },
+    {
+      "file": "examples/integration-engine.mjs",
+      "gitBlobSha256": "a504ca5f22774172633c50d54dc9d3a032d9166013c207fef2fcaee8d1ba8aee",
+      "unchanged": true
+    },
+    {
+      "file": "examples/portable-check/main.mbt",
+      "gitBlobSha256": "e6d3e6add88dc8b934d367a64c479223add619419145e32c68f0f95a9480b6f4",
+      "unchanged": true
+    },
+    {
+      "file": "examples/portable-check/moon.pkg",
+      "gitBlobSha256": "5a152c44bd660a0376073db187634add2123aaaef4ed5835ac7d2a7d269b1094",
+      "unchanged": true
+    },
+    {
+      "file": "examples/portable-check/pkg.generated.mbti",
+      "gitBlobSha256": "67dfc8b0f9efb18ba8c71ac8c2836bfdca8055fd4a836744f654514c75f57e84",
+      "unchanged": true
+    },
+    {
+      "file": "function_table.mbt",
+      "gitBlobSha256": "dbd4117c63e139c562ff7ce2ec612600234ba89606ed9886b8a6922a96ecca1e",
+      "unchanged": true
+    },
+    {
+      "file": "lexer.mbt",
+      "gitBlobSha256": "880551d09b04f7553a1aea9772ea8144cdd4c7f05bfcf02e6a3c38e14b3209b2",
+      "unchanged": true
+    },
+    {
+      "file": "modifiers.mbt",
+      "gitBlobSha256": "41593ab5b6c2eb002b8159c2404f9bedf173ffa5ee2e26c0ad11221fe0657091",
+      "unchanged": true
+    },
+    {
+      "file": "modifiers_test.mbt",
+      "gitBlobSha256": "64f418d922b8e824c052b493e38f8f26412da11f7e0b90441170f01883d08377",
+      "unchanged": true
+    },
+    {
+      "file": "moon.mod",
+      "gitBlobSha256": "b6541d39731bea6f8e49e18bd3360ee05bf29ce1e18c68346071584a0037d1b2",
+      "unchanged": true
+    },
+    {
+      "file": "moon.pkg",
+      "gitBlobSha256": "ada3a947560d02c7fc679f221a3f9783b0d43496b738c4527921bea8edc3df11",
+      "unchanged": true
+    },
+    {
+      "file": "moonpromql/moon.pkg",
+      "gitBlobSha256": "8f4a4026896b7dcad3cc0042b0e17c9ea75b650a64494ad1c3a26b96797103de",
+      "unchanged": true
+    },
+    {
+      "file": "moonpromql/pkg.generated.mbti",
+      "gitBlobSha256": "7a3f657ba652ae15bb641aadde35f3c07b3c6d22a99f70c15278a596b561b5fa",
+      "unchanged": true
+    },
+    {
+      "file": "moonpromql/prepare.mbt",
+      "gitBlobSha256": "616d2ef6fb922ed7cbc16c3cb2474fe8c4ef9ca1ace6f9c255f4a9975b6a19c6",
+      "unchanged": true
+    },
+    {
+      "file": "moonpromql/prepare_test.mbt",
+      "gitBlobSha256": "9392b517a3d3b309ae24c21f5ab45bdb0ece539fafc67264d5ed02482fec7b84",
+      "unchanged": true
+    },
+    {
+      "file": "numbers.mbt",
+      "gitBlobSha256": "f14310a1fa913f9b382525f03bc1e1a2da7b53eeab0a23d48ce7c174cf7800d6",
+      "unchanged": true
+    },
+    {
+      "file": "parser.mbt",
+      "gitBlobSha256": "96127537372cbc56cc6f3f1cf146783f29fc5d2cc6918448d6f74b3c8b0eb317",
+      "unchanged": true
+    },
+    {
+      "file": "parser_upgrade_test.mbt",
+      "gitBlobSha256": "0944307b973d278270635f2cf6606c86c664a70ad285ae24c22c51f661e8f74e",
+      "unchanged": true
+    },
+    {
+      "file": "pkg.generated.mbti",
+      "gitBlobSha256": "2dfb2d2532a3e817cf9180c82a24382d55551068db167048fa03a07b9c5ced8b",
+      "unchanged": true
+    },
+    {
+      "file": "regex.mbt",
+      "gitBlobSha256": "2ce9015453e2e62dde81012928be78b0931019114d13445232c24156f0c4909b",
+      "unchanged": true
+    },
+    {
+      "file": "regex_properties.mbt",
+      "gitBlobSha256": "d011f3f3d21b252ba81cea95d3b4040f13dd49eaf8b753cc7e91a6657eae6868",
+      "unchanged": true
+    },
+    {
+      "file": "signatures.mbt",
+      "gitBlobSha256": "3bb5d015341d5eec8ff14955de649051b37c0ae0eb844c631c5beb18632281fe",
+      "unchanged": true
+    },
+    {
+      "file": "tools/prometheus-reference/go.mod",
+      "gitBlobSha256": "5ffc56a306fc424438d0015bb6ce08138bfcaa9ac42bd74ce29f32269bb9cd13",
+      "unchanged": true
+    },
+    {
+      "file": "unicode.mbt",
+      "gitBlobSha256": "e29dddece38721706fcdcc09a3b1e17dd9c3bc5bc8ca256124174a4537ba7408",
+      "unchanged": true
+    },
+    {
+      "file": "usability.mbt",
+      "gitBlobSha256": "e4b1b0e88ac43038f087ff09dfa205a43ff8cf36aff867b532e09e6366fa5570",
+      "unchanged": true
+    },
+    {
+      "file": "web/engine.mjs",
+      "gitBlobSha256": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+      "unchanged": true
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "node",
+        "tools/verify-promtool.mjs",
+        "<verified promtool3.14.0>",
+        "evidence/promtool-20260927/report.json"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "toolSha256": "cbd091d1bd3ed4e968924b3ce536535726557d4378d736ab44ba0e8669ac2e66",
+  "scope": "Independent local rule-file/static-expression boundary check; no Prometheus server, query execution, remote CI or additional whole-suite rerun."
+}
