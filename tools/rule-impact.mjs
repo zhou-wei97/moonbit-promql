@@ -26,6 +26,8 @@ function canonical(value,depth=0) {
   throw Error('Metadata must contain finite, precisely represented JSON values');
 }
 const object = x=>x!==null && typeof x==='object' && !Array.isArray(x);
+const json = value=>JSON.stringify(canonical(value));
+const digest = value=>createHash('sha256').update(value).digest('hex');
 
 export function loadRules(filename) {
   const raw=bounded(filename);
@@ -51,10 +53,18 @@ export function loadRules(filename) {
     documentContext=outer;
   }
   if(!Array.isArray(groups) || groups.length>512)throw Error('Expected at most 512 groups');
-  const rules=[], descriptions=[], names=new Set();
-  groups.forEach((group,gi)=>{
+  const orderedGroups=[], names=new Set();
+  groups.forEach(group=>{
     if(!object(group)||typeof group.name!=='string'||!group.name||names.has(group.name)||!Array.isArray(group.rules))throw Error('Groups require distinct names and rule arrays');
     names.add(group.name);
+    orderedGroups.push({group});
+  });
+  // Prometheus does not promise an execution order between rule groups. Sort
+  // group blocks so source-file group movement cannot masquerade as rule
+  // changes; preserve order inside each group because that order is semantic.
+  orderedGroups.sort((a,b)=>a.group.name<b.group.name?-1:a.group.name>b.group.name?1:0);
+  const entries=[];
+  for(const {group} of orderedGroups) {
     const {rules:_,...groupContext}=group;
     group.rules.forEach((rule,ri)=>{
       if(!object(rule)||('record' in rule)===('alert' in rule))throw Error('Each rule must have exactly one record or alert');
@@ -63,12 +73,39 @@ export function loadRules(filename) {
       let expr=rule.expr;
       if(typeof expr==='number'&&Number.isFinite(expr)&&(!Number.isInteger(expr)||Number.isSafeInteger(expr)))expr=String(expr);
       if(typeof expr!=='string')throw Error('Rule expr must be a string or finite safe numeric scalar');
-      const id=`${gi}/${ri}`;
-      rules.push({id,record:rule.record??null,expr,context:JSON.stringify(canonical({document:documentContext,group:groupContext,rule}))});
-      descriptions.push({id,group:group.name,name,kind:'record' in rule?'record':'alert'});
-      if(rules.length>512)throw Error('At most 512 rules per snapshot');
+      const kind='record' in rule?'record':'alert';
+      const identityKey=JSON.stringify([group.name,kind,name]);
+      const ruleJson=json(rule);
+      entries.push({group,groupContext,rule,ruleIndex:ri,name,kind,expr,identityKey,ruleJson});
+      if(entries.length>512)throw Error('At most 512 rules per snapshot');
     });
-  });
+  }
+  const identityCounts=new Map(),contentCounts=new Map();
+  for(const entry of entries) {
+    const key=digest(entry.identityKey),content=`${key}:${digest(entry.ruleJson)}`;
+    identityCounts.set(key,(identityCounts.get(key)??0)+1);
+    contentCounts.set(content,(contentCounts.get(content)??0)+1);
+  }
+  const contentOccurrences=new Map(),rules=[],descriptions=[];
+  for(const entry of entries) {
+    const base=digest(entry.identityKey),ruleHash=digest(entry.ruleJson);
+    let id=`rule:${base}`;
+    if(identityCounts.get(base)>1) {
+      id+=`:${ruleHash}`;
+      const content=`${base}:${ruleHash}`;
+      if(contentCounts.get(content)>1) {
+        const occurrence=contentOccurrences.get(content)??0;
+        contentOccurrences.set(content,occurrence+1);
+        // Exact duplicate entries have no content-derived discriminator; an
+        // occurrence suffix keeps them distinct. Their identities are
+        // necessarily interchangeable, so equal duplicates remain equal as a
+        // set when reordered.
+        id+=`:${occurrence}`;
+      }
+    }
+    rules.push({id,record:entry.rule.record??null,expr:entry.expr,context:JSON.stringify(canonical({document:documentContext,group:entry.groupContext,rule:entry.rule}))});
+    descriptions.push({id,group:entry.group.name,name:entry.name,kind:entry.kind,position:entry.ruleIndex});
+  }
   return {rules,descriptions,source:{path:filename,sha256:createHash('sha256').update(raw).digest('hex'),bytes:raw.length}};
 }
 
@@ -84,7 +121,7 @@ export function compare(before,after) {
 }
 function main(args) {
   if(args.length===1&&args[0]==='--help') {
-    console.log('Usage: node tools/rule-impact.mjs RULES.yaml [AFTER.yaml]\nSingle YAML/JSON groups or PrometheusRule document. Graph or before/after local name-reference impact.\nRule IDs use group/rule positions; insert/reorder may conservatively mark more changes.\nUnknown selectors stay unresolved. No TSDB, evaluation, deployment, or scheduling advice. Exit 0 report, 1 invalid/IO.');return;
+    console.log('Usage: node tools/rule-impact.mjs RULES.yaml [AFTER.yaml]\nSingle YAML/JSON groups or PrometheusRule document. Graph or before/after local name-reference impact.\nRule IDs use group name + kind/name; duplicate names include a content digest and exact duplicates an occurrence. Groups sort by name; within-group order is preserved.\nUnknown selectors stay unresolved. No TSDB, evaluation, deployment, or scheduling advice. Exit 0 report, 1 invalid/IO.');return;
   }
   if(args.length<1||args.length>2)throw Error('Expected one or two rule files; use --help');
   const before=loadRules(args[0]);

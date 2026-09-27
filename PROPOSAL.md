@@ -1,7 +1,7 @@
 # MoonBit PromQL 规则依赖与修改影响
 
 仓库：https://github.com/zhou-wei97/moonbit-promql
-模块zhou-wei97/promql；本地0.7.0；MIT AND Apache-2.0；未推送或复申。
+模块zhou-wei97/promql；本地0.8.0；MIT AND Apache-2.0；未推送或复申。
 
 任务：修改、改名或删除记录规则时，定位清单内可能受影响的recording/alert rules。
 新增纯MoonBit /rules库，从既有表达式AST生成本地名字引用，沿旧新图并集传播，保留删除/改名之前的下游。
@@ -17,11 +17,10 @@ promtool已有离线规则合法性检查；Mimir固定ruler源码输出group聚
 复现：npm ci --ignore-scripts；moon build --target js --release。
 node tools/rule-impact.mjs examples/rule-impact/control-plane.yaml；两文件调用可比较修改。
 moon run examples/rule-review --target js或wasm-gc直接消费纯核心。
-公开kube-prometheus配置135规则、53本地名字边，原文SHA与Apache-2.0来源固定保存。
-Prometheus3.14官方解析器232条AST与39组图/变化场景由另一种闭包算法核对。
-双后端核心及宿主错误/Operator元数据边界见evidence/rule-impact-20260927/LOCAL-CHECKS.json。
+历史0.7回执含135条kube-prometheus规则、53本地边、Prometheus3.14官方解析器232条AST与39组图比较，见旧版证据。
+本地0.8稳定ID收据含39组保存AST重放、13个宿主检查及新增规则噪音、改名/删除/移动、重复名和组内重排验证，见evidence/stable-ids-20260927/LOCAL-CHECKS.json。
 
 上限512规则、32768边、1Mi代码单元表达式/上下文；不查询TSDB或求标签交集。
-位置ID可能保守多报；未知选择器和清单外部消费者使报告不能证明安全部署。
+CLI以组名+规则类型/名称的哈希身份匹配，减少插入造成的噪音；完全重复项及唯一/重复切换可能以删除和添加保守呈现。未知选择器和清单外部消费者使报告不能证明安全部署。
 环只报告成员，不判断合法性或建议执行顺序；静态通过仍不保证MoonPromQL可执行。
 没有确认使用方、生产验证或远程CI结论；公开配置不等于项目被采用或赛事通过。

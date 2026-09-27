@@ -1,0 +1,332 @@
+{
+  "utc": "2026-09-27T11:26:22.283Z",
+  "mode": "saved independent AST replay",
+  "sourceSha256": "a5545dabab60c1d8f63c49e9da59f3bd9e77368d98abcce7a78f415fb9ce1b43",
+  "publicRules": 135,
+  "publicEdges": 53,
+  "publicExternalReferences": 221,
+  "oracleSha256": "e7073a20c379ceec9d7bb5e6320cf460e3575898bce71c012e5da338ba85968a",
+  "referenceVersion": "v0.314.0",
+  "queries": 232,
+  "comparisons": 39,
+  "hostChecks": 13,
+  "reports": [
+    {
+      "name": "public-unchanged",
+      "oldEdges": 53,
+      "newEdges": 53,
+      "changed": 0,
+      "affected": 0,
+      "uncertain": 0
+    },
+    {
+      "name": "public-expression",
+      "oldEdges": 53,
+      "newEdges": 53,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "public-metadata",
+      "oldEdges": 53,
+      "newEdges": 53,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "public-rename",
+      "oldEdges": 53,
+      "newEdges": 52,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "public-delete",
+      "oldEdges": 53,
+      "newEdges": 52,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "ambiguous-cycle-unknown",
+      "oldEdges": 2,
+      "newEdges": 3,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 1
+    },
+    {
+      "name": "nested-exact-name",
+      "oldEdges": 2,
+      "newEdges": 2,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-0",
+      "oldEdges": 30,
+      "newEdges": 26,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-1",
+      "oldEdges": 27,
+      "newEdges": 23,
+      "changed": 1,
+      "affected": 3,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-2",
+      "oldEdges": 17,
+      "newEdges": 18,
+      "changed": 1,
+      "affected": 7,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-3",
+      "oldEdges": 24,
+      "newEdges": 23,
+      "changed": 1,
+      "affected": 10,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-4",
+      "oldEdges": 19,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 3,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-5",
+      "oldEdges": 21,
+      "newEdges": 21,
+      "changed": 1,
+      "affected": 6,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-6",
+      "oldEdges": 19,
+      "newEdges": 18,
+      "changed": 1,
+      "affected": 10,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-7",
+      "oldEdges": 22,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 11,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-8",
+      "oldEdges": 21,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 9,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-9",
+      "oldEdges": 26,
+      "newEdges": 27,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-10",
+      "oldEdges": 25,
+      "newEdges": 23,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-11",
+      "oldEdges": 20,
+      "newEdges": 21,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-12",
+      "oldEdges": 19,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-13",
+      "oldEdges": 23,
+      "newEdges": 21,
+      "changed": 1,
+      "affected": 11,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-14",
+      "oldEdges": 19,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 4,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-15",
+      "oldEdges": 27,
+      "newEdges": 29,
+      "changed": 1,
+      "affected": 7,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-16",
+      "oldEdges": 23,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 10,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-17",
+      "oldEdges": 19,
+      "newEdges": 20,
+      "changed": 1,
+      "affected": 9,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-18",
+      "oldEdges": 25,
+      "newEdges": 27,
+      "changed": 1,
+      "affected": 7,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-19",
+      "oldEdges": 14,
+      "newEdges": 13,
+      "changed": 1,
+      "affected": 5,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-20",
+      "oldEdges": 27,
+      "newEdges": 27,
+      "changed": 1,
+      "affected": 11,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-21",
+      "oldEdges": 26,
+      "newEdges": 22,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-22",
+      "oldEdges": 15,
+      "newEdges": 15,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-23",
+      "oldEdges": 30,
+      "newEdges": 29,
+      "changed": 1,
+      "affected": 11,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-24",
+      "oldEdges": 27,
+      "newEdges": 25,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-25",
+      "oldEdges": 19,
+      "newEdges": 16,
+      "changed": 1,
+      "affected": 5,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-26",
+      "oldEdges": 24,
+      "newEdges": 24,
+      "changed": 1,
+      "affected": 5,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-27",
+      "oldEdges": 27,
+      "newEdges": 28,
+      "changed": 1,
+      "affected": 10,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-28",
+      "oldEdges": 17,
+      "newEdges": 18,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-29",
+      "oldEdges": 28,
+      "newEdges": 29,
+      "changed": 1,
+      "affected": 1,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-30",
+      "oldEdges": 24,
+      "newEdges": 19,
+      "changed": 1,
+      "affected": 2,
+      "uncertain": 0
+    },
+    {
+      "name": "generated-31",
+      "oldEdges": 22,
+      "newEdges": 21,
+      "changed": 1,
+      "affected": 9,
+      "uncertain": 0
+    }
+  ],
+  "limits": [
+    "Static local name-reference candidates; no TSDB label intersection or execution validation",
+    "Public deployment manifest is not adoption by this project",
+    "Random cases are synthetic; official parser used only as a development reference"
+  ]
+}

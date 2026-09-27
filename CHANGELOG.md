@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 — 2026-09-27
+
+- Match CLI rule snapshots by stable group/kind/name identity instead of source positions; repeated names include canonical content digests.
+- Normalize group block order and conservatively report common-rule relative-order inversions, while keeping insertion/deletion shifts from marking unrelated rules.
+- Document overlap with pint, Mimirtool, and promtool; no algorithm-novelty claim.
+
 ## 0.4.0 — 2026-09-17
 
 - Parse and statically validate by default, with all 90 pinned Prometheus 3.14.0 function signatures and independent experimental switches.

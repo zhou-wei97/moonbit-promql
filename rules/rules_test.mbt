@@ -46,6 +46,28 @@ test "old new union retains removed and renamed producer dependencies" {
 }
 
 ///|
+test "insertion does not change common identities but relative reorder is conservative" {
+  let before = [
+    r("a", Some("a"), "raw"),
+    r("b", Some("b"), "raw"),
+    r("c", None, "a + b > 0"),
+  ]
+  let inserted = [r("new", None, "up == 0"), ..before]
+  let insertion = @rules.compare(before, inserted)
+  assert_eq(insertion.changed, ["new"])
+  assert_eq(insertion.affected, ["new"])
+
+  let reordered = [before[1], before[0], before[2]]
+  let reorder = @rules.compare(before, reordered)
+  assert_eq(reorder.changed, ["a", "b"])
+  assert_eq(reorder.affected, ["a", "b", "c"])
+
+  let deleted = @rules.compare(before, [before[0], before[2]])
+  assert_eq(deleted.changed, ["b"])
+  assert_eq(deleted.affected, ["b", "c"])
+}
+
+///|
 test "unknown metric selectors propagate uncertainty without false empty graph" {
   let before = [
     r("a", Some("base"), "raw"),

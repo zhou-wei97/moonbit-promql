@@ -1,6 +1,6 @@
 name = "zhou-wei97/promql"
 
-version = "0.7.0"
+version = "0.8.0"
 
 license = "MIT AND Apache-2.0"
 

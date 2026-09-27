@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "version": "0.8.0",
+  "generatedUtc": "2026-09-27T11:20:02Z",
+  "environment": {
+    "moonHome": "D:/CodexLocal/ban/work/moon",
+    "moon": "0.1.20260904 (94521db)",
+    "moonc": "v0.10.12+1634b282e",
+    "node": "v24.11.0"
+  },
+  "checks": [
+    {
+      "name": "format-modified-moonbit-files",
+      "command": "moon fmt rules/rules.mbt rules/rules_test.mbt",
+      "exitCode": 0
+    },
+    {
+      "name": "format-check-modified-moonbit-files",
+      "command": "moon fmt --check rules/rules.mbt rules/rules_test.mbt",
+      "exitCode": 0
+    },
+    {
+      "name": "rules-js-tests",
+      "command": "moon test rules --target js --deny-warn",
+      "result": "7 passed, 0 failed",
+      "exitCode": 0
+    },
+    {
+      "name": "rules-wasm-gc-tests",
+      "command": "moon test rules --target wasm-gc --deny-warn",
+      "result": "7 passed, 0 failed",
+      "exitCode": 0
+    },
+    {
+      "name": "release-js-build",
+      "command": "moon build --target js --release --deny-warn",
+      "exitCode": 0
+    },
+    {
+      "name": "generated-public-interface",
+      "command": "moon info",
+      "result": "No public API shape change",
+      "exitCode": 0
+    },
+    {
+      "name": "generated-interface-diff",
+      "command": "git diff --exit-code -- pkg.generated.mbti rules/pkg.generated.mbti",
+      "exitCode": 0
+    },
+    {
+      "name": "targeted-stable-identity-probe",
+      "command": "node work/substantive-20260927/promql-review/stable-ids-probe.mjs",
+      "resultFile": "probe.json",
+      "exitCode": 0
+    },
+    {
+      "name": "saved-prometheus-ast-reference-replay-and-host-checks",
+      "command": "node tools/test-rule-impact.mjs --golden evidence/stable-ids-20260927/rule-impact-replay.json",
+      "result": "39 graph comparisons, 232 saved AST query vectors, 13 host checks",
+      "exitCode": 0
+    }
+  ],
+  "probeSource": {
+    "path": "examples/rule-impact/control-plane.yaml",
+    "sha256": "a5545dabab60c1d8f63c49e9da59f3bd9e77368d98abcce7a78f415fb9ce1b43",
+    "rules": 135
+  },
+  "probeResultSha256": "d52c71e38cdb814316c0e3f0d04d4ddb6d68d5b658f53602fdd1c710ffb961f6",
+  "referenceReplaySha256": "5bf72dcd0bab4a9aa69674c20b59599a2e0938892badfaea9002f9a50389a0a7",
+  "scopeLimitations": [
+    "The 39 graph comparisons replayed saved Prometheus parser AST vectors; this turn did not launch the official parser, run promtool, run the full module test matrix, or run remote CI.",
+    "Stable IDs use SHA-256 as a matching aid, not a proof of collision impossibility.",
+    "The static graph does not evaluate selectors against TSDB labels or infer execution order between groups."
+  ],
+  "sourceFingerprints": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "71b5127626fd0f20a21705225ce7c2da8a256c1850c67066cfb1339eb440bc62"
+    },
+    {
+      "path": "PROPOSAL.md",
+      "sha256": "153487f65da8f4e6f66ce34829febde90af81e78cc60528054bfeeae20c8ddec"
+    },
+    {
+      "path": "README.md",
+      "sha256": "9d4769a133641c31989ebfd9f6029acdb633298fb63b177e85592817a0ad3c36"
+    },
+    {
+      "path": "RULE-IMPACT.md",
+      "sha256": "5cd90f8d2c719761f51d1b56de2ca461155fb76a020dbaeeb632a28254e8a606"
+    },
+    {
+      "path": "TESTING.md",
+      "sha256": "b9077e8eca88d2791761642fd6dbed0399cb79bb30510bfc29c9e5efc86afe41"
+    },
+    {
+      "path": "UPSTREAM-RELATION.md",
+      "sha256": "db9da532d4ea0b40e7d81f2b7b307f25673a273d7579e8df3554c0ebd6ace796"
+    },
+    {
+      "path": "SUBMISSION.json",
+      "sha256": "9cc1cbc1591de94d6c51e195beafb5bb3cdd605c26b32eed02c5b3eaba7bddeb"
+    },
+    {
+      "path": "moon.mod",
+      "sha256": "393152252af3235fa10141a5f98623e9af1d50fa925473560b15c1b0df32164a"
+    },
+    {
+      "path": "package.json",
+      "sha256": "785383ff2d5cf1027a04b68316a6ddb24db7ac9b7558c2191be0e6d59dad9deb"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e59a8cd4930549db93ba66e38c1170ffa530ac26e86949538fcc232dc08adf51"
+    },
+    {
+      "path": "rules/rules.mbt",
+      "sha256": "8b3d490f73e3ad3972490f8c3644d3d9cd3edfeefc8ce073aba89a8dabe3ecba"
+    },
+    {
+      "path": "rules/rules_test.mbt",
+      "sha256": "4b7d874fac206426c0062d94b71d6dc4e80b75a0b9f466f4a9f2bc2d96304e00"
+    },
+    {
+      "path": "tools/rule-impact.mjs",
+      "sha256": "16470b39dbf51e745c4fcbe2066604a98d9aba1f4d1c63a97dffaf069068ea09"
+    },
+    {
+      "path": "tools/test-rule-impact.mjs",
+      "sha256": "703cfc01cb8d26567cda7e25ed6d6e2702bdb0156297442bfdb1f8e52adf3cf0"
+    }
+  ]
+}

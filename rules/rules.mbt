@@ -294,6 +294,37 @@ pub fn compare(
       changed.push(id)
     }
   }
+  // Array order is part of this low-level API's conservative contract. Mark
+  // both endpoints of every inversion among rules present in both snapshots:
+  // position shifts from insertion/deletion alone are not semantic changes,
+  // but an actual relative reorder may matter to an ordered host format.
+  let new_position : Map[String, Int] = Map([])
+  for i, r in after {
+    new_position[r.id] = i
+  }
+  let mut i = 0
+  while i < before.length() {
+    let left = before[i]
+    match new_position.get(left.id) {
+      Some(left_new) => {
+        let mut j = i + 1
+        while j < before.length() {
+          let right = before[j]
+          match new_position.get(right.id) {
+            Some(right_new) =>
+              if left_new > right_new {
+                unique_push(changed, left.id)
+                unique_push(changed, right.id)
+              }
+            None => ()
+          }
+          j += 1
+        }
+      }
+      None => ()
+    }
+    i += 1
+  }
   let edges = old_graph.edges.copy()
   for edge in new_graph.edges {
     edges.push(edge)

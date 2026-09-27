@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "generatedUtc": "2026-09-27T11:00:45.759Z",
+  "source": {
+    "path": "D:\\CodexLocal\\ban\\outputs\\repos\\moonbit-promql\\examples\\rule-impact\\control-plane.yaml",
+    "sha256": "a5545dabab60c1d8f63c49e9da59f3bd9e77368d98abcce7a78f415fb9ce1b43",
+    "rules": 135
+  },
+  "inputHashes": {
+    "kube-inserted.yaml": {
+      "sha256": "df081f0f1219de2e5cab02fde61b88f2fd92f68c9d955b5ef12b3b51a5646f5f",
+      "bytes": 93362
+    },
+    "kube-groups-reversed.yaml": {
+      "sha256": "ff96f5b7e16a01bbba47f36fe92643ede436535aefc451c58f4c185f96649dd3",
+      "bytes": 93287
+    },
+    "chain-before.yaml": {
+      "sha256": "55bf7845ddb3cad5b5cbccbdcd9d27cce4087263e6d3d5386bff1925cd431db1",
+      "bytes": 176
+    },
+    "chain-renamed.yaml": {
+      "sha256": "0aadaaa4e87402a1178e636f644594b3470b8ef4e07bfe1ec3e488b3c3247dbe",
+      "bytes": 184
+    },
+    "chain-moved-group.yaml": {
+      "sha256": "a394724c828129bb2ab59423dcd9bd696a0ffa8f2cd6086bd2a89dd283ead4cd",
+      "bytes": 203
+    },
+    "chain-deleted.yaml": {
+      "sha256": "276afb8fcfba5969351ac83aa21ab1a0f59eed1f8cd9977930a14a6cbdffd84e",
+      "bytes": 135
+    },
+    "chain-reordered.yaml": {
+      "sha256": "388e3d52238a7a98d419309f4e3dd5f25185ef25aeab83d21f1849d2ed201999",
+      "bytes": 176
+    },
+    "duplicate-before.yaml": {
+      "sha256": "abd09ea8fb3c2ed5039142f0d7546d795d41ba4a4720306ff2f7ea2932d761e4",
+      "bytes": 118
+    },
+    "duplicate-after.yaml": {
+      "sha256": "9e1adb9496345b479aa3ec88e79a07dc17a9a885f705ea35f8bfce57bb54eebe",
+      "bytes": 158
+    },
+    "duplicate-reordered.yaml": {
+      "sha256": "83f96061b75ca91d26ab3dea0003a2acde3d49551e70dbd576cf5f23f2100998",
+      "bytes": 158
+    }
+  },
+  "inserted": {
+    "rules": 136,
+    "changed": 1,
+    "affected": 1,
+    "id": "rule:0d268a07f284b7d47e6cd5d9f1fe9693bbe23be4f352f2475b46f35d9e7c9a8b"
+  },
+  "reversedGroups": {
+    "changed": 0
+  },
+  "renamed": {
+    "changed": 2,
+    "affected": 4
+  },
+  "movedGroup": {
+    "changed": 2,
+    "affected": 4
+  },
+  "deleted": {
+    "changed": 1,
+    "affected": 3
+  },
+  "reorderedChain": {
+    "changed": 2,
+    "affected": 3
+  },
+  "duplicate": {
+    "changed": 3,
+    "ambiguousEdges": 2
+  },
+  "duplicateReorder": {
+    "changed": 2
+  }
+}

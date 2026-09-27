@@ -45,6 +45,10 @@ moon run examples/portable-check --target wasm-gc
 
 2026-09-27后续已取得并校验promtool3.14.0，实际运行14项对照；见 [PROMTOOL-REFERENCE](PROMTOOL-REFERENCE.md) 与 [回执](evidence/promtool-20260927/LOCAL-CHECKS.json)。早先下载失败的 PROMTOOL-NOT-RUN.md 保留为历史。静态通过仍不能证明执行等价或赛事认可。
 
-## 0.7.0规则图扩展
+## 0.8.0规则图扩展与相邻工具
 
-新增/rules提供本地名字引用及前后修改影响，YAML宿主复用ISC许可yaml@2.9.1，完整规则合法性仍交promtool；没有改写MoonPromQL执行器。新API、来源、公开输入与不确定项见[RULE-IMPACT](RULE-IMPACT.md)。
+新增/rules提供本地名字引用及前后修改影响，YAML宿主复用ISC许可yaml@2.9.1，完整规则合法性仍交promtool；没有改写MoonPromQL执行器。0.8.0把CLI规则位置ID替换为稳定身份匹配，并从相对顺序逆转中识别可能有序语义的变化。新API、来源、公开输入与不确定项见[RULE-IMPACT](RULE-IMPACT.md)。
+
+与成熟工具对照：Cloudflare [pint的规则依赖检查](https://cloudflare.github.io/pint/checks/rule/dependency.html)已经识别多文件删除record的消费者及跨组record依赖延迟；其[pint ci工作流](https://cloudflare.github.io/pint/)用Git判断改动规则，并保留全规则集作依赖检查。固定源码核对在commit [`39ba145`](https://github.com/cloudflare/pint/blob/39ba145ee6b7c33050133dc572437e17931e0fde/internal/checks/rule_dependency.go)：该检查采用向量选择器精确metric name匹配，任务目标是已删除直接消费者及跨组延迟，不是任意变化的传递影响闭包。Cloudflare文档本身也把规则组间执行顺序标为不保证。
+
+Grafana [Mimirtool](https://grafana.com/docs/mimir/latest/manage/tools/mimirtool/)可从离线dashboard、rule-file及在线Ruler抽取查询metrics清单；这已经覆盖资产指标盘点，因此没有把相同清单功能算作本扩展价值。Prometheus [3.14 recording-rules文档](https://prometheus.io/docs/prometheus/3.14/configuration/recording_rules/)说明组内顺序执行、组名仅需在单文件唯一、group/rule labels可能覆盖存储标签；官方 [promtool](https://prometheus.io/docs/prometheus/3.14/command-line/promtool/)负责规则文件合法性检查。这些工具及上游已有能力限制了本扩展的主张：它是可嵌入MoonBit的本地快照候选边和传递影响解释，不是新算法，不替代pint/Mimir/promtool，也未有确认采用方。
