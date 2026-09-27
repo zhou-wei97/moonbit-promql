@@ -1,43 +1,27 @@
-# MoonBit PromQL 表达式类型检查库与 MoonPromQL 接入
+# MoonBit PromQL 规则依赖与修改影响
+
 仓库：https://github.com/zhou-wei97/moonbit-promql
-模块：zhou-wei97/promql；本地版本：0.6.0。
+模块zhou-wei97/promql；本地0.7.0；MIT AND Apache-2.0；未推送或复申。
 
-问题：告警或面板查询提交前需要类型检查；仅通过静态检查还不足以证明既有执行器支持该查询。
-范围：独立静态解析器、批量清单检查及可选执行适配器。执行算法来自 MoonPromQL，未新写查询执行器、TSDB 或完整告警系统。
-已有工作：Santa968/moonpromql@0.1.0；明确承认同类能力，撤回生态空白式表述。
-扩展关系：本项目 parse/infer_type → 上游真实 parser → 保留上游 AST → 调用上游 evaluate；静态错误、上游语法错误、已知不支持范围和数据相关运行错误分别保留。
-调用入口：公开 /moonpromql 包；不是仅文档列出上游。
+任务：修改、改名或删除记录规则时，定位清单内可能受影响的recording/alert rules。
+新增纯MoonBit /rules库，从既有表达式AST生成本地名字引用，沿旧新图并集传播，保留删除/改名之前的下游。
+同名产出列全部候选；宽选择器及告警隐式序列保留不确定性，不冒称无影响。
+宿主复用yaml@2.9.1，读取groups或PrometheusRule，纳入外层metadata、group设置及规则labels/annotations。
+Node负责文件/YAML交接；名字图、环成员和影响闭包在MoonBit运行，JS/Wasm-GC可直接消费核心。
 
-验证：16个选定查询实际调用上游；四个数值结果有手工期望，成功准备后的执行结果与直接调用上游一致。子查询/复合时长可通过本项目静态检查，但被上游解析器拒绝；sum(1)在准备阶段报告类型错误。
-当前检查：JS/Wasm-GC各28项（含4个新适配器用例）；16个实际上游对照；既有浏览器、CLI、结构化检查、批处理和3213条静态golden重放。
-构建：moon update && moon build --target js。
-刷新产物：node tools/refresh-engines.mjs。
-复现：node examples/run-upstream-integration.mjs output/upstream。
-报告：evidence/integration-20260923/example-output/report.json。
+实际复用Santa968/moonpromql@0.1.0执行器，承认语言层能力重叠，撤回生态空白叙述。
+旧root静态类型API与/moonpromql适配保留，没有重写执行算法或TSDB。
+promtool已有离线规则合法性检查；Mimir固定ruler源码输出group聚合指标。
+本增量限定为规则级引用及前后修改影响，不声称全生态首创，也不替代完整规则校验。
 
-边界：适配层明确拒绝 @ 时间戳，因为 Prometheus 秒和该版 MoonPromQL 毫秒语义不同。上下文时间仍使用上游毫秒。prepare 成功不保证执行成功：absent(up)就是记录的反例。正则、计数器外推及向量匹配沿用上游局限，未证明 Prometheus 执行等价。
-补充：保留 root parser 的较宽语法范围和 Prometheus 3.14.0 静态契约；3213个保存的独立参考答案仅用于静态重放，不能当作运行语义证据。
-成熟度：没有真实使用方；新增部分是静态检查与既有执行器的保守适配，不主张新执行算法。
-没有确认使用方、上游认可、生产规模或性能优越性证明。
-原创源码MIT，上游Apache-2.0；随包附许可和来源。
-JS/Wasm-GC与Windows/WSL接入例子本地验证；不据此称远端CI已绿。
-当前仅本地修订，待对接团队同步同版本代码和表单。
-申请按上述限定范围和可复现结果重新评估，不保证审核结论。
+复现：npm ci --ignore-scripts；moon build --target js --release。
+node tools/rule-impact.mjs examples/rule-impact/control-plane.yaml；两文件调用可比较修改。
+moon run examples/rule-review --target js或wasm-gc直接消费纯核心。
+公开kube-prometheus配置135规则、53本地名字边，原文SHA与Apache-2.0来源固定保存。
+Prometheus3.14官方解析器232条AST与39组图/变化场景由另一种闭包算法核对。
+双后端核心及宿主错误/Operator元数据边界见evidence/rule-impact-20260927/LOCAL-CHECKS.json。
 
-## 2026-09-27：表达式与规则文件的边界
-
-本库提供可嵌入MoonBit程序的纯表达式解析/类型推断；保留0.6.0运行时，没有为了命名重新实现执行器。`tools/check-queries.mjs`只读取JSON查询清单，**不读取Prometheus YAML规则文件，不检查重复规则、告警模板或group顺序**。MoonPromQL已有parser/evaluator，语言层重叠被明确承认；增量范围是较宽的静态契约与保守执行接入，不是完整规则系统。
-
-官方[Prometheus3.14.0 promtool](https://github.com/prometheus/prometheus/blob/v3.14.0/docs/command-line/promtool.md)已经能够离线检查本地规则文件及duplicate-rules，无需启动Prometheus服务。已有规则文件任务应优先用它。本库的部署位置是不能依赖Go命令行进程、需要嵌入式MoonBit表达式API的程序；当前没有确认采用方或优于官方工具的性能证据。
-
-固定官方Apache-2.0测试文件中两条同名告警的表达式都能通过类型检查，**不代表该规则文件无重复错误**：
-
-```sh
-node examples/public-rule-expressions.mjs
-moon run examples/portable-check --target js
-moon run examples/portable-check --target wasm-gc
-```
-
-前者按固定文件核对手工选取的两条表达式并调用现有清单CLI；后两条直接消费MoonBit库，支持成功输出与`sum(1)`类型拒绝，宿主不替代解析/推断。来源/hash/许可在examples/prometheus-rules。公开软件测试不是客户部署。
-
-2026-09-27后续核验：已补齐官方promtool3.14.0并核对完整发布包SHA-256，实际运行14项对照。其中7项表达式解析/类型结果一致，3项检查官方重复规则夹具的lint模式，2项验证规则文件结构错误，另2项记录本地源码/AST深度资源限制带来的有意拒绝。默认重复规则会输出失败文字但退出0；`--lint-fatal`退出3；表达式/结构错误退出1。源码和引擎保持0.6.0，未重跑全部旧套件。复现、原始输出、来源散列见 [PROMTOOL-REFERENCE](PROMTOOL-REFERENCE.md) 和 [本次回执](evidence/promtool-20260927/LOCAL-CHECKS.json)。先前下载失败记录保留为历史，不再是当前未完成项。静态通过仍不证明MoonPromQL支持或能执行该查询，也不代表赛事认可独立性。
+上限512规则、32768边、1Mi代码单元表达式/上下文；不查询TSDB或求标签交集。
+位置ID可能保守多报；未知选择器和清单外部消费者使报告不能证明安全部署。
+环只报告成员，不判断合法性或建议执行顺序；静态通过仍不保证MoonPromQL可执行。
+没有确认使用方、生产验证或远程CI结论；公开配置不等于项目被采用或赛事通过。

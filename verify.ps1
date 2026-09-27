@@ -21,6 +21,14 @@ try {
   if ($LASTEXITCODE -ne 0) {throw 'JS tests failed'}
   & $MoonPath build --target js --deny-warn
   if ($LASTEXITCODE -ne 0) {throw 'build failed'}
+  npm ci --ignore-scripts --no-audit --no-fund
+  if ($LASTEXITCODE -ne 0) {throw 'YAML host dependencies failed'}
+  & $MoonPath build --target js --release --deny-warn
+  if ($LASTEXITCODE -ne 0) {throw 'rule host build failed'}
+  node tools/rule-impact.mjs examples/rule-impact/control-plane.yaml
+  if ($LASTEXITCODE -ne 0) {throw 'public rule graph failed'}
+  node tools/test-rule-impact.mjs --golden "$env:TEMP/promql-rule-impact-validation.json"
+  if ($LASTEXITCODE -ne 0) {throw 'rule reference replay failed'}
   & $MoonPath run cmd/main
   if ($LASTEXITCODE -ne 0) {throw 'example failed'}
   node tools/refresh-engines.mjs

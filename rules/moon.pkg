@@ -1,0 +1,6 @@
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+  "zhou-wei97/promql" @parser,
+  "moonbitlang/core/encoding/utf8",
+}

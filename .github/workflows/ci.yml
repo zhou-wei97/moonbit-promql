@@ -19,6 +19,10 @@ jobs:
       - run: moon test --target wasm-gc
       - run: moon test --target js
       - run: moon build --target js
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: moon build --target js --release
+      - run: node tools/rule-impact.mjs examples/rule-impact/control-plane.yaml
+      - run: node tools/test-rule-impact.mjs --golden /tmp/rule-impact-ci.json
       - run: node tools/refresh-engines.mjs
       - run: node examples/run-upstream-integration.mjs
       - run: node tools/test-demo.mjs

@@ -2,6 +2,7 @@ _build/
 target/
 .mooncakes/
 __pycache__/
+node_modules/
 evidence/benchmark.json
 evidence/robustness.json
 evidence/coverage*

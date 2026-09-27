@@ -1,0 +1,19 @@
+{
+  "commit": "ffa15b2d0e1b9c0b8afd2ca29a3ad8adc02a75ea",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "control-plane.yaml",
+      "url": "https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/ffa15b2d0e1b9c0b8afd2ca29a3ad8adc02a75ea/manifests/kubernetesControlPlane-prometheusRule.yaml",
+      "bytes": 84422,
+      "sha256": "a5545dabab60c1d8f63c49e9da59f3bd9e77368d98abcce7a78f415fb9ce1b43"
+    },
+    {
+      "path": "LICENSE-kube-prometheus",
+      "url": "https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/ffa15b2d0e1b9c0b8afd2ca29a3ad8adc02a75ea/LICENSE",
+      "bytes": 11325,
+      "sha256": "cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14"
+    }
+  ],
+  "scope": "Unmodified public deployment manifest, not a customer deployment"
+}

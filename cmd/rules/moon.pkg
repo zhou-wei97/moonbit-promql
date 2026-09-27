@@ -1,0 +1,15 @@
+import {
+  "zhou-wei97/promql/rules" @ruleslib,
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")
+
+options(
+  link: {
+    "js": { "exports": [ "analyze_json", "compare_json" ], "format": "esm" },
+  },
+)

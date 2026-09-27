@@ -1,17 +1,17 @@
 {
   "project": "promql",
-  "title": "MoonBit PromQL 表达式类型检查库与 MoonPromQL 接入",
+  "title": "MoonBit PromQL 规则依赖与修改影响",
   "module": "zhou-wei97/promql",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "repository": "https://github.com/zhou-wei97/moonbit-promql",
   "status": "审核结果未知；本地工程复核完成，待团队同步",
-  "remainingRisk": "静态通过不保证MoonPromQL执行成功；AST深度和源码长度有本地限额；不验证完整规则YAML或执行等价；不是TSDB或规则引擎",
+  "remainingRisk": "名字候选图不求标签交集；宽选择器/隐式序列不确定；单清单外部消费者未知；无实际采用或执行等价证明",
   "actualUsersClaimed": false,
   "defaultBranch": "origin/main",
   "localChangesPublished": false,
-  "proposalLines": 43,
-  "useCase": "在MoonBit程序中推断表达式类型，并保守接入已有MoonPromQL执行器",
-  "diff": "与MoonPromQL语言层重叠被承认；promtool已能离线检查完整规则，JSON清单接口不冒充YAML规则检查",
+  "proposalLines": 27,
+  "useCase": "比较规则清单修改前后，保留删除/改名下游并单列不确定选择器",
+  "diff": "实际复用MoonPromQL和YAML宿主库；新增纯MoonBit规则名字图及前后影响，不混同promtool完整规则校验",
   "upstreamDependency": "Santa968/moonpromql@0.1.0",
   "historicalAnonymousClone": {
     "date": "2026-09-22",
@@ -22,12 +22,13 @@
   "license": "MIT AND Apache-2.0",
   "acceptance": "not established",
   "remoteCIRunByThisTask": false,
-  "currentValidation": "evidence/promtool-20260927/LOCAL-CHECKS.json",
-  "currentEvidence": "evidence/promtool-20260927/LOCAL-CHECKS.json",
+  "currentValidation": "evidence/rule-impact-20260927/LOCAL-CHECKS.json",
+  "currentEvidence": "evidence/rule-impact-20260927/LOCAL-CHECKS.json",
   "metadataReviewedOn": "2026-09-27",
-  "currentEvidenceScope": "14 actual Prometheus3.14.0 promtool checks:7 expression outcomes,5 rule-file/lint boundaries,2 explicit local resource limits; unchanged core and engines",
-  "reviewDecision": "保留表达式静态库，收窄申报",
+  "currentEvidenceScope": "135 public rules / 53 edges; official parser 232 ASTs; 39 independent graph comparisons; JS/Wasm core and host metadata cases",
+  "reviewDecision": "保留并扩展规则修改审阅任务",
   "historicalEvidencePointers": {
-    "beforePromtoolContinuation": "evidence/public-expressions-20260927/LOCAL-CHECKS.json"
+    "beforePromtoolContinuation": "evidence/public-expressions-20260927/LOCAL-CHECKS.json",
+    "promtool": "evidence/promtool-20260927/LOCAL-CHECKS.json"
   }
 }

@@ -1,0 +1,61 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "zhou-wei97/promql/rules"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn analyze(Array[Rule]) -> Graph raise RuleError
+
+pub fn compare(Array[Rule], Array[Rule]) -> Impact raise RuleError
+
+// Errors
+pub suberror RuleError {
+  Invalid(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub(all) struct Edge {
+  producer : String
+  consumer : String
+  metric : String
+  ambiguous : Bool
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Graph {
+  edges : Array[Edge]
+  external : Array[Reference]
+  unresolved : Array[Opaque]
+  cyclic_rules : Array[String]
+} derive(ToJson, @debug.Debug)
+
+pub(all) struct Impact {
+  before : Graph
+  after : Graph
+  changed : Array[String]
+  affected : Array[String]
+  uncertain : Array[String]
+} derive(ToJson, @debug.Debug)
+
+pub(all) struct Opaque {
+  consumer : String
+  reason : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Reference {
+  consumer : String
+  metric : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Rule {
+  id : String
+  record : String?
+  expr : String
+  context : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+// Type aliases
+
+// Traits

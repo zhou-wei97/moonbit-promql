@@ -1,17 +1,9 @@
-# 0.6.0 当前验证范围
+# 0.7.0 当前验证范围
 
-JS/Wasm-GC各28项（含4个新适配器用例）；16个实际上游对照；既有浏览器、CLI、结构化检查、批处理和3213条静态golden重放。
+本轮命令、退出码、源码和JS桥接散列见evidence/rule-impact-20260927/LOCAL-CHECKS.json。全目标检查和JS/Wasm-GC核心测试包含新增规则图用例；纯MoonBit消费例子在两后端执行同一改名影响任务。
 
-新适配器测试在公开API级执行；示例实际链接并调用 Santa968/moonpromql@0.1.0，不使用JavaScript替代核心算法。Windows与WSL Node新例子通过。原始命令、工具链和逐项退出码见 [LOCAL-CHECKS.json](evidence/integration-20260923/LOCAL-CHECKS.json)，新报表位于同目录；旧报告保留原字节，不改写成当前证据。
+实际Prometheus3.14解析器提取232条查询AST，公开135规则含53本地边/221外部名字引用。39组旧新图采用独立Floyd-Warshall闭包，包含公开配置变化与32组确定种子合成图；实时参考与静态重放分别为reference.json和replay.json，后者不计为新运行官方进程。
 
-16个选定查询实际调用上游；四个数值结果有手工期望，成功准备后的执行结果与直接调用上游一致。子查询/复合时长可通过本项目静态检查，但被上游解析器拒绝；sum(1)在准备阶段报告类型错误。
+宿主实际进程检查拒绝重复键、别名、多文档、不精确整数和错误表达式，验证改名及Operator标签/namespace变化。独立复核发现外层metadata遗漏，现纳入context；空集合别名不受maxAliasCount=0约束，故显式拒绝Alias节点。告警隐式序列另标不确定性，不静默归为无本地影响。
 
-本轮没有重跑新的Go参考进程、完整性能比较或覆盖率统计。历史独立参考仍明确属于其旧版本。本地成功不能推导远端CI已运行或使用方已采用。
-
-复验最小命令见README；verify.ps1与CI同时刷新两个实际编译引擎并运行新例子，旧检查按原范围保留。适配层明确拒绝 @ 时间戳，因为 Prometheus 秒和该版 MoonPromQL 毫秒语义不同。上下文时间仍使用上游毫秒。prepare 成功不保证执行成功：absent(up)就是记录的反例。正则、计数器外推及向量匹配沿用上游局限，未证明 Prometheus 执行等价。
-
-[历史验证说明](docs/before-integration/TESTING.md)保留供追溯。
-
-2026-09-27第一阶段为公开表达式、两个后端直接消费者及旧指纹核对，保留在evidence/public-expressions-20260927。
-
-2026-09-27后续核验：已补齐官方promtool3.14.0并核对完整发布包SHA-256，实际运行14项对照。其中7项表达式解析/类型结果一致，3项检查官方重复规则夹具的lint模式，2项验证规则文件结构错误，另2项记录本地源码/AST深度资源限制带来的有意拒绝。默认重复规则会输出失败文字但退出0；`--lint-fatal`退出3；表达式/结构错误退出1。源码和引擎保持0.6.0，未重跑全部旧套件。复现、原始输出、来源散列见 [PROMTOOL-REFERENCE](PROMTOOL-REFERENCE.md) 和 [本次回执](evidence/promtool-20260927/LOCAL-CHECKS.json)。先前下载失败记录保留为历史，不再是当前未完成项。静态通过仍不证明MoonPromQL支持或能执行该查询，也不代表赛事认可独立性。
+0.6.0原有16个上游执行用例、4个手工数值及3213静态golden保留在旧集成证据，未混算为本轮重跑。14项实际promtool检查仍在evidence/promtool-20260927。本轮root表达式核心和/moonpromql未修改。没有实际TSDB、生产部署、性能胜出或远程CI证明。

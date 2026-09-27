@@ -1,12 +1,12 @@
 name = "zhou-wei97/promql"
 
-version = "0.6.0"
+version = "0.7.0"
 
 license = "MIT AND Apache-2.0"
 
 readme = "README.md"
 
-description = "PromQL 静态检查与 MoonPromQL 执行器接入"
+description = "PromQL rule dependency and change impact with static checks and MoonPromQL integration"
 
 repository = "https://github.com/zhou-wei97/moonbit-promql"
 

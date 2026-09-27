@@ -1,0 +1,190 @@
+{
+  "utc": "2026-09-27T08:33:38.871085+00:00",
+  "version": "0.7.0",
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "info",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "info"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "check",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "check",
+        "--target",
+        "all",
+        "--deny-warn"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "js",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "js",
+        "--deny-warn"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "wasm",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "wasm-gc",
+        "--deny-warn"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "build",
+        "--target",
+        "js",
+        "--release",
+        "--deny-warn"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "live-reference",
+      "command": [
+        "node",
+        "tools/test-rule-impact.mjs",
+        "D:\\CodexLocal\\ban\\outputs\\repos\\moonbit-promql\\evidence\\rule-impact-20260927\\reference.json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "reference-replay",
+      "command": [
+        "node",
+        "tools/test-rule-impact.mjs",
+        "--golden",
+        "D:\\CodexLocal\\ban\\outputs\\repos\\moonbit-promql\\evidence\\rule-impact-20260927\\replay.json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "portable-js",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "run",
+        "examples/rule-review",
+        "--target",
+        "js"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "portable-wasm",
+      "command": [
+        "D:\\CodexLocal\\ban\\work\\moon\\bin\\moon.exe",
+        "run",
+        "examples/rule-review",
+        "--target",
+        "wasm-gc"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "sources": {
+    "core_test.mbt": "6383eac5ed8b771938d4f454d6bce03980e97bcd92dd3147e1b4d6430e966d21",
+    "duration.mbt": "1582f7257e5d1d8065eb7bf2f3236d0fd11a679401a14290eb624452fefca5cc",
+    "function_table.mbt": "dbd4117c63e139c562ff7ce2ec612600234ba89606ed9886b8a6922a96ecca1e",
+    "lexer.mbt": "880551d09b04f7553a1aea9772ea8144cdd4c7f05bfcf02e6a3c38e14b3209b2",
+    "modifiers.mbt": "41593ab5b6c2eb002b8159c2404f9bedf173ffa5ee2e26c0ad11221fe0657091",
+    "modifiers_test.mbt": "64f418d922b8e824c052b493e38f8f26412da11f7e0b90441170f01883d08377",
+    "moon.mod": "17631594589f61e24cc45f5370f394444746f37e1026acc0ca96db48d3ec2122",
+    "moon.pkg": "ada3a947560d02c7fc679f221a3f9783b0d43496b738c4527921bea8edc3df11",
+    "numbers.mbt": "f14310a1fa913f9b382525f03bc1e1a2da7b53eeab0a23d48ce7c174cf7800d6",
+    "package-lock.json": "4e10b2178c38a21c42e435284a9aff3943e39be2a000a4c87ee43c6283dc07a2",
+    "package.json": "a9a4a3d176328c010da9a80761e48caefb04d64e5bacc20b68b40fd9f89cbd6f",
+    "parser.mbt": "96127537372cbc56cc6f3f1cf146783f29fc5d2cc6918448d6f74b3c8b0eb317",
+    "parser_upgrade_test.mbt": "0944307b973d278270635f2cf6606c86c664a70ad285ae24c22c51f661e8f74e",
+    "pkg.generated.mbti": "2dfb2d2532a3e817cf9180c82a24382d55551068db167048fa03a07b9c5ced8b",
+    "regex.mbt": "2ce9015453e2e62dde81012928be78b0931019114d13445232c24156f0c4909b",
+    "regex_properties.mbt": "d011f3f3d21b252ba81cea95d3b4040f13dd49eaf8b753cc7e91a6657eae6868",
+    "signatures.mbt": "3bb5d015341d5eec8ff14955de649051b37c0ae0eb844c631c5beb18632281fe",
+    "unicode.mbt": "e29dddece38721706fcdcc09a3b1e17dd9c3bc5bc8ca256124174a4537ba7408",
+    "usability.mbt": "e4b1b0e88ac43038f087ff09dfa205a43ff8cf36aff867b532e09e6366fa5570",
+    "examples/integration-engine.mjs": "a504ca5f22774172633c50d54dc9d3a032d9166013c207fef2fcaee8d1ba8aee",
+    "examples/public-rule-expressions.mjs": "abdfe9252335ffb7abd6e4ec329a8d5321e0f7e72ae9ca104aa9d9f4af0af21c",
+    "examples/run-upstream-integration.mjs": "5bf546fd7439d0be998411279fc2892a2a076c75c64998e167fd041b06f3aef3",
+    "examples/run-use-case.mjs": "359ea34b13ee185b6cae0536da5e25bb56bfc51d2e5dd166c304b1684003a3bb",
+    "moonpromql/moon.pkg": "8f4a4026896b7dcad3cc0042b0e17c9ea75b650a64494ad1c3a26b96797103de",
+    "moonpromql/pkg.generated.mbti": "7a3f657ba652ae15bb641aadde35f3c07b3c6d22a99f70c15278a596b561b5fa",
+    "moonpromql/prepare.mbt": "616d2ef6fb922ed7cbc16c3cb2474fe8c4ef9ca1ace6f9c255f4a9975b6a19c6",
+    "moonpromql/prepare_test.mbt": "9392b517a3d3b309ae24c21f5ab45bdb0ece539fafc67264d5ed02482fec7b84",
+    "rules/moon.pkg": "efbdb0d6c1669852ba532949ede67f338b986922648910a8194a64645b46c696",
+    "rules/pkg.generated.mbti": "375a603015b9db59d0dec622b3304aaf319000bc4b8cce94a293ff3dae3f0cea",
+    "rules/rules.mbt": "321be4c9491af0293b477d37b86ff5514c3d43baa7009ee1e1e29724c5be98eb",
+    "rules/rules_test.mbt": "30725a13cc99eb06e18ae3e78b504d460a346b880432f1651f04a833be4ba57f",
+    "tools/benchmark.mjs": "53ac611536ba7cb3732017d22976ff8f38dbd9e7aa579c2469eab75b0cdc7216",
+    "tools/check-queries.mjs": "4efcc3dec5e9520ec4877209faa6649f00f71f52c0b6431720b79cda41258458",
+    "tools/cli.mjs": "558a09c04cd431a8a958b5e76c96e71b572ac23690eb618c570ea77907191b4a",
+    "tools/generate-tables.py": "dd4801c9e6cadda8a843b198a49a5a7947aa5d920a8c6ea66b38bdc63ef6214f",
+    "tools/refresh-engines.mjs": "1c42226b1478036535826c488fddf86ef953022019f01579abe9a0de9a8140d0",
+    "tools/robustness.mjs": "24964a078897dccc448ba3d5db4c08f6446d38008424987bf26b4b6f042a21d6",
+    "tools/rule-impact.mjs": "47f5c449ba7e2e8f57b94d5dd09c51cb7a275fe212186f8655bc1ae12b85faa4",
+    "tools/serve.py": "77361b08fc65d9c6a3d89bda03949d9e1a9754f76e8cc32b20ca11aa9bf1ff5e",
+    "tools/test-cli.mjs": "b1acaf8992e16d37e1527fd60beeea275ce0df574a9622ab3b44d86dcaf08b03",
+    "tools/test-demo.mjs": "02ec6337b9c72c299450db6f0d2b024fd4fd96193d17e5cd501c3a8e6eb87188",
+    "tools/test-inspector.mjs": "469efd92084698213a9e1ba2d2416295b4535b2b7f4c064ea1cff6849c28670f",
+    "tools/test-promtool.mjs": "c89dac1b57465fbb879bcb4e30497bb7086bb9f0207013d4aa718d4b6e7d24ee",
+    "tools/test-query-batch.mjs": "685c53d72b8efcb978dc5ece52ec12f47c9f7534ccad12c36cd5605ca127b768",
+    "tools/test-reference.mjs": "5c4589b48a48265a012871a2d74c617ba897cce56252ab69173527115275aeb0",
+    "tools/test-rule-impact.mjs": "154539aa74e73c29ca33bb0550cef2c5d8dda32c7b6a57e84c7e5cd38e4809f3",
+    "tools/verify-promtool.mjs": "cbd091d1bd3ed4e968924b3ce536535726557d4378d736ab44ba0e8669ac2e66",
+    "web/app.mjs": "12a0cf3565b6298e2e3760355ec5da3fed88870be604b7f6e1a2f57d7334578d",
+    "web/config.mjs": "00ef01a2835c721c589101271f60472318a5baa2a9a89e7a5fc7dc0e607770fd",
+    "web/engine.mjs": "eac360a162824a4541839c641d27cdd6782311575f00e9460c8e2a1661747691",
+    "tools/prometheus-reference/go.mod": "5ffc56a306fc424438d0015bb6ce08138bfcaa9ac42bd74ce29f32269bb9cd13",
+    "examples/portable-check/main.mbt": "e6d3e6add88dc8b934d367a64c479223add619419145e32c68f0f95a9480b6f4",
+    "examples/portable-check/moon.pkg": "5a152c44bd660a0376073db187634add2123aaaef4ed5835ac7d2a7d269b1094",
+    "examples/portable-check/pkg.generated.mbti": "67dfc8b0f9efb18ba8c71ac8c2836bfdca8055fd4a836744f654514c75f57e84",
+    "examples/rule-review/main.mbt": "44eb5260e5f640bad5b7722327098bb0f1d65f7916278516ba071b15cdf7e44a",
+    "examples/rule-review/moon.pkg": "5a8d9af13f719c63cc45848d235dc8d69f4a39894f6c2a84804301cad20f380d",
+    "examples/rule-review/pkg.generated.mbti": "de7b30be5896da3ccccdd6bb2ac86751006c9a95bf0b2f22b6000e6332cfd5ee",
+    "cmd/integration/main.mbt": "86fb0ec1c111acc8510151f5b0b1bf5d854084387a177fb179ffc9dfdf568d18",
+    "cmd/integration/moon.pkg": "afcdb25f0b8849d70c6466b38448d599ba448b98c6088b146065e704917c1156",
+    "cmd/main/main.mbt": "7b1b7ece6c737b8fcc99242a551d479df468732f7dee656a69a8031a2e0f5d37",
+    "cmd/main/moon.pkg": "4545f830f29edaa3b5d5e9b6450489377a3833f461da24de69db3af84641e603",
+    "cmd/main/pkg.generated.mbti": "33910cc917faa264d4f808b8426ef8342cdcae3419cf7fb202c5ae0b30d21518",
+    "cmd/rules/main.mbt": "d6b798c5e1ed03ff5e2bf1222d2d41dd75b347518767949a8dde1acc6e33c020",
+    "cmd/rules/moon.pkg": "d0f6076265251740fa2ad86f446ce9ce38f872ad7412161ab6514c3715106e5f",
+    "cmd/web/inspect.mbt": "52bad360df1d90e80afed1d3683fc4a12812e94f41267ceec26efcfe3916c4e2",
+    "cmd/web/main.mbt": "fd6dd1974585a01226dc35f62a6ffffb9c3276e37c641e4ae65f60e7bdc3c97f",
+    "cmd/web/moon.pkg": "1463c52a5b263800a10f82b8c08aaab00bf2b343c92f944ce9844d61d2ecbe29"
+  },
+  "bridgeSha256": "b30ee46a616d046cedf26cd450962e955aa06b3d59aa49dc710193cf052d0f2f",
+  "limitations": [
+    "Local Windows validation only; no remote CI, publication or accepted submission",
+    "Prior receipts remain versioned historical evidence"
+  ],
+  "priorFindings": [
+    "Bridge JSON null Option decoding corrected",
+    "Zero-cost YAML aliases needed explicit visitor rejection",
+    "Independent review found document metadata omitted from context; now included with dedicated host regressions",
+    "Implicit ALERTS/ALERTS_FOR_STATE producers now preserve uncertainty",
+    "Empty bridge left by prior full disk reconstructed on D drive; raising example main fixed before successful checks"
+  ],
+  "sourceHashPolicy": "SHA-256 after LF normalization of CRLF; bridge hash is raw bytes"
+}
