@@ -28,3 +28,19 @@ Prometheus的promtool已有离线规则合法性检查，应继续使用它。�
 每快照最多512规则、32768名字候选边、1048576个UTF-16代码单元的表达式/上下文，文件最多2MiB。只覆盖提供的单份清单，不查询TSDB或求标签交集。宽正则、无精确名字以及告警隐式ALERTS/ALERTS_FOR_STATE序列列为不确定项；哈希ID用于跨快照匹配，不是无冲突证明；当某名称从唯一变成重复、或反之，报告可能将其保守表示为旧项删除和新项添加。核心`compare`将Rule数组的相对顺序视为有意义，适配器应规范化不具语义的跨组排列。环只报告成员，不判断合法性或建议执行顺序。
 
 许可证MIT AND Apache-2.0；YAML宿主依赖ISC，公开配置保留Apache-2.0来源。固定工具链见TOOLCHAIN.md，申报稿见 [PROPOSAL](PROPOSAL.md)。
+
+## 本地验收与公开交付（2026-09-28）
+
+核心实现使用 MoonBit；[固定编译器](.moonbit-version)为 `moonc 0.10.14+7d59c7ec9`。先按本文安装宿主依赖、运行 `moon update`，再从仓库根目录执行以下与 [CI](.github/workflows/ci.yml) 对齐的检查；可运行任务和适用边界见本文前面的示例与说明。
+
+```sh
+moon check
+moon test --target wasm-gc
+moon test --target js
+moon build --target js --release
+moon package
+```
+
+本地核验：JS/Wasm-GC 测试、规则影响示例和 3213 项参考用例通过。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
+
+公开交付（2026-09-28 核对）：当日 [https://github.com/zhou-wei97/moonbit-promql](https://github.com/zhou-wei97/moonbit-promql) 可匿名读取 Git HEAD，Mooncakes 在线版本为 `0.4.0`；此处源码版本 `0.8.0` 仍需由团队同步到公开仓库，检查新提交的 GitHub Actions，再由对应账号发布 Mooncakes 新版。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
