@@ -13,17 +13,17 @@ try {
   if ($LASTEXITCODE -ne 0) {throw 'format failed'}
   & $MoonPath info
   if ($LASTEXITCODE -ne 0) {throw 'API generation failed'}
-  & $MoonPath check --deny-warn
+  & $MoonPath check
   if ($LASTEXITCODE -ne 0) {throw 'check failed'}
-  & $MoonPath test --target wasm-gc --deny-warn
+  & $MoonPath test --target wasm-gc
   if ($LASTEXITCODE -ne 0) {throw 'tests failed'}
-  & $MoonPath test --target js --deny-warn
+  & $MoonPath test --target js
   if ($LASTEXITCODE -ne 0) {throw 'JS tests failed'}
-  & $MoonPath build --target js --deny-warn
+  & $MoonPath build --target js
   if ($LASTEXITCODE -ne 0) {throw 'build failed'}
   npm ci --ignore-scripts --no-audit --no-fund
   if ($LASTEXITCODE -ne 0) {throw 'YAML host dependencies failed'}
-  & $MoonPath build --target js --release --deny-warn
+  & $MoonPath build --target js --release
   if ($LASTEXITCODE -ne 0) {throw 'rule host build failed'}
   node tools/rule-impact.mjs examples/rule-impact/control-plane.yaml
   if ($LASTEXITCODE -ne 0) {throw 'public rule graph failed'}
