@@ -9,7 +9,7 @@
   "actualUsersClaimed": false,
   "defaultBranch": "origin/main",
   "localChangesPublished": false,
-  "proposalLines": 26,
+  "proposalLines": 28,
   "useCase": "比较规则清单修改前后，保留删除/改名下游并单列不确定选择器",
   "diff": "实际复用MoonPromQL和YAML宿主库；新增纯MoonBit规则名字图及前后影响，不混同promtool完整规则校验",
   "upstreamDependency": "Santa968/moonpromql@0.1.0",
@@ -24,7 +24,7 @@
   "remoteCIRunByThisTask": false,
   "currentValidation": "evidence/stable-ids-20260927/LOCAL-CHECKS.json",
   "currentEvidence": "evidence/stable-ids-20260927/LOCAL-CHECKS.json",
-  "metadataReviewedOn": "2026-09-27",
+  "metadataReviewedOn": "2026-09-28",
   "currentEvidenceScope": "v0.8 stable identity: JS/Wasm rules 7 tests each; 135-rule public sample insertion/group reorder; rename/delete/move, duplicate producer and within-group reorder probes; saved official-AST replay 39 comparisons/13 host checks, not a fresh parser run. No promtool/full-module/remote-CI rerun.",
   "reviewDecision": "噪音缺口已修；任务增量仍窄，独立价值未确认",
   "historicalEvidencePointers": {
