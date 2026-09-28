@@ -4,7 +4,6 @@ import {
   "Santa968/moonpromql" @upstream,
   "Santa968/moonpromql/model",
   "Santa968/moonpromql/eval",
-  "moonbitlang/core/json",
 }
 
 supported_targets = "js"

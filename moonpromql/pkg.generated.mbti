@@ -17,6 +17,7 @@ pub suberror PreparationError {
   RuntimeSyntax(String)
   Unsupported(String)
 } derive(@debug.Debug)
+pub fn PreparationError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub struct PreparedQuery {
@@ -24,6 +25,7 @@ pub struct PreparedQuery {
 } derive(@debug.Debug)
 pub fn PreparedQuery::evaluate(Self, @eval.EvalContext) -> @model.Value raise @model.PromqlError
 pub fn PreparedQuery::query_type(Self) -> @promql.QueryType
+pub fn PreparedQuery::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

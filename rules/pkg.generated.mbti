@@ -15,6 +15,7 @@ pub fn compare(Array[Rule], Array[Rule]) -> Impact raise RuleError
 pub suberror RuleError {
   Invalid(String)
 } derive(@debug.Debug)
+pub fn RuleError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub(all) struct Edge {
@@ -23,6 +24,10 @@ pub(all) struct Edge {
   metric : String
   ambiguous : Bool
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Edge::equal(Self, Self) -> Bool
+pub fn Edge::not_equal(Self, Self) -> Bool
+pub fn Edge::to_json(Self) -> Json
+pub fn Edge::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Graph {
   edges : Array[Edge]
@@ -30,6 +35,8 @@ pub(all) struct Graph {
   unresolved : Array[Opaque]
   cyclic_rules : Array[String]
 } derive(ToJson, @debug.Debug)
+pub fn Graph::to_json(Self) -> Json
+pub fn Graph::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Impact {
   before : Graph
@@ -38,16 +45,26 @@ pub(all) struct Impact {
   affected : Array[String]
   uncertain : Array[String]
 } derive(ToJson, @debug.Debug)
+pub fn Impact::to_json(Self) -> Json
+pub fn Impact::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Opaque {
   consumer : String
   reason : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Opaque::equal(Self, Self) -> Bool
+pub fn Opaque::not_equal(Self, Self) -> Bool
+pub fn Opaque::to_json(Self) -> Json
+pub fn Opaque::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Reference {
   consumer : String
   metric : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Reference::equal(Self, Self) -> Bool
+pub fn Reference::not_equal(Self, Self) -> Bool
+pub fn Reference::to_json(Self) -> Json
+pub fn Reference::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Rule {
   id : String
@@ -55,6 +72,11 @@ pub(all) struct Rule {
   expr : String
   context : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn Rule::equal(Self, Self) -> Bool
+pub fn Rule::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn Rule::not_equal(Self, Self) -> Bool
+pub fn Rule::to_json(Self) -> Json
+pub fn Rule::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

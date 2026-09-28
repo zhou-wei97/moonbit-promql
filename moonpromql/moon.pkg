@@ -1,4 +1,5 @@
 import {
+  "moonbitlang/core/debug",
   "zhou-wei97/promql" @syntax,
   "Santa968/moonpromql" @upstream,
   "Santa968/moonpromql/ast",

@@ -15,12 +15,12 @@ jobs:
       - run: moon version --all
       - run: moon update
       - run: moon fmt && moon info && git diff --exit-code
-      - run: moon check
-      - run: moon test --target wasm-gc
-      - run: moon test --target js
-      - run: moon build --target js
+      - run: moon check --deny-warn
+      - run: moon test --target wasm-gc --deny-warn
+      - run: moon test --target js --deny-warn
+      - run: moon build --target js --deny-warn
       - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: moon build --target js --release
+      - run: moon build --target js --release --deny-warn
       - run: node tools/rule-impact.mjs examples/rule-impact/control-plane.yaml
       - run: node tools/test-rule-impact.mjs --golden /tmp/rule-impact-ci.json
       - run: node tools/refresh-engines.mjs

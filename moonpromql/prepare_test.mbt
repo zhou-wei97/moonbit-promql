@@ -6,7 +6,7 @@ test "prepared query executes actual upstream data with its range semantics" {
     { timestamp: 120000.0, value: 3.0, },
   ])
   let context = @eval.EvalContext::new([series], 120000.0)
-  let p = prepare("avg_over_time(temperature[2m])")
+  let p = @moonpromql.prepare("avg_over_time(temperature[2m])")
   assert_eq(p.query_type(), @syntax.InstantVector)
   assert_eq(
     p.evaluate(context),
@@ -22,7 +22,7 @@ test "prepared query executes actual upstream data with its range semantics" {
 test "local type and upstream grammar failures remain distinct" {
   assert_true(
     try {
-      ignore(prepare("sum(1)"))
+      ignore(@moonpromql.prepare("sum(1)"))
       false
     } catch {
       StaticError(_) => true
@@ -32,7 +32,7 @@ test "local type and upstream grammar failures remain distinct" {
   ignore(@syntax.parse("rate(counter[5m])[30m:1m]"))
   assert_true(
     try {
-      ignore(prepare("rate(counter[5m])[30m:1m]"))
+      ignore(@moonpromql.prepare("rate(counter[5m])[30m:1m]"))
       false
     } catch {
       RuntimeSyntax(_) => true
@@ -46,7 +46,7 @@ test "nested at rejected but at character in label text is not a timestamp" {
   for source in ["up @ 1", "sum(rate(counter[2m] @ 60000))"] {
     assert_true(
       try {
-        ignore(prepare(source))
+        ignore(@moonpromql.prepare(source))
         false
       } catch {
         Unsupported(_) => true
@@ -54,12 +54,12 @@ test "nested at rejected but at character in label text is not a timestamp" {
       },
     )
   }
-  ignore(prepare("up{job=\"@mail\"}"))
+  ignore(@moonpromql.prepare("up{job=\"@mail\"}"))
 }
 
 ///|
 test "runtime failure is not hidden by successful static preparation" {
-  let prepared = prepare("absent(up)")
+  let prepared = @moonpromql.prepare("absent(up)")
   assert_true(
     try {
       ignore(prepared.evaluate(@eval.EvalContext::new([], 0.0)))
